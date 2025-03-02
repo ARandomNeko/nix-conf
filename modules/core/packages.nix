@@ -72,6 +72,6 @@
 
     # Custom list of core packages
     obsidian
-    pkgs.gh
+    vscode
   ];
 }
