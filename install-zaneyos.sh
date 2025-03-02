@@ -50,7 +50,7 @@ fi
 echo "-----"
 
 backupname=$(date "+%Y-%m-%d-%H-%M-%S")
-if [ -d "zaneyos" ]; then
+if [ -d "nix-conf" ]; then
   echo "ZaneyOS exists, backing up to .config/zaneyos-backups folder."
   if [ -d ".config/zaneyos-backups" ]; then
     echo "Moving current version of ZaneyOS to backups folder."
@@ -70,8 +70,8 @@ fi
 echo "-----"
 
 echo "Cloning & Entering ZaneyOS Repository"
-git clone https://gitlab.com/zaney/zaneyos.git
-cd zaneyos || exit
+git clone https://github.com/ARandomNeko/nix-confs
+cd nix-conf || exit
 mkdir hosts/"$hostName"
 cp hosts/default/*.nix hosts/"$hostName"
 installusername=$(echo $USER)
