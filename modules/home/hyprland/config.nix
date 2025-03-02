@@ -6,7 +6,6 @@
 }: let
   inherit
     (import ../../../hosts/${host}/variables.nix)
-    browser
     terminal
     extraMonitorSettings
     keyboardLayout
@@ -108,11 +107,11 @@ in {
         "$modifier SHIFT,W,exec,web-search"
         "$modifier ALT,W,exec,wallsetter"
         "$modifier SHIFT,N,exec,swaync-client -rs"
-        "$modifier,W,exec, zen"
+        "$modifier,W,exec, app.zen_browser.zen"
         "$modifier,E,exec,emopicker9000"
         "$modifier,S,exec,screenshootin"
         "$modifier,D,exec,discord"
-        "$modifier,O,exec,obs"
+        "$modifier,O,exec,obsidian"
         "$modifier,C,exec,hyprpicker -a"
         "$modifier,G,exec,gimp"
         "$modifier,T,exec,pypr toggle term"
