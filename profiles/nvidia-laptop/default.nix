@@ -33,7 +33,7 @@ in {
   drivers.nvidia.enable = true;
   drivers.nvidia-prime = {
     enable = true;
-    intelBusID = "${intelID}";
+    amdgpuBusID = "${intelID}";
     nvidiaBusID = "${nvidiaID}";
   };
 
