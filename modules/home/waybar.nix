@@ -57,7 +57,7 @@ in
             max-length = 22;
             separate-outputs = false;
             rewrite = {
-              "" = " 🙈 No Windows? ";
+              "" = " Open smth?? ";
             };
           };
           "memory" = {
@@ -176,7 +176,7 @@ in
               "󰁹"
             ];
             on-click = "";
-            tooltip = false;
+            tooltip = true;
           };
         }
       ];
@@ -242,8 +242,8 @@ in
             border-radius: 24px 10px 24px 10px;
           }
           #custom-startmenu {
-            color: #${config.lib.stylix.colors.base0B};
-            background: #${config.lib.stylix.colors.base02};
+            color: #${config.lib.stylix.colors.base00};
+            background: #${config.lib.stylix.colors.base0C};
             font-size: 28px;
             margin: 0px;
             padding: 0px 30px 0px 15px;
