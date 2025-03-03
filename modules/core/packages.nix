@@ -77,5 +77,6 @@
     iverilog
     gtkwave
     nix-direnv
+    cider-2
   ];
 }
