@@ -4,5 +4,8 @@
     discord
     nodejs
     obs-studio
+    asusctl
+    supergfxctl
+    acpi
   ];
 }

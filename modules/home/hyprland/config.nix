@@ -14,6 +14,7 @@ in {
   wayland.windowManager.hyprland = {
     settings = {
       exec-once = [
+        "check_power"
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "killall -q swww;sleep .5 && swww init"
@@ -36,6 +37,7 @@ in {
         follow_mouse = 1;
         sensitivity = 0;
         touchpad = {
+          tap-and-drag = false;
           natural_scroll = true;
           disable_while_typing = true;
           scroll_factor = 0.8;

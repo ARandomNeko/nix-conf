@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs = {
-    firefox.enable = true; # Firefox is not installed by defualt
+    firefox.enable = true; # Firefox is not installed by default
     dconf.enable = true;
     seahorse.enable = true;
     fuse.userAllowOther = true;
@@ -73,5 +73,9 @@
     # Custom list of core packages
     obsidian
     vscode
+    gcc
+    iverilog
+    gtkwave
+    nix-direnv
   ];
 }

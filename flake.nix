@@ -1,5 +1,6 @@
 {
   description = "ZaneyOS";
+
   inputs = {
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -9,11 +10,17 @@
     nvf.url = "github:notashelf/nvf";
     stylix.url = "github:danth/stylix/release-24.11";
   };
+
   outputs = {nixpkgs, ...} @ inputs: let
     system = "x86_64-linux";
-    host = "ritu";
-    profile = "nvidia";
     username = "ritu";
+
+    getHost = profile:
+      if profile == "nvidia-laptop"
+      then "laptop"
+      else if profile == "nvidia"
+      then "ritu"
+      else "default-host"; # Add a default host if needed
   in {
     nixosConfigurations = {
       amd = nixpkgs.lib.nixosSystem {
@@ -21,8 +28,8 @@
         specialArgs = {
           inherit inputs;
           inherit username;
-          inherit host;
-          inherit profile;
+          host = getHost "amd";
+          profile = "amd";
         };
         modules = [./profiles/amd];
       };
@@ -31,18 +38,18 @@
         specialArgs = {
           inherit inputs;
           inherit username;
-          inherit host;
-          inherit profile;
+          host = getHost "nvidia";
+          profile = "nvidia";
         };
         modules = [./profiles/nvidia];
       };
-      nvidia-laptop = nixpkgs.lib.nixosSystem {
+      "nvidia-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
           inherit inputs;
           inherit username;
-          inherit host;
-          inherit profile;
+          host = getHost "nvidia-laptop";
+          profile = "nvidia-laptop";
         };
         modules = [./profiles/nvidia-laptop];
       };
@@ -51,8 +58,8 @@
         specialArgs = {
           inherit inputs;
           inherit username;
-          inherit host;
-          inherit profile;
+          host = getHost "intel";
+          profile = "intel";
         };
         modules = [./profiles/intel];
       };
@@ -61,8 +68,8 @@
         specialArgs = {
           inherit inputs;
           inherit username;
-          inherit host;
-          inherit profile;
+          host = getHost "vm";
+          profile = "vm";
         };
         modules = [./profiles/vm];
       };
