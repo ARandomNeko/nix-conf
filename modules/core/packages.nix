@@ -78,5 +78,6 @@
     gtkwave
     nix-direnv
     cider
+    libreoffice-qt
   ];
 }
