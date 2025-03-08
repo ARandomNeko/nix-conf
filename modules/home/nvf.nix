@@ -114,6 +114,7 @@
         markdown.enable = true;
         ts.enable = true;
         html.enable = true;
+        java.enable = true;
       };
 
       visuals = {

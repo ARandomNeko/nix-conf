@@ -79,5 +79,7 @@
     nix-direnv
     cider
     libreoffice-qt
+    zulu23
+    redshift
   ];
 }
