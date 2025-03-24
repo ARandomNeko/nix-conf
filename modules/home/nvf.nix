@@ -113,8 +113,11 @@
         python.enable = true;
         markdown.enable = true;
         ts.enable = true;
-        html.enable = true;
         java.enable = true;
+        haskell.enable = true;
+        svelte.enable = true;
+        html.enable = true;
+        tailwind.enable = true;
       };
 
       visuals = {

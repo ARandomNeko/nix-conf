@@ -81,5 +81,6 @@
     libreoffice-qt
     zulu23
     redshift
+    lutris
   ];
 }
