@@ -69,6 +69,8 @@
     virt-viewer
     wget
     ytmdl
+    pipes
+    gparted
 
     # Custom list of core packages
     obsidian
@@ -82,5 +84,8 @@
     zulu23
     redshift
     lutris
+    lightworks
+    flowblade
+    olive-editor
   ];
 }

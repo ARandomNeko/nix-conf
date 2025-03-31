@@ -134,6 +134,7 @@ in {
         "$modifier SHIFT,l,movewindow,r"
         "$modifier SHIFT,k,movewindow,u"
         "$modifier SHIFT,j,movewindow,d"
+        "$modifier CONTROL,l,movewindow, mon:+1"
         "$modifier,left,movefocus,l"
         "$modifier,right,movefocus,r"
         "$modifier,up,movefocus,u"
