@@ -26,8 +26,8 @@
         "break"
         {
           type = "os";
-          key = "OS - ZaneyOS v2.3"; 
-          keyColor = "31";  
+          key = "Nix OS";
+          keyColor = "31";
         }
         {
           type = "kernel";
@@ -128,4 +128,3 @@
     };
   };
 }
-

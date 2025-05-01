@@ -84,8 +84,7 @@
     zulu23
     redshift
     lutris
-    lightworks
-    flowblade
     olive-editor
+    mgba
   ];
 }
