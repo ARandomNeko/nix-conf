@@ -86,5 +86,6 @@
     lutris
     olive-editor
     mgba
+    qbittorrent
   ];
 }
