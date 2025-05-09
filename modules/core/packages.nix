@@ -87,5 +87,7 @@
     olive-editor
     mgba
     qbittorrent
+    wineWowPackages.waylandFull
+    winetricks
   ];
 }
