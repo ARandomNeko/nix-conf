@@ -89,5 +89,8 @@
     qbittorrent
     wineWowPackages.waylandFull
     winetricks
+    python3
+    jupyter
+    vimPlugins.jupytext-nvim
   ];
 }
