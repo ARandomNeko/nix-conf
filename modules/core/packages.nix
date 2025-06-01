@@ -92,5 +92,8 @@
     python3
     jupyter
     vimPlugins.jupytext-nvim
+    stack
+    ghc
+    haskell.compiler.ghc982
   ];
 }
