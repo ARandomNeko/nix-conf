@@ -82,7 +82,6 @@
     cider
     libreoffice-qt
     zulu23
-    redshift
     lutris
     olive-editor
     mgba
@@ -95,5 +94,8 @@
     stack
     ghc
     haskell.compiler.ghc982
+    haskell-language-server
+    cabal-install
+    zlib
   ];
 }
