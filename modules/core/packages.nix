@@ -97,5 +97,7 @@
     haskell-language-server
     cabal-install
     zlib
+    rustup
+    google-cloud-sdk
   ];
 }
