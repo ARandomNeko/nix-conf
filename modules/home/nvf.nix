@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  lib,
   ...
 }: {
   imports = [inputs.nvf.homeManagerModules.default];
@@ -77,10 +78,10 @@
       ];
 
       theme = {
+        name = lib.mkForce "dracula";
         enable = true;
-        name = "dracula";
         style = "dark";
-        transparent = true;
+        transparent = false;
       };
 
       telescope.enable = true;
@@ -90,6 +91,7 @@
       };
 
       lsp = {
+        enable = true;
         formatOnSave = true;
         lspkind.enable = false;
         lightbulb.enable = true;
@@ -97,12 +99,10 @@
         trouble.enable = true;
         lspSignature.enable = true;
         otter-nvim.enable = false;
-        lsplines.enable = false;
         nvim-docs-view.enable = false;
       };
 
       languages = {
-        enableLSP = true;
         enableFormat = true;
         enableTreesitter = true;
         enableExtraDiagnostics = true;
@@ -111,11 +111,8 @@
         clang.enable = true;
         zig.enable = true;
         python.enable = true;
-        markdown.enable = true;
-        ts.enable = true;
         java.enable = true;
         haskell.enable = true;
-        svelte.enable = true;
         html.enable = true;
         tailwind.enable = true;
       };
@@ -133,7 +130,6 @@
       statusline = {
         lualine = {
           enable = true;
-          theme = "dracula";
         };
       };
 

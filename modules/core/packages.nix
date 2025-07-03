@@ -99,5 +99,9 @@
     zlib
     rustup
     google-cloud-sdk
+    postman
+    bind
+    helix
+    nyxt
   ];
 }

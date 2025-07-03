@@ -178,8 +178,8 @@ in {
         ",XF86AudioPause, exec, playerctl play-pause"
         ",XF86AudioNext, exec, playerctl next"
         ",XF86AudioPrev, exec, playerctl previous"
-        ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
-        ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
+        ",XF86MonBrightnessDown,exec,brightnessctl -d amdgpu_bl0 set 5%-"
+        ",XF86MonBrightnessUp,exec,brightnessctl -d amdgpu_bl0 set +5%"
       ];
 
       bindm = [
@@ -189,7 +189,7 @@ in {
 
       windowrulev2 = [
         "tag +file-manager, class:^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$"
-        "tag +terminal, class:^(Alacritty|kitty|kitty-dropterm)$"
+        "tag +terminal, class:^(Alacritty|kitty|kitty-dropterm|ghostty)$"
         "tag +browser, class:^(Brave-browser(-beta|-dev|-unstable)?)$"
         "tag +browser, class:^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$"
         "tag +browser, class:^([Gg]oogle-chrome(-beta|-dev|-unstable)?)$"

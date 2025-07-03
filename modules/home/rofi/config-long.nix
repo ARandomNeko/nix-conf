@@ -1,49 +1,44 @@
 {...}: {
   home.file.".config/rofi/config-long.rasi".text = ''
     @import "~/.config/rofi/config.rasi"
+    
     window {
-      width: 750px;
-      border-radius: 20px;
+      width: 600px;
+      height: 400px;
+      location: center;
+      anchor: center;
+      border-radius: 12px;
     }
+    
     mainbox {
       orientation: vertical;
-      children: [ "inputbar", "listbox" ];
+      children: [ "inputbar", "mode-switcher", "listview" ];
+      padding: 20px;
+      spacing: 16px;
     }
+    
     inputbar {
-      padding: 75px 40px;
-      background-color: transparent;
-      background-image: url("~/Pictures/Wallpapers/Rainnight.jpg", width);
-      text-color: @foreground;
+      margin: 0px 0px 16px 0px;
+      padding: 12px 16px;
+      background-color: @bg-alt;
       children: [ "textbox-prompt-colon", "entry" ];
     }
-    textbox-prompt-colon {
-      padding: 12px 20px;
-      border-radius: 100%;
-      background-color: @bg-alt;
-      text-color: @foreground;
+    
+    mode-switcher {
+      margin: 0px 0px 16px 0px;
+      spacing: 8px;
     }
-    entry {
-      expand: true;
-      padding: 12px 16px;
-      border-radius: 100%;
-      background-color: @bg-alt;
-      text-color: @foreground;
+    
+    listview {
+      lines: 8;
+      columns: 1;
+      scrollbar: false;
     }
-    button {
-      padding: 12px;
-      border-radius: 100%;
-    }
+    
     element {
       spacing: 10px;
-      padding: 12px;
-      border-radius: 100%;
-    }
-    textbox {
-      padding: 12px;
-      border-radius: 100%;
-    }
-    error-message {
-      border-radius: 0px;
+      padding: 8px 12px;
+      border-radius: 6px;
     }
   '';
 }
