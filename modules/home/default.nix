@@ -12,6 +12,7 @@
     ./hyprland
     ./kitty.nix
     ./nvf.nix
+    ./helix.nix
     ./rofi
     ./qt.nix
     ./scripts

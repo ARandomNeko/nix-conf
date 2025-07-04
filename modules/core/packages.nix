@@ -101,7 +101,6 @@
     google-cloud-sdk
     postman
     bind
-    helix
     nyxt
   ];
 }
