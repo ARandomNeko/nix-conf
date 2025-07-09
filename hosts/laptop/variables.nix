@@ -4,7 +4,7 @@
   gitEmail = "rituparanreddy2006@gmail.com";
 
   # Hyprland Settings
-  extraMonitorSettings = "monitor = eDP-1, 2880x1800@60, auto, 1.2, bitdepth, 10, vrr, 1";
+  extraMonitorSettings = "monitor = eDP-1, 2880x1800@120, auto, 1.2, vrr, 1";
 
   # Waybar Settings
   clock24h = true;

@@ -78,7 +78,6 @@
       ];
 
       theme = {
-        name = lib.mkForce "dracula";
         enable = true;
         style = "dark";
         transparent = false;

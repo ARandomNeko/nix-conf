@@ -2,7 +2,7 @@
   # Styling Options
   stylix = {
     enable = true;
-    image = ../../wallpapers/mountainscapedark.jpg;
+    image = ../../wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg;
     base16Scheme = {
       base00 = "100F0F"; # bg - background
       base01 = "1C1B1A"; # bg-2 - lighter background

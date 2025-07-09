@@ -39,7 +39,6 @@
     gedit # Simple Graphical Text Editor
     gimp # Great Photo Editor
     greetd.tuigreet # The Login Manager (Sometimes Referred To As Display Manager)
-    htop # Simple Terminal Based System Monitor
     hyprpicker
     imv
     inxi
@@ -70,14 +69,12 @@
     wget
     ytmdl
     pipes
-    gparted
-
+    
+    
     # Custom list of core packages
     obsidian
     vscode
     gcc
-    iverilog
-    gtkwave
     nix-direnv
     cider
     libreoffice-qt
@@ -97,10 +94,14 @@
     haskell-language-server
     cabal-install
     zlib
-    rustup
     google-cloud-sdk
     postman
     bind
     nyxt
+    lldb_20 #debugger
+    clang
+    llvm
+    libclang
+    wireplumber
   ];
 }

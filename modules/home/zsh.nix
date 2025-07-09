@@ -9,11 +9,15 @@
       bindkey "\ej" down-line-or-history
       bindkey "\ek" up-line-or-history
       bindkey "\el" forward-word
+      
+      # Set editor environment variables
+      export EDITOR="hx"
+      export VISUAL="hx"
     '';
 
     shellAliases = {
-      sv = "sudo nvim";
-      v = "nvim";
+      sv = "sudo hx";
+      v = "hx";
       c = "clear";
       fr = "nh os switch --hostname ${profile}";
       fu = "nh os switch --hostname ${profile} --update";

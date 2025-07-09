@@ -1,4 +1,4 @@
-_: {
+{...}: {
   programs.ghostty = {
     enable = true;
     enableBashIntegration = false;
@@ -6,9 +6,6 @@ _: {
     settings = {
       font-family = "JetBrainsMono Nerd Font Mono";
       font-size = 14;
-      theme = "Dracula";
-      background-opacity = 0.95;
-      background-blur = 10;
       font-thicken = false;
       font-feature = ["ss04" "ss01"];
       bold-is-bright = false;

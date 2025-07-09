@@ -29,6 +29,8 @@ in {
   environment.variables = {
     ZANEYOS_VERSION = "2.3";
     ZANEYOS = "true";
+    EDITOR = "hx";
+    VISUAL = "hx";
   };
   console.keyMap = "${consoleKeyMap}";
   system.stateVersion = "23.11"; # Do not change!
