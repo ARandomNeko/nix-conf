@@ -89,6 +89,7 @@
     bind
     nyxt
     powertop
+    beep
            
     # Rust toolchain
     rustc         # Rust compiler
