@@ -36,6 +36,9 @@
         ];
       };
     };
+    
+    # Explicitly don't set any theme - let Stylix handle it
+    theme = {};
   };
   
   # Set environment variables for this user session

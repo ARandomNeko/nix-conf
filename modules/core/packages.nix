@@ -70,38 +70,61 @@
     ytmdl
     pipes
     
-    
     # Custom list of core packages
     obsidian
     vscode
-    gcc
     nix-direnv
     cider
     libreoffice-qt
-    zulu23
     lutris
     olive-editor
     mgba
     qbittorrent
     wineWowPackages.waylandFull
     winetricks
-    python3
     jupyter
-    vimPlugins.jupytext-nvim
-    stack
-    ghc
-    haskell.compiler.ghc982
-    haskell-language-server
-    cabal-install
     zlib
     google-cloud-sdk
     postman
     bind
     nyxt
-    lldb_20 #debugger
+    powertop
+           
+    # Rust toolchain
+    rustc         # Rust compiler
+    cargo         # Rust package manager 
+    clippy        # Rust linting tool
+
+    # Haskell toolchain      
+    stack
+    ghc
+    haskell.compiler.ghc982
+    cabal-install
+
+    # C toolchain
+    lldb_20 
     clang
     llvm
     libclang
-    wireplumber
+    gcc
+
+    # Java
+    zulu23
+    eclipses.eclipse-java
+
+    # Python toolchain
+    python3
+    
+    # LSPs 
+    rust-analyzer  # Rust LSP 
+    clang-tools    # Includes clangd for C/C++
+    jdt-language-server  # Java LSP 
+    pyright        # Python LSP 
+    nil            # Nix LSP 
+    haskell-language-server # Haskell LSP 
+
+    # Additional LSP dependencies
+    nodejs_20      # Needed for pyright and other LSP servers
+    python3Packages.python-lsp-server  # Alternative Python LSP
   ];
 }

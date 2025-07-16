@@ -11,17 +11,17 @@
       base04 = "878580"; # tx-2 - dark foreground
       base05 = "CECDC3"; # tx - default foreground
       base06 = "CECDC3"; # light foreground
-      base07 = "FFFCF0"; # lightest foreground
-      base08 = "D14D41"; # re - red
-      base09 = "DA702C"; # or - orange
-      base0A = "D0A215"; # ye - yellow
-      base0B = "879A39"; # gr - green
-      base0C = "3AA99F"; # cy - cyan
-      base0D = "4385BE"; # bl - blue
-      base0E = "8B7EC8"; # pu - purple
-      base0F = "CE5D97"; # ma - magenta
+      base07 = "CECDC3"; # lightest foreground
+      base08 = "D14D41"; # re - red (variables, markup, deletion)
+      base09 = "DA702C"; # or - orange (integers, boolean, constants)
+      base0A = "D0A215"; # ye - yellow (classes, markup bold, search text bg)
+      base0B = "879A39"; # gr - green (strings, inherited class, markup code)
+      base0C = "3AA99F"; # cy - cyan (support, regular expressions, escape chars)
+      base0D = "4385BE"; # bl - blue (functions, methods, attribute IDs, headings)
+      base0E = "8B7EC8"; # pu - purple (keywords, storage, selector, markup italic)
+      base0F = "CE5D97"; # ma - magenta (deprecated, opening/closing embedded language tags)
 
-      name = "flexoki-dark";
+      name = "flexoki";
     };
     polarity = "dark";
     opacity.terminal = 1.0;
