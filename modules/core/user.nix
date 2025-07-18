@@ -31,6 +31,7 @@ in {
     extraGroups = [
       "adbusers"
       "docker"
+      "input"
       "libvirtd"
       "lp"
       "networkmanager"

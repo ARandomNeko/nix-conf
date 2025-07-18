@@ -4,7 +4,7 @@
     enableBashIntegration = false;
     enableZshIntegration = true;
     settings = {
-      font-family = "JetBrainsMono Nerd Font Mono";
+      font-family = "Space Mono";
       font-size = 14;
       font-thicken = false;
       font-feature = ["ss04" "ss01"];

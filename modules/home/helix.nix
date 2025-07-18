@@ -95,6 +95,31 @@ programs.helix = {
       auto-format = true;
       language-servers = [ "pyright" ];
     }
+    {
+      name = "typescript";
+      auto-format = true;
+      language-servers = [ "typescript-language-server" "tailwindcss-language-server" ];
+    }
+    {
+      name = "javascript";
+      auto-format = true;
+      language-servers = [ "typescript-language-server" "tailwindcss-language-server" ];
+    }
+    {
+      name = "html";
+      auto-format = true;
+      language-servers = [ "vscode-html-language-server" "tailwindcss-language-server" ];
+    }
+    {
+      name = "css";
+      auto-format = true;
+      language-servers = [ "vscode-css-language-server" "tailwindcss-language-server" ];
+    }
+    {
+      name = "svelte";
+      auto-format = true;
+      language-servers = [ "svelteserver" "tailwindcss-language-server" ];
+    }
   ];
   
   languages.language-server = {
@@ -153,8 +178,95 @@ programs.helix = {
         };
       };
     };
+    
+    typescript-language-server = {
+      command = "typescript-language-server";
+      args = [ "--stdio" ];
+      config = {
+        typescript = {
+          inlayHints = {
+            includeInlayParameterNameHints = "all";
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false;
+            includeInlayFunctionParameterTypeHints = true;
+            includeInlayVariableTypeHints = true;
+            includeInlayPropertyDeclarationTypeHints = true;
+            includeInlayFunctionLikeReturnTypeHints = true;
+            includeInlayEnumMemberValueHints = true;
+          };
+        };
+      };
+    };
+    
+    vscode-html-language-server = {
+      command = "vscode-html-language-server";
+      args = [ "--stdio" ];
+      config = {
+        html = {
+          validate = true;
+          completion = {
+            attributeDefaultValue = "doublequotes";
+          };
+        };
+      };
+    };
+    
+    vscode-css-language-server = {
+      command = "vscode-css-language-server";
+      args = [ "--stdio" ];
+      config = {
+        css = {
+          validate = true;
+          completion = {
+            completePropertyWithSemicolon = true;
+            triggerPropertyValueCompletion = true;
+          };
+        };
+      };
+    };
+    
+    svelteserver = {
+      command = "svelteserver";
+      args = [ "--stdio" ];
+      config = {
+        svelte = {
+          plugin = {
+            typescript = {
+              enable = true;
+              diagnostics = {
+                enable = true;
+              };
+            };
+            css = {
+              enable = true;
+              diagnostics = {
+                enable = true;
+              };
+            };
+          };
+        };
+      };
+    };
+    
+    tailwindcss-language-server = {
+      command = "tailwindcss-language-server";
+      args = [ "--stdio" ];
+      config = {
+        tailwindCSS = {
+          validate = true;
+          lint = {
+            enable = true;
+            invalidApply = "error";
+            invalidConfigPath = "error";
+            invalidScreen = "error";
+            invalidTailwindDirective = "error";
+            invalidVariant = "error";
+            recommendedVariantOrder = "warning";
+          };
+          classAttributes = [ "class" "className" "classList" "ngClass" ];
+        };
+      };
+    };
   };
   
-  # Explicitly no themes defined - let Stylix handle everything
 };
 }

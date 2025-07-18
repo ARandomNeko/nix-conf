@@ -37,7 +37,7 @@
     ffmpeg # Terminal Video / Audio Editing
     file-roller # Archive Manager
     gedit # Simple Graphical Text Editor
-    gimp # Great Photo Editor
+    # gimp # Great Photo Editor
     greetd.tuigreet # The Login Manager (Sometimes Referred To As Display Manager)
     hyprpicker
     imv
@@ -90,6 +90,7 @@
     nyxt
     powertop
     beep
+    wgcf
            
     # Rust toolchain
     rustc         # Rust compiler
@@ -115,6 +116,9 @@
 
     # Python toolchain
     python3
+
+    # SQL
+    mysql84
     
     # LSPs 
     rust-analyzer  # Rust LSP 
@@ -123,6 +127,10 @@
     pyright        # Python LSP 
     nil            # Nix LSP 
     haskell-language-server # Haskell LSP 
+    typescript-language-server  # TypeScript LSP
+    vscode-langservers-extracted  # HTML, CSS, JSON, ESLint LSPs
+    svelte-language-server  # Svelte/SvelteKit LSP
+    tailwindcss-language-server  # Tailwind CSS LSP
 
     # Additional LSP dependencies
     nodejs_20      # Needed for pyright and other LSP servers
