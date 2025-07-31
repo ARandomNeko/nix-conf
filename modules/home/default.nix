@@ -3,6 +3,7 @@
     ./bash.nix
     ./bat.nix
     ./btop.nix
+    ./direnv.nix
     ./emoji.nix
     ./fastfetch
     ./gh.nix

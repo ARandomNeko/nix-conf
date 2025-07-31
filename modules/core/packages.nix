@@ -69,6 +69,11 @@
     wget
     ytmdl
     pipes
+    direnv
+    nix-direnv
+    qmk
+    vial
+    keymapviz
     
     # Custom list of core packages
     obsidian
@@ -90,8 +95,8 @@
     nyxt
     powertop
     beep
-    wgcf
-           
+    cloudflare-warp
+               
     # Rust toolchain
     rustc         # Rust compiler
     cargo         # Rust package manager 
@@ -119,7 +124,8 @@
 
     # SQL
     mysql84
-    
+    sqlcl
+      
     # LSPs 
     rust-analyzer  # Rust LSP 
     clang-tools    # Includes clangd for C/C++
