@@ -4,6 +4,7 @@
     ../../modules/drivers
     ../../modules/core
   ];
+  services.cloudflare-warp.enable = true;
   # Enable GPU Drivers
   drivers.amdgpu.enable = false;
   drivers.nvidia.enable = true;
