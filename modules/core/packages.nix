@@ -18,6 +18,7 @@
       plugins = with pkgs.xfce; [
         thunar-archive-plugin
         thunar-volman
+        thunar-media-tags-plugin  # Better media support for drag and drop
       ];
     };
   };
@@ -49,6 +50,11 @@
     lolcat
     lshw
     lxqt.lxqt-policykit
+    
+    # Drag and drop support packages
+    xdg-utils          # Essential for desktop integration
+    shared-mime-info   # MIME type handling
+    desktop-file-utils # Desktop file utilities
     meson
     mpv
     ncdu
@@ -96,6 +102,7 @@
     powertop
     beep
     cloudflare-warp
+    gemini-cli
                
     # Rust toolchain
     rustc         # Rust compiler

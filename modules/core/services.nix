@@ -98,4 +98,16 @@ in {
       auth include login
     '';
   };
+
+  # FileManager1 D-Bus service for Thunar drag and drop support
+  systemd.user.services.thunar-filemanager = {
+    description = "Thunar file manager";
+    partOf = [ "graphical-session.target" ];
+    path = [ "/run/current-system/sw" ];
+    serviceConfig = {
+      Type = "dbus";
+      BusName = "org.freedesktop.FileManager1";
+      ExecStart = "${pkgs.xfce.thunar}/bin/thunar --daemon";
+    };
+  };
 }
