@@ -76,11 +76,6 @@
     ytmdl
     pipes
     direnv
-    nix-direnv
-    qmk
-    vial
-    keymapviz
-    
     # Custom list of core packages
     obsidian
     vscode
@@ -102,6 +97,11 @@
     cloudflare-warp
     gemini-cli
     pandoc
+    nix-direnv
+    qmk
+    vial
+    keymapviz
+    opencode    
                    
     # Rust toolchain
     rustc         # Rust compiler
