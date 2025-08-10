@@ -99,11 +99,10 @@
     postman
     bind
     nyxt
-    powertop
-    beep
     cloudflare-warp
     gemini-cli
-               
+    pandoc
+                   
     # Rust toolchain
     rustc         # Rust compiler
     cargo         # Rust package manager 

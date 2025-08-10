@@ -26,5 +26,6 @@
     ./xdg.nix
     ./yazi.nix
     ./zsh.nix
+    ./emacs.nix
   ];
 }
