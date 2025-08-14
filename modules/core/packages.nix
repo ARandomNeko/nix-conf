@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, nixpkgs-unstable, ...}: {
   programs = {
     firefox.enable = true; # Firefox is not installed by default
     dconf.enable = true;
@@ -23,7 +23,17 @@
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      (final: prev: {
+        unstable = import nixpkgs-unstable {
+          system = prev.system;
+          config.allowUnfree = true;
+        };
+      })
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     amfora # Fancy Terminal Browser For Gemini Protocol
@@ -39,7 +49,7 @@
     file-roller # Archive Manager
     gedit # Simple Graphical Text Editor
     # gimp # Great Photo Editor
-    greetd.tuigreet # The Login Manager (Sometimes Referred To As Display Manager)
+    greetd.tuigreet # The Login Manager (Sometimes Referred to As Display Manager)
     hyprpicker
     imv
     inxi
@@ -76,6 +86,7 @@
     ytmdl
     pipes
     direnv
+
     # Custom list of core packages
     obsidian
     vscode
@@ -101,7 +112,8 @@
     qmk
     vial
     keymapviz
-    opencode    
+    unstable.opencode    
+    unstable.claude-code
                    
     # Rust toolchain
     rustc         # Rust compiler

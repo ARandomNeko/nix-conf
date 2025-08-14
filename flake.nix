@@ -7,16 +7,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nvf.url = "github:notashelf/nvf";
     stylix.url = "github:danth/stylix/release-25.05";
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
     
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
+  outputs = {nixpkgs, nixpkgs-unstable, ...} @ inputs: let
     system = "x86_64-linux";
     username = "ritu";
-
     getHost = profile:
       if profile == "nvidia-laptop"
       then "laptop"
@@ -28,7 +28,7 @@
       amd = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit inputs;
+          inherit inputs nixpkgs-unstable;
           inherit username;
           host = getHost "amd";
           profile = "amd";
@@ -38,7 +38,7 @@
       nvidia = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit inputs;
+          inherit inputs nixpkgs-unstable;
           inherit username;
           host = getHost "nvidia";
           profile = "nvidia";
@@ -48,7 +48,7 @@
       "nvidia-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit inputs;
+          inherit inputs nixpkgs-unstable;
           inherit username;
           host = getHost "nvidia-laptop";
           profile = "nvidia-laptop";
@@ -58,7 +58,7 @@
       intel = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit inputs;
+          inherit inputs nixpkgs-unstable;
           inherit username;
           host = getHost "intel";
           profile = "intel";
@@ -68,7 +68,7 @@
       vm = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit inputs;
+          inherit inputs nixpkgs-unstable;
           inherit username;
           host = getHost "vm";
           profile = "vm";
