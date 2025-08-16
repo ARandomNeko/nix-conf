@@ -17,64 +17,23 @@
   outputs = {nixpkgs, nixpkgs-unstable, ...} @ inputs: let
     system = "x86_64-linux";
     username = "ritu";
-    getHost = profile:
-      if profile == "nvidia-laptop"
-      then "laptop"
-      else if profile == "nvidia"
-      then "ritu"
-      else "default-host"; # Add a default host if needed
+    
+    # Helper function to generate a host configuration
+    mkHost = { hostName, profileName }: nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = {
+        inherit inputs nixpkgs-unstable;
+        inherit username;
+        host = hostName;
+        profile = profileName;
+      };
+      modules = [ ./profiles/${profileName} ];
+    };
+    
   in {
     nixosConfigurations = {
-      amd = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs nixpkgs-unstable;
-          inherit username;
-          host = getHost "amd";
-          profile = "amd";
-        };
-        modules = [./profiles/amd];
-      };
-      nvidia = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs nixpkgs-unstable;
-          inherit username;
-          host = getHost "nvidia";
-          profile = "nvidia";
-        };
-        modules = [./profiles/nvidia];
-      };
-      "nvidia-laptop" = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs nixpkgs-unstable;
-          inherit username;
-          host = getHost "nvidia-laptop";
-          profile = "nvidia-laptop";
-        };
-        modules = [./profiles/nvidia-laptop];
-      };
-      intel = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs nixpkgs-unstable;
-          inherit username;
-          host = getHost "intel";
-          profile = "intel";
-        };
-        modules = [./profiles/intel];
-      };
-      vm = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs nixpkgs-unstable;
-          inherit username;
-          host = getHost "vm";
-          profile = "vm";
-        };
-        modules = [./profiles/vm];
-      };
+      ritu = mkHost { hostName = "ritu"; profileName = "nvidia"; };
+      laptop = mkHost { hostName = "laptop"; profileName = "nvidia-laptop"; };
     };
   };
 }
