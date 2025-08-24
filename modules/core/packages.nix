@@ -114,6 +114,7 @@
     keymapviz
     unstable.opencode    
     unstable.claude-code
+    easyeffects
                    
     # Rust toolchain
     rustc         # Rust compiler

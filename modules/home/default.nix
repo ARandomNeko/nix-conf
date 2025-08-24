@@ -1,5 +1,8 @@
-{...}: {
+{ inputs, ... }:
+
+{
   imports = [
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
     ./bash.nix
     ./bat.nix
     ./btop.nix
@@ -27,5 +30,6 @@
     ./yazi.nix
     ./zsh.nix
     ./emacs.nix
+    ./flatpak.nix
   ];
 }
