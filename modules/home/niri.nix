@@ -185,11 +185,12 @@ in {
     }
 
     // Include DMS-managed configurations at the end to allow them to override defaults
-    include "dms/layout.kdl"
-    include "dms/colors.kdl"
-    include "dms/binds.kdl"
-    include "dms/wpblur.kdl"
-    include "dms/alttab.kdl"
+    // Using absolute paths because the main config lives in the Nix store
+    include "/home/${username}/.config/niri/dms/layout.kdl"
+    include "/home/${username}/.config/niri/dms/colors.kdl"
+    include "/home/${username}/.config/niri/dms/binds.kdl"
+    include "/home/${username}/.config/niri/dms/wpblur.kdl"
+    include "/home/${username}/.config/niri/dms/alttab.kdl"
   '';
 }
 
