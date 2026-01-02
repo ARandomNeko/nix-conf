@@ -66,8 +66,8 @@ in {
       pulse.enable = true;
       wireplumber.enable = true;
   };
-  rpcbind.enable = true;
-  nfs.server.enable = true;
+  rpcbind.enable = false;
+  nfs.server.enable = false;
 
   # Power management for laptops - auto-cpufreq
   auto-cpufreq = {

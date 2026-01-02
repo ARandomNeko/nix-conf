@@ -13,7 +13,7 @@
     keyboard.qmk.enable = true;
     bluetooth = {
       enable = true;
-      powerOnBoot = false;  # Save battery - only enable when needed
+      powerOnBoot = true;  # Ensure bluetooth is ready immediately
       settings = {
         General = {
           Enable = "Source,Sink,Media,Socket";

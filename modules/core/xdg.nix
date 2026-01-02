@@ -12,15 +12,15 @@
         default = ["gtk"];
         "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
         "org.freedesktop.impl.portal.AppChooser" = ["gtk"];
-        "org.freedesktop.impl.portal.Screenshot" = ["gnome"];
-        "org.freedesktop.impl.portal.ScreenCast" = ["gnome"];
+        "org.freedesktop.impl.portal.Screenshot" = ["gnome" "gtk"];
+        "org.freedesktop.impl.portal.ScreenCast" = ["gnome" "gtk"];
       };
       niri = {
         default = ["gnome" "gtk"];
         "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
         "org.freedesktop.impl.portal.AppChooser" = ["gtk"];
-        "org.freedesktop.impl.portal.Screenshot" = ["gnome"];
-        "org.freedesktop.impl.portal.ScreenCast" = ["gnome"];
+        "org.freedesktop.impl.portal.Screenshot" = ["gnome" "gtk"];
+        "org.freedesktop.impl.portal.ScreenCast" = ["gnome" "gtk"];
       };
     };
   };
