@@ -48,6 +48,8 @@ in
     ++ [
       # DMS management tool from flake input
       inputs.dms.packages.${pkgs.system}.default
+      # Quickshell is required by the DMS backend
+      inputs.quickshell.packages.${pkgs.system}.default
       # DMS wrapper scripts
       dmsShellScript
       screenshotScript

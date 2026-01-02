@@ -197,8 +197,8 @@ in {
     }
 
     // Include DMS-managed configurations at the end to allow them to override defaults
-    include "dms/colors.kdl"
     include "dms/layout.kdl"
+    include "dms/colors.kdl"
     include "dms/binds.kdl"
     include "dms/wpblur.kdl"
     include "dms/alttab.kdl"
