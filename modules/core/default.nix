@@ -11,6 +11,7 @@
     ./stylix.nix
     ./system.nix
     ./user.nix
+    ./logitech.nix
     ./virtualisation.nix
     ./xdg.nix
     ./xwayland.nix

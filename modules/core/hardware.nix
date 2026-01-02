@@ -6,8 +6,8 @@
       extraBackends = [ pkgs.sane-airscan ];
       disabledDefaultBackends = [ "escl" ];
     };
-    logitech.wireless.enable = false;
-    logitech.wireless.enableGraphical = false;
+    logitech.wireless.enable = true;
+    logitech.wireless.enableGraphical = true;
     graphics.enable = true;
     enableRedistributableFirmware = true;
     keyboard.qmk.enable = true;

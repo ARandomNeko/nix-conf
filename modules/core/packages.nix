@@ -89,6 +89,7 @@
     unrar
     unzip
     usbutils
+    solaar
     v4l-utils
     virt-viewer
     wget
