@@ -10,6 +10,13 @@ in {
   
   # Niri configuration
   xdg.configFile."niri/config.kdl".text = ''
+    // Include DMS-managed configurations at the top
+    include "/home/${username}/.config/niri/dms/layout.kdl";
+    include "/home/${username}/.config/niri/dms/colors.kdl";
+    include "/home/${username}/.config/niri/dms/binds.kdl";
+    include "/home/${username}/.config/niri/dms/wpblur.kdl";
+    include "/home/${username}/.config/niri/dms/alttab.kdl";
+
     input {
         keyboard {
             xkb {
@@ -183,14 +190,5 @@ in {
         
         Mod+Shift+Ctrl+T { toggle-debug-tint; }
     }
-
-    // Include DMS-managed configurations at the end to allow them to override defaults
-    // Using absolute paths because the main config lives in the Nix store
-    include "/home/${username}/.config/niri/dms/layout.kdl"
-    include "/home/${username}/.config/niri/dms/colors.kdl"
-    include "/home/${username}/.config/niri/dms/binds.kdl"
-    include "/home/${username}/.config/niri/dms/wpblur.kdl"
-    include "/home/${username}/.config/niri/dms/alttab.kdl"
   '';
 }
-
