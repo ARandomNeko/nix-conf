@@ -1,1 +1,2 @@
-.opencode/
+.direnv
+.pre-commit-config.yaml

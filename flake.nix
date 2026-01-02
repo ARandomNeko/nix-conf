@@ -1,39 +1,67 @@
 {
-  description = "ZaneyOS";
+  description = "ritu flake configuration based on hjem";
+
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
+
+      imports = [./hosts ./pkgs];
+
+      perSystem = {
+        config,
+        pkgs,
+        ...
+      }: {
+        devShells = {
+          default = pkgs.mkShell {
+            packages = [pkgs.alejandra pkgs.git config.packages.repl];
+            name = "nixland";
+            DIRENV_LOG_FORMAT = "";
+          };
+        };
+        # Nix Formatter
+        formatter = pkgs.alejandra;
+      };
+    };
 
   inputs = {
-    home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+    # global, so they can be `.follow`ed
+    systems.url = "github:nix-systems/default-linux";
+
+    flake-compat.url = "github:edolstra/flake-compat";
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # rest of inputs, alphabetical order
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
+    import-tree.url = "github:vic/import-tree";
+
+    mynixpkgs.url = "github:linuxmobile/mynixpkgs";
+
+    nix-index-db = {
+      url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nvf.url = "github:notashelf/nvf";
-    stylix.url = "github:danth/stylix/release-25.05";
-    nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
-    
-  };
 
-  outputs = {nixpkgs, nixpkgs-unstable, ...} @ inputs: let
-    system = "x86_64-linux";
-    username = "ritu";
-    
-    # Helper function to generate a host configuration
-    mkHost = { hostName, profileName }: nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {
-        inherit inputs nixpkgs-unstable;
-        inherit username;
-        host = hostName;
-        profile = profileName;
-      };
-      modules = [ ./profiles/${profileName} ];
-    };
-    
-  in {
-    nixosConfigurations = {
-      ritu = mkHost { hostName = "ritu"; profileName = "nvidia"; };
-      laptop = mkHost { hostName = "laptop"; profileName = "nvidia-laptop"; };
-    };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 }
