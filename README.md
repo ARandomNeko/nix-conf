@@ -1,197 +1,319 @@
-<p align="center"><img src="https://i.imgur.com/X5zKxvp.png" width=300px></p>
+# NixOS Configuration with Niri + DankMaterialShell
 
-<p align="center">
-  <a href="https://hyprland.org/">
-    <img src="https://img.shields.io/static/v1?label=NIRI&message=latest&style=flat&logo=hyprland&colorA=24273A&colorB=8AADF4&logoColor=CAD3F5"/>
-  </a>
-   <a href="https://github.com/zemmsoares/awesome-rices">
-    <img src="https://raw.githubusercontent.com/zemmsoares/awesome-rices/main/assets/awesome-rice-badge.svg" alt="awesome-rice-badge">
-  </a>
-  <a href="https://nixos.wiki/wiki/Flakes">
-    <img src="https://img.shields.io/static/v1?label=Nix-Flake&message=check&style=flat&logo=nixos&colorA=24273A&colorB=9173ff&logoColor=CAD3F5">
-  </a>
-  <a href="https://nixos.org/">
-  <img src="https://img.shields.io/badge/NixOS-unstable-informational.svg?style=flat&logo=nixos&logoColor=CAD3F5&colorA=24273A&colorB=8AADF4">
-  </a>
-</p>
+This is a NixOS configuration using the **Niri** scrolling window compositor and **DankMaterialShell** (QuickShell-based desktop shell) for a modern, beautiful desktop environment.
 
-<p align="center"><img src="/assets/1.png" width=600px></p>
+## What Changed from Previous Config
 
-<h2 align="center">革 | kaku</h2>
+### Replaced Components
 
-### ⚠ <sup><sub><samp>PLEASE RESPECT THE CREDITS IF YOU USE SOMETHING FROM MY DESKTOP/SETUP.</samp></sub></sup>
+**Removed:**
+- Hyprland compositor → **Niri** (scrolling window manager)
+- Waybar → **DankMaterialShell panels**
+- Rofi launcher → **DankMaterialShell launcher**
+- SwayNC notifications → **DankMaterialShell notifications**
+- Wlogout → **DankMaterialShell power modal**
 
----
+**Kept:**
+- All system configuration (boot, drivers, hardware, networking)
+- All profiles (nvidia, nvidia-laptop, amd, intel, vm)
+- Terminal emulators (Ghostty, Kitty)
+- Shell configuration (Zsh, Bash, Starship)
+- Text editors (Helix, Neovim/nvf, Emacs)
+- Git, direnv, yazi, btop, bat, and other CLI tools
+- Flatpak configuration
+- GTK/QT theming (now integrated with matugen)
 
-<pre align="center"><p align="center"><a href="#seedling--setup">SETUP</a> • <a href="#herb--guides">GUIDES</a> • <a href="#four_leaf_clover--key-bindings">KEYBINDS</a> • <a href="https://linu.dev/kaku">GALLERY</a></p></pre>
+## Features
 
----
+### Niri Compositor
+- **Scrolling paradigm**: Windows scroll horizontally like an infinite canvas
+- Smooth animations and gestures
+- Per-workspace horizontal strips
+- Better for ultrawide and multi-monitor setups
+- Keybindings similar to i3/sway with Mod key
 
-<a href="#octocat--hi-there-thanks-for-dropping-by">
-  <picture>
-    <img alt="" align="right" width="400px" src="/assets/6.png"/>
-  </picture>
-</a>
+### DankMaterialShell
+- Beautiful Material Design-inspired UI
+- Dynamic theming with **matugen** (generates themes from wallpapers)
+- Integrated panels, dock, launcher, notifications, and system controls
+- Built with QuickShell (QML-based)
+- Auto-theming for GTK, QT, terminals, and Firefox
 
-- **Window Manager** • [Niri](https://github.com/YaLTeR/niri/)🎨 Scrolleable WM!
-- **Shell** • [Nu](https://www.nushell.sh/) 🐚 with
-  [starship](https://github.com/starship/starship) Cross Shell Platform!
-- **Terminal** • [Ghostty](https://ghostty.org/) 💻 A powerful Hyped term
-- **Panel** • [DMS Quickshell](https://github.com/AvengeMedia/DankMaterialShell) 🍧 The Best GOAT DMS-Quickshell :3!
-- **File Manager** • [Yazi](https://github.com/sxyazi/yazi) 🔖 Rustacean File
-  Manager!
-- **GUI Basic-IDE** • [Helix](https://docs.helix-editor.com/) ✴️ Rustacean vim
-  version!
-- **GTK Theme** • [GTK](https://github.com/ritu/Colloid-gtk-theme) 🐾 My
-  Fork of colloid
+### Full Theme Integration
+- **Matugen** generates color schemes from wallpapers
+- GTK 3/4 apps automatically themed
+- QT apps themed (with qt6ct)
+- Terminal colors (Ghostty, Kitty) sync with theme
+- Firefox can be themed with pywalfox or material-fox
 
-## 🌼 <samp>INSTALLATION (NixOS)</samp>
+## Directory Structure
 
-> Request:
-> [NixOs](https://channels.nixos.org/nixos-25.05/latest-nixos-minimal-x86_64-linux.iso)
-
-- Download ISO.
-
-```bash
-wget -O https://channels.nixos.org/nixos-24.05/latest-nixos-minimal-x86_64-linux.iso
+```
+nixos-config/
+├── flake.nix              # Main flake definition
+├── modules/
+│   ├── core/              # System-level configuration
+│   │   ├── boot.nix
+│   │   ├── fonts.nix
+│   │   ├── hardware.nix
+│   │   ├── packages.nix   # System packages (includes niri, fuzzel)
+│   │   ├── services.nix   # Greetd launches niri-session
+│   │   ├── xdg.nix        # XDG portals for Niri
+│   │   └── ...
+│   ├── drivers/           # GPU drivers and hardware clock
+│   └── home/              # Home-manager user configuration
+│       ├── niri.nix       # Niri compositor config
+│       ├── dankmaterialshell.nix  # DankMaterialShell setup
+│       ├── gtk.nix        # GTK with matugen CSS imports
+│       ├── ghostty.nix    # Terminal with matugen theme
+│       └── ...
+├── hosts/
+│   ├── ritu/              # Desktop host
+│   ├── laptop/            # Laptop host
+│   └── default/           # Template host
+└── profiles/
+    ├── nvidia/            # Desktop Nvidia profile
+    ├── nvidia-laptop/     # Laptop with Nvidia Prime
+    ├── amd/               # AMD GPU profile
+    ├── intel/             # Intel GPU profile
+    └── vm/                # Virtual machine profile
 ```
 
-- Boot Into the Installer.
+## Installation & Rebuild
 
-- Switch to Root: `sudo -i`
+### First Time Setup
 
-- Partitions:
+1. **Update flake inputs** (optional):
+   ```bash
+   cd ~/nixos-config
+   nix flake update
+   ```
 
-_I prefer to use 1GB on the EFI partition. Specifically because the
-'generations' list may become very long, and to avoid overloading the
-partition._
+2. **Rebuild system** for your host:
+   ```bash
+   sudo nixos-rebuild switch --flake ~/nixos-config#ritu
+   # OR for laptop:
+   sudo nixos-rebuild switch --flake ~/nixos-config#laptop
+   ```
 
-```bash
-# Replace nvme with your disk partition
-gdisk /dev/nvme0n1
-```
+3. **Logout and select Niri** session from greetd/tuigreet
 
-    - `o` (create new partition table)
-    - `n` (add partition, 512M, type ef00 EFI)
-    - `n` (add partition, remaining space, type 8300 Linux)
-    `w` (write partition table and exit)
+4. **Launch DankMaterialShell** (should auto-start):
+   ```bash
+   dms
+   ```
 
-- Format Partitions:
+### Updating Configuration
 
-```bash
-mkfs.fat -F 32 -n EFI /dev/nvme0n1p1
-mkfs.xfs -L NIXOS /dev/nvme0n1p2
-```
-
-- Mount Partitions:
-
-```bash
-mount /dev/disk/by-label/NIXOS /mnt
-mkdir -p /mnt/boot
-mount /dev/disk/by-label/EFI /mnt/boot
-```
-
-- Enable nixFlakes
+After editing any `.nix` files:
 
 ```bash
-nix-shell -p nixVersions.stable git
+# Using nh (built-in helper)
+nh os switch --hostname ritu
+
+# OR manually
+sudo nixos-rebuild switch --flake ~/nixos-config#ritu
 ```
 
-- Clone my Dotfiles
+## Niri Keybindings
+
+All keybindings use `Mod` (Super/Windows key by default):
+
+### Window Management
+- `Mod+T` - Open terminal (Ghostty)
+- `Mod+D` - Open launcher (Fuzzel fallback, DMS launcher preferred)
+- `Mod+Q` - Close window
+- `Mod+H/J/K/L` or Arrow keys - Focus windows/columns
+- `Mod+Ctrl+H/J/K/L` - Move windows/columns
+- `Mod+Comma/Period` - Consume/expel windows into column
+
+### Workspaces
+- `Mod+1-9` - Switch to workspace
+- `Mod+Ctrl+1-9` - Move window to workspace
+- `Mod+U/I` or `Page_Up/Down` - Navigate workspaces vertically
+
+### Window Sizing
+- `Mod+R` - Cycle preset column widths
+- `Mod+F` - Maximize column
+- `Mod+Shift+F` - Fullscreen window
+- `Mod+C` - Center column
+- `Mod+-/=` - Decrease/increase column width
+- `Mod+Shift+-/=` - Decrease/increase window height
+
+### Screenshots
+- `Print` - Screenshot selection
+- `Ctrl+Print` - Screenshot screen
+- `Alt+Print` - Screenshot window
+
+### System
+- `Mod+Shift+E` - Quit Niri
+- `Mod+Shift+P` - Power off monitors
+- `Mod+Shift+/` - Show hotkey overlay
+
+Full config: `~/.config/niri/config.kdl`
+
+## DankMaterialShell Configuration
+
+### Settings Location
+- `~/.config/DankMaterialShell/settings.json` - Main settings
+- Automatic clone/update on system rebuild
+- Settings can be changed via DMS UI (click settings in panel)
+
+### Theming with Matugen
+
+1. **Set a wallpaper** to generate theme:
+   ```bash
+   matugen image /path/to/wallpaper.jpg
+   ```
+
+2. **Theme files generated** at:
+   - `~/.config/gtk-3.0/dank-colors.css`
+   - `~/.config/gtk-4.0/dank-colors.css`
+   - `~/.config/qt6ct/colors/matugen.conf`
+   - `~/.config/ghostty/config-dankcolors`
+   - `~/.config/kitty/dank-theme.conf`
+
+3. **Reload applications** or restart to apply
+
+### Calendar Integration (Optional)
+
+For dashboard calendar widget:
 
 ```bash
-git clone --depth 1 https://github.com/ritu/kaku /mnt/etc/nixos
+# Install sync tools (already in config)
+vdirsyncer discover  # Follow prompts for Google/Office365
+vdirsyncer sync
+khal configure
+
+# Add to crontab for auto-sync
+crontab -e
+# Add: */5 * * * * /usr/bin/vdirsyncer sync
 ```
 
-- Generate your Own Nix Hardware Settings:
+### Firefox Theming (Optional)
 
-### ⚠ <sup><sub><samp>DON'T FORGET IT</samp></sub></sup>
+**Option 1 - Pywalfox:**
+```bash
+# Extension already installed in config
+# In Firefox, install pywalfox extension
+# Create symlink:
+ln -sf ~/.cache/wal/dank-pywalfox.json ~/.cache/wal/colors.json
+```
+
+**Option 2 - Material Fox:**
+See DankMaterialShell docs for setup instructions.
+
+## Host-Specific Configuration
+
+### For Desktop (ritu)
+Edit `hosts/ritu/variables.nix`:
+- `extraMonitorSettings` - Niri monitor config
+- `browser`, `terminal` - Default applications
+
+### For Laptop
+Edit `hosts/laptop/variables.nix`:
+- Example already includes 2880x1800@60 with 1.2 scaling
+- Nvidia Prime bus IDs configured
+
+### Adding New Host
 
 ```bash
-sudo nixos-generate-config --dir /mnt/etc/nixos/hosts/aesthetic
+# Copy template
+cp -r hosts/default hosts/newhostname
 
-# Remove configuration.nix
-rm -rf /mnt/etc/nixos/hosts/aesthetic/configuration.nix
+# Edit configuration
+vim hosts/newhostname/variables.nix
+vim hosts/newhostname/hardware.nix  # Or generate: nixos-generate-config
+
+# Add to flake.nix
+# In nixosConfigurations section:
+newhostname = mkHost { hostName = "newhostname"; profileName = "nvidia"; };
 ```
 
-- Install Dotfiles Using Flake
+## Profiles
+
+Choose profile in `flake.nix` based on your GPU:
+
+- `nvidia` - Desktop Nvidia
+- `nvidia-laptop` - Laptop with Nvidia Prime (hybrid graphics)
+- `amd` - AMD GPU
+- `intel` - Intel integrated graphics
+- `vm` - Virtual machine (no GPU drivers)
+
+## Troubleshooting
+
+### DankMaterialShell not starting
+```bash
+# Check if QuickShell is working
+dms
+
+# Check logs
+journalctl --user -u graphical-session.target
+
+# Fallback launcher
+fuzzel
+```
+
+### Theme not applying
+```bash
+# Regenerate theme
+matugen image /path/to/wallpaper.jpg
+
+# Check files exist
+ls ~/.config/gtk-3.0/dank-colors.css
+ls ~/.config/ghostty/config-dankcolors
+
+# Restart apps or re-login
+```
+
+### Niri keybindings not working
+```bash
+# Check Niri config syntax
+niri validate
+
+# Edit config
+vim ~/.config/niri/config.kdl
+```
+
+### Screenshots directory missing
+```bash
+mkdir -p ~/Pictures/Screenshots
+```
+
+## Useful Commands
 
 ```bash
-# Move to folder
-cd mnt/etc/nixos
+# Rebuild system
+nh os switch --hostname ritu
 
-# Install
-nixos-install --flake .#aesthetic
+# Update flake inputs
+nix flake update
+
+# Check flake
+nix flake check
+
+# Garbage collection
+nh clean all --keep 5
+
+# Test configuration without switching
+sudo nixos-rebuild test --flake ~/nixos-config#ritu
 ```
 
-- Reboot
+## Resources
 
-### 🐙 <sup><sub><samp>Remember <strong>Default</strong> User & password are: nixos</samp></sub></sup>
+- [Niri Documentation](https://github.com/YaLTeR/niri)
+- [DankMaterialShell GitHub](https://github.com/AvengeMedia/DankMaterialShell)
+- [QuickShell Documentation](https://quickshell.outfoxxed.me/)
+- [Matugen](https://github.com/InioX/matugen)
+- [NixOS Manual](https://nixos.org/manual/nixos/stable/)
+- [Home Manager Manual](https://nix-community.github.io/home-manager/)
 
-- Change Default password for User.
+## Credits
 
-```bash
-passwd YourUser
-```
+Based on ZaneyOS by Tyler Kelley, migrated to Niri + DankMaterialShell.
 
-- Install w/ Home-Manager the config
+- Original config: [ZaneyOS](https://gitlab.com/Zaney/zaneyos)
+- Niri compositor: [YaLTeR](https://github.com/YaLTeR/niri)
+- DankMaterialShell: [AvengeMedia](https://github.com/AvengeMedia/DankMaterialShell)
+- QuickShell: [outfoxxed](https://github.com/outfoxxed/quickshell)
 
-```bash
-home-manager switch --flake 'github:ritu/kaku#linudev@aesthetic'
-```
-
-### 🌸 <samp>SCREENSHOTS</samp>
-
-|                           |                           |
-| :-----------------------: | :-----------------------: |
-| <img src="/assets/1.png"> | <img src="/assets/2.png"> |
-| <img src="/assets/3.png"> | <img src="/assets/4.png"> |
-| <img src="/assets/5.png"> | <img src="/assets/6.png"> |
-
-### 🌻 <samp>TODO LIST</samp>
-
-### 🧩 <samp>ADDITIONAL TIPS</samp>
-
-If you're using this NixOS configuration flake locally, you can simplify the process of switching and managing your system using [`nh`](https://github.com/viperML/nh), a CLI helper for Nix Flakes.
-
-To switch your system configuration with `nh`, use:
-
-```bash
-nh os switch .#aesthetic
-```
-
-Similarly, to apply home-manager configurations:
-
-```bash
-nh home switch .#linudev@aesthetic
-```
-
-This avoids needing to type out the full `nixos-rebuild` or `home-manager` commands manually and provides a cleaner workflow when iterating on your setup.
-
-> 💡 Make sure `nh` is installed in your system environment or user profile.
-
-## 🍀 <samp>KEY BINDINGS</samp>
-
-## 💐 <samp>ACKNOWLEDGEMENTS</samp>
-
-|     |     | Inspiration and Resources                   |     |     |
-| :-: | :-: | :------------------------------------------ | :-- | :-: |
-|     |  1  | [owl4ce](https://github.com/owl4ce)         |     |     |
-|     |  2  | [Ilham25](https://github.com/ilham25)       |     |     |
-|     |  3  | [Siduck](https://github.com/siduck)         |     |     |
-|     |  4  | [NvChad](https://github.com/NvChad)         |     |     |
-|     |  5  | [Rxyhn](https://github.com/rxyhn)           |     |     |
-|     |  6  | [HeinzDev](https://github.com/HeinzDev)     |     |     |
-|     |  7  | [fufexan](https://github.com/fufexan)       |     |     |
-|     |  8  | [AmitGolden](https://github.com/AmitGolden) |     |     |
-|     |     |                                             |     |     |
-
-## 🌳 <samp>CONTRIBUTING</samp>
-
-WIP
-
-## 🎃 <samp>SECURITY POLICY</samp>
-
-<pre align="center">
-<a href="#readme">BACK TO TOP</a>
-</pre>

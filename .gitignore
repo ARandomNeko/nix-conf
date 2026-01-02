@@ -1,2 +1,6 @@
-.direnv
-.pre-commit-config.yaml
+result
+result-*
+.direnv/
+*.backup
+*.backup.*
+
