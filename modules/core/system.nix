@@ -1,4 +1,4 @@
-{host, ...}: let
+{host, lib, ...}: let
   inherit (import ../../hosts/${host}/variables.nix) consoleKeyMap;
 in {
   nix = {
@@ -32,6 +32,7 @@ in {
     ZANEYOS = "true";
     EDITOR = "hx";
     VISUAL = "hx";
+    QT_QPA_PLATFORMTHEME = lib.mkForce "qt6ct";
   };
   console.keyMap = "${consoleKeyMap}";
   

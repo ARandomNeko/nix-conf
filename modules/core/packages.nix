@@ -53,7 +53,7 @@
     ffmpeg
     file-roller
     gedit
-    greetd.tuigreet
+    tuigreet
     imv
     inxi
     killall
@@ -104,7 +104,6 @@
     cider
     libreoffice-qt
     lutris
-    olive-editor
     mgba
     qbittorrent
     wineWowPackages.waylandFull
@@ -112,7 +111,7 @@
     # Minecraft/PolyMC support
     # Using PrismLauncher with Wayland-patched GLFW for native Wayland support
     (prismlauncher.override {
-      glfw3-minecraft = glfw-wayland-minecraft;  # Use Wayland-native GLFW
+      glfw3-minecraft = glfw3-minecraft;  # Use Wayland-native GLFW
     })
     
     jupyter
@@ -124,7 +123,6 @@
     cloudflare-warp
     unstable.gemini-cli
     pandoc
-    nix-direnv
     qmk
     vial
     keymapviz
@@ -143,7 +141,7 @@
     # Haskell toolchain      
     stack
     ghc
-    haskell.compiler.ghc982
+    haskell.compiler.ghc984
     cabal-install
 
     # C toolchain
@@ -155,7 +153,7 @@
     libcxx
 
     # Java
-    zulu23
+    zulu
     eclipses.eclipse-java
 
     # Python toolchain
@@ -181,6 +179,7 @@
     # Additional LSP dependencies
     nodejs_20
     python3Packages.python-lsp-server
+    qt6Packages.qt6ct
   ];
 }
 
