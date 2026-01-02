@@ -79,14 +79,8 @@ in {
         Mod+Shift+Slash { show-hotkey-overlay; }
         
         Mod+T { spawn "ghostty"; }
-        Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
         Mod+S { spawn "screenshot-area"; }
         Mod+Q { close-window; }
-        Mod+Shift+C { spawn "dms" "ipc" "call" "control-center" "toggle"; }
-        Mod+X { spawn "dms" "ipc" "call" "powermenu" "toggle"; }
-        
-        XF86MonBrightnessUp allow-when-locked=true { spawn "dms" "ipc" "call" "brightness" "increment" "5" ""; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "dms" "ipc" "call" "brightness" "decrement" "5" ""; }
         
         Mod+Left  { focus-column-left; }
         Mod+Down  { focus-window-down; }
