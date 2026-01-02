@@ -42,18 +42,6 @@ in {
         }
         
         default-column-width { proportion 0.5; }
-        
-        focus-ring {
-            width 4
-            active-color "#${config.lib.stylix.colors.base0D}"
-            inactive-color "#${config.lib.stylix.colors.base02}"
-        }
-        
-        border {
-            width 1
-            active-color "#${config.lib.stylix.colors.base0D}"
-            inactive-color "#${config.lib.stylix.colors.base02}"
-        }
     }
     
     ${extraMonitorSettings}
