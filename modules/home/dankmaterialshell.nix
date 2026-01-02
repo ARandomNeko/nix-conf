@@ -7,16 +7,10 @@
   ...
 }:
 let
-  # DMS wrapper script to launch quickshell with the right config
-  dmsScript = pkgs.writeShellScriptBin "dms" ''
+  # Wrapper to launch the DMS shell specifically
+  dmsShellScript = pkgs.writeShellScriptBin "dms-shell" ''
     #!/usr/bin/env bash
-    # DankMaterialShell wrapper for quickshell
-    DMS_DIR="$HOME/.config/DankMaterialShell"
-
-    # Forward all arguments to quickshell with the DMS path
-    exec ${
-      inputs.quickshell.packages.${pkgs.system}.default
-    }/bin/quickshell --path "$DMS_DIR/quickshell" "$@"
+    exec dms run "$@"
   '';
 
   screenshotScript = pkgs.writeShellScriptBin "screenshot-area" ''
@@ -52,10 +46,10 @@ in
       jq
     ])
     ++ [
-      # QuickShell from flake input
-      inputs.quickshell.packages.${pkgs.system}.default
+      # DMS management tool from flake input
+      inputs.dms.packages.${pkgs.system}.default
       # DMS wrapper scripts
-      dmsScript
+      dmsShellScript
       screenshotScript
     ];
 

@@ -13,6 +13,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
     quickshell.url = "github:outfoxxed/quickshell";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    dms.url = "github:AvengeMedia/DankMaterialShell";
   };
 
   outputs = {nixpkgs, nixpkgs-unstable, ...} @ inputs: let

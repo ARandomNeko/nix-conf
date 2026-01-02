@@ -18,9 +18,5 @@
     (import ./screenshootin.nix {inherit pkgs;})
     (import ./check-inhibitors.nix {inherit pkgs;})
     (import ./niri-refresh-switch.nix {inherit pkgs;})
-    (import ./matugen-colors.nix {
-      inherit pkgs;
-      inherit username;
-    })
   ];
 }

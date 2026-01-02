@@ -69,15 +69,12 @@ in {
     // XWayland support for X11 apps (Steam, etc.)
     spawn-at-startup "xwayland-satellite"
     
-    // DMS autostart - use wrapper so quickshell gets the proper subcommand
-    spawn-at-startup "dms"
+    // DMS autostart - use the Go tool to launch the shell and manage the session
+    spawn-at-startup "dms" "run"
     
     // Optional: Enable automatic refresh rate switching for battery savings
     // Switches to 60Hz on battery, 120Hz on AC power
     spawn-at-startup "niri-refresh-switch"
-    
-    // Update Niri colors from matugen if available (runs silently, falls back to Stylix if matugen not run)
-    spawn-at-startup "sh" "-c" "update-niri-matugen-colors 2>/dev/null || true"
     
     environment {
         QT_QPA_PLATFORM "wayland"
@@ -198,6 +195,13 @@ in {
         
         Mod+Shift+Ctrl+T { toggle-debug-tint; }
     }
+
+    // Include DMS-managed configurations at the end to allow them to override defaults
+    include "dms/colors.kdl"
+    include "dms/layout.kdl"
+    include "dms/binds.kdl"
+    include "dms/wpblur.kdl"
+    include "dms/alttab.kdl"
   '';
 }
 
