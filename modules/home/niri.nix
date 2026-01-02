@@ -10,11 +10,6 @@ in {
   
   # Niri configuration
   xdg.configFile."niri/config.kdl".text = ''
-    // Include DMS-managed configurations at the top
-    include "/home/${username}/.config/niri/dms/colors.kdl";
-    include "/home/${username}/.config/niri/dms/binds.kdl";
-    include "/home/${username}/.config/niri/dms/wpblur.kdl";
-    include "/home/${username}/.config/niri/dms/alttab.kdl";
 
     input {
         keyboard {
@@ -189,5 +184,11 @@ in {
         
         Mod+Shift+Ctrl+T { toggle-debug-tint; }
     }
+
+    // Include DMS-managed configurations at the END to allow overrides
+    include "/home/${username}/.config/niri/dms/colors.kdl";
+    include "/home/${username}/.config/niri/dms/binds.kdl";
+    include "/home/${username}/.config/niri/dms/wpblur.kdl";
+    include "/home/${username}/.config/niri/dms/alttab.kdl";
   '';
 }
