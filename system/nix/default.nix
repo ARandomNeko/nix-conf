@@ -34,16 +34,15 @@
 
       trusted-users = ["root" "@wheel"];
     };
-  };
 
-  # Garbage collection
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
+    # Garbage collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 }
-

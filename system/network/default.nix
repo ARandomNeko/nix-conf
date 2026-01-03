@@ -1,14 +1,14 @@
 {pkgs, ...}: {
   networking = {
     # Use Cloudflare DNS
-    nameservers = ["1.1.1.1" "1.0.0.1"];
+    nameservers = ["1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001"];
 
     # Modern firewall
     nftables.enable = true;
 
     networkmanager = {
       enable = true;
-      dns = "none"; # Use nameservers above
+      dns = "default"; # Use nameservers above
       wifi.powersave = true;
       plugins = with pkgs; [
         networkmanager-openvpn
