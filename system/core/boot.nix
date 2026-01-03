@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   boot = {
@@ -13,8 +14,8 @@
     # Filesystem support
     supportedFilesystems = ["ntfs" "exfat"];
 
-    # Use latest kernel (can be overridden by nixos-hardware for specific devices)
-    # kernelPackages = pkgs.linuxPackages_latest;
+    # Use Linux 6.18 (mkForce to override nixos-hardware)
+    kernelPackages = lib.mkForce pkgs.linuxPackages_6_18;
 
     # Quiet boot
     consoleLogLevel = 3;
