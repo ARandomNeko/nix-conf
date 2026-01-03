@@ -48,48 +48,41 @@ in {
       ''
     else "// Using default monitor settings"}
 
-    // Input configuration
+    // Input configuration - simplified for now
+    // Note: Niri configuration structure may differ - this is a minimal working config
     input {
-      keyboard {
-        xkb_layout "${keyboardLayout}";
-        xkb_options "grp:alt_caps_toggle";
-        repeat_delay 300;
-        repeat_rate 30;
+      xkb {
+        layout "${keyboardLayout}";
+        options "grp:alt_caps_toggle";
       }
-      
+      repeat-delay 300;
+      repeat-rate 30;
       touchpad {
         tap false;
-        natural_scroll true;
-        disable_while_typing true;
-        scroll_factor 0.8;
+        natural-scroll true;
+        disable-while-typing true;
+        scroll-factor 0.8;
       }
-      
-      follow_cursor true;
-      cursor_zoom 1.0;
+      follow-cursor true;
+      cursor-zoom 1.0;
     }
 
     // Layout configuration
     layout {
-      default_column_width "Some(600)";
-      center_focused_column true;
-      center_focused_column_max_width "Some(1200)";
+      default-column-width 600;
+      center-focused-column true;
+      center-focused-column-max-width 1200;
       gaps 8;
-      struts {
-        left 0;
-        right 0;
-        top 0;
-        bottom 0;
-      }
     }
 
     // Window rules - Niri uses window-rule with match directives
     window-rule {
       match app-id="pavucontrol"
-      open-floating
+      open-floating true
     }
     window-rule {
       match app-id="rofi"
-      open-floating
+      open-floating true
     }
 
     // Keybindings
