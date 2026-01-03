@@ -28,7 +28,7 @@ in {
       settings = {
         default_session = {
           user = username;
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri"; # start Niri with a TUI login manager
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri"; # start Niri with a TUI login manager
         };
       };
     };

@@ -256,8 +256,8 @@ in {
     source = ../../../wallpapers;
     recursive = true;
   };
-  home.file.".face.icon".source = ../../hyprland/face.jpg;
-  home.file.".config/face.jpg".source = ../../hyprland/face.jpg;
+  home.file.".face.icon".source = ../hyprland/face.jpg;
+  home.file.".config/face.jpg".source = ../hyprland/face.jpg;
   home.file.".config/swappy/config".text = ''
     [Default]
     save_dir=/home/${username}/Pictures/Screenshots
