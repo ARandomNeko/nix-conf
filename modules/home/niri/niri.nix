@@ -82,11 +82,11 @@ in {
       }
     }
 
-    // Window rules - simplified for Niri (no regex support, use exact class names)
+    // Window rules - Niri uses different syntax than Hyprland
+    // For now, keeping it minimal - can be expanded later
     window-rules {
-      // Floating windows
-      rule class="pavucontrol" { open-floating; }
-      rule class="rofi" { open-floating; }
+      rule { class "pavucontrol"; } { open-floating; }
+      rule { class "rofi"; } { open-floating; }
     }
 
     // Keybindings
