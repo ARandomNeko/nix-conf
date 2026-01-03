@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   # Force overwrite niri config to remove old settings
   xdg.configFile."niri/config.kdl" = {
     force = true;
@@ -56,7 +60,7 @@
       screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
       spawn-at-startup "${pkgs.swaybg}/bin/swaybg" "-m" "fill" "-i" "/home/ritu/nix-conf/wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg"
-      spawn-at-startup "noctalia"
+      spawn-at-startup "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell"
 
       binds {
           // Terminal
@@ -64,8 +68,8 @@
           Mod+Return { spawn "${pkgs.ghostty}/bin/ghostty"; }
 
           // App launcher
-          Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-          Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+          Mod+Space { spawn "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+          Mod+D { spawn "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
           // Close window
           Mod+Q { close-window; }
           Mod+Shift+Q { close-window; }

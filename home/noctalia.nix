@@ -191,7 +191,7 @@
       WantedBy = ["graphical-session.target"];
     };
     Service = {
-      ExecStart = "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia";
+      ExecStart = "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell";
       Restart = "on-failure";
       RestartSec = 1;
     };
