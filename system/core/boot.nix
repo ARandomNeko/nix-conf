@@ -13,8 +13,8 @@
     # Filesystem support
     supportedFilesystems = ["ntfs" "exfat"];
 
-    # Use latest kernel
-    kernelPackages = pkgs.linuxPackages_latest;
+    # Use latest kernel (can be overridden by nixos-hardware for specific devices)
+    # kernelPackages = pkgs.linuxPackages_latest;
 
     # Quiet boot
     consoleLogLevel = 3;

@@ -35,12 +35,7 @@
       trusted-users = ["root" "@wheel"];
     };
 
-    # Garbage collection
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+    # Garbage collection is handled by nh.clean in nh.nix
   };
 
   # Allow unfree packages
