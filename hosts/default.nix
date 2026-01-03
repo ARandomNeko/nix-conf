@@ -2,95 +2,94 @@
   self,
   inputs,
   ...
-}: {
-  flake.nixosConfigurations = let
-    inherit (inputs.nixpkgs.lib) nixosSystem;
-    mod = "${self}/system";
-    home = "${self}/home";
+}: let
+  inherit (inputs.nixpkgs.lib) nixosSystem;
+  mod = "${self}/system";
+  home = "${self}/home";
 
-    # Get the basic config from system
-    inherit (import "${self}/system") desktop laptop;
+  # Get the basic config from system
+  inherit (import "${self}/system") desktop laptop;
 
-    specialArgs = {inherit inputs self;};
-  in {
-    # Desktop with NVIDIA
-    ritu = nixosSystem {
-      inherit specialArgs;
-      modules =
-        desktop
-        ++ [
-          ./ritu
-          "${mod}/services/gnome-services.nix"
-          "${home}"
+  specialArgs = {inherit inputs self;};
+in {
+  # Desktop with NVIDIA
+  ritu = nixosSystem {
+    inherit specialArgs;
+    modules =
+      desktop
+      ++ [
+        ./ritu
+        "${mod}/services/gnome-services.nix"
+        "${home}"
 
-          inputs.stylix.nixosModules.stylix
+        ({pkgs, ...}: {
+          networking.hostName = "ritu";
 
-          ({pkgs, ...}: {
-            networking.hostName = "ritu";
+          # NVIDIA
+          hardware.graphics.enable = true;
+          services.xserver.videoDrivers = ["nvidia"];
+          hardware.nvidia = {
+            modesetting.enable = true;
+            powerManagement.enable = false;
+            powerManagement.finegrained = false;
+            open = false;
+            nvidiaSettings = true;
+            package = pkgs.linuxPackages.nvidiaPackages.stable;
+          };
 
-            # NVIDIA
-            hardware.graphics.enable = true;
-            services.xserver.videoDrivers = ["nvidia"];
-            hardware.nvidia = {
-              modesetting.enable = true;
-              powerManagement.enable = false;
-              powerManagement.finegrained = false;
-              open = false;
-              nvidiaSettings = true;
-              package = pkgs.linuxPackages.nvidiaPackages.stable;
-            };
+          # Services
+          services.cloudflare-warp.enable = true;
+        })
+      ];
+  };
 
-            # Services
-            services.cloudflare-warp.enable = true;
-          })
-        ];
-    };
+  # Laptop with NVIDIA + AMD hybrid (ASUS ROG Zephyrus G14)
+  laptop = nixosSystem {
+    inherit specialArgs;
+    modules =
+      laptop
+      ++ [
+        ./laptop
+        "${mod}/services/gnome-services.nix"
+        "${home}"
 
-    # Laptop with NVIDIA + AMD hybrid (ASUS ROG Zephyrus G14)
-    laptop = nixosSystem {
-      inherit specialArgs;
-      modules =
-        laptop
-        ++ [
-          ./laptop
-          "${mod}/services/gnome-services.nix"
-          "${home}"
+        inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia
 
-          inputs.stylix.nixosModules.stylix
-          inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia
+        ({
+          pkgs,
+          lib,
+          ...
+        }: {
+          networking.hostName = "laptop";
 
-          ({pkgs, lib, ...}: {
-            networking.hostName = "laptop";
-
-            # NVIDIA Prime - use mkForce to override nixos-hardware
-            hardware.graphics.enable = true;
-            services.xserver.videoDrivers = ["nvidia"];
-            hardware.nvidia = {
-              modesetting.enable = true;
-              powerManagement.enable = true;
-              powerManagement.finegrained = true;
-              open = false;
-              nvidiaSettings = true;
-              package = pkgs.linuxPackages.nvidiaPackages.stable;
-              prime = {
-                offload = {
-                  enable = lib.mkForce true;
-                  enableOffloadCmd = lib.mkForce true;
-                };
-                amdgpuBusId = lib.mkForce "PCI:65:0:0";
-                nvidiaBusId = lib.mkForce "PCI:0:2:0";
+          # NVIDIA Prime - use mkForce to override nixos-hardware
+          hardware.graphics.enable = true;
+          services.xserver.videoDrivers = ["nvidia"];
+          hardware.nvidia = {
+            modesetting.enable = true;
+            powerManagement.enable = true;
+            powerManagement.finegrained = true;
+            open = false;
+            nvidiaSettings = true;
+            package = pkgs.linuxPackages.nvidiaPackages.stable;
+            prime = {
+              offload = {
+                enable = lib.mkForce true;
+                enableOffloadCmd = lib.mkForce true;
               };
+              amdgpuBusId = lib.mkForce "PCI:65:0:0";
+              nvidiaBusId = lib.mkForce "PCI:0:2:0";
             };
+          };
 
-            # ASUS services
-            services.asusd.enable = true;
-            services.asusd.enableUserService = true;
-            services.supergfxd.enable = true;
+          # ASUS services
+          services.asusd.enable = true;
+          services.asusd.enableUserService = true;
+          services.supergfxd.enable = true;
 
-            # Services
-            services.cloudflare-warp.enable = true;
-          })
-        ];
-    };
+          # Services
+          services.cloudflare-warp.enable = true;
+        })
+      ];
   };
 }

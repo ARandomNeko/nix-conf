@@ -21,7 +21,7 @@ Core Applications
 Code editing: Helix
 File explorer (TUI): Yazi
 Browser: Zen (flatpak, installed declaratively)
-Terminal: foot
+Terminal: ghostty 
 Shell: fish (with starship prompt)
 
 System Integration
