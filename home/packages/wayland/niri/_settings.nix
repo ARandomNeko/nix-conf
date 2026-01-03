@@ -22,6 +22,7 @@ in {
     ["quickshell" "-c" "noctalia"]
     ["xwayland-satellite"]
     ["swww-daemon"]
+    ["swww" "img" "/home/ritu/nix-conf/wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg"]
   ];
 
   input = {
