@@ -25,6 +25,23 @@
   # Faster boot by not waiting for network to be fully online
   systemd.services.NetworkManager-wait-online.enable = false;
 
+  # Make NetworkManager start asynchronously and don't block boot
+  systemd.services.NetworkManager = {
+    # Don't require network-online.target - start in parallel
+    wants = [ "dbus.service" ];
+    after = [ "dbus.service" ];
+    # Remove any blocking dependencies
+    before = [ ];
+    # Add timeout to prevent hanging
+    serviceConfig = {
+      TimeoutStartSec = "30s";
+      TimeoutStopSec = "10s";
+    };
+  };
+
+  # Ensure network-online.target doesn't block anything
+  systemd.network.wait-online.enable = false;
+
   environment.systemPackages = with pkgs; [ networkmanagerapplet ];
 }
 

@@ -14,7 +14,7 @@
       inherit username;
     })
     (import ./web-search.nix {inherit pkgs;})
-    (import ./rofi-launcher.nix {inherit pkgs;})
+
     (import ./screenshootin.nix {inherit pkgs;})
     (import ./check-inhibitors.nix {inherit pkgs;})
     (import ./niri-refresh-switch.nix {inherit pkgs;})

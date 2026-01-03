@@ -64,9 +64,9 @@ in {
       alsa.support32Bit = true;
       pulse.enable = true;
       wireplumber.enable = true;
-  };
-  rpcbind.enable = false;
-  nfs.server.enable = false;
+    };
+    rpcbind.enable = false;
+    nfs.server.enable = false;
 
   # Power management for laptops - auto-cpufreq
   auto-cpufreq = {
@@ -101,6 +101,16 @@ in {
     script = ''
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
+  };
+
+  # Make avahi start asynchronously and don't block boot
+  systemd.services.avahi-daemon = {
+    # Don't wait for network to be fully online
+    wants = [ "dbus.service" ];
+    after = [ "dbus.service" ];
+    serviceConfig = {
+      TimeoutStartSec = "15s";
+    };
   };
 
   # Security / Polkit
@@ -140,6 +150,16 @@ in {
       Type = "dbus";
       BusName = "org.freedesktop.FileManager1";
       ExecStart = "${pkgs.xfce.thunar}/bin/thunar --daemon";
+    };
+  };
+
+  # Ensure graphical session doesn't wait for network services
+  # This allows the desktop to start immediately while network services start in background
+  systemd.user.targets.graphical-session = {
+    # Remove any network dependencies that might block
+    unitConfig = {
+      # Don't require network-online - start immediately
+      DefaultDependencies = true;
     };
   };
 }

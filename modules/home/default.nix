@@ -9,19 +9,19 @@
     ./direnv.nix
     ./emoji.nix
     ./fastfetch
+    ./fish.nix      # Kaku's fish config
     ./gh.nix
     ./ghostty.nix
     ./git.nix
     ./gtk.nix
-    ./niri.nix
-    ./dankmaterialshell.nix
+    ./niri.nix      # Kaku's niri + quickshell
     ./kitty.nix
     ./nvf.nix
     ./helix.nix
     ./qt.nix
     ./scripts
     ./starship.nix
-    ./stylix.nix
+
     ./virtmanager.nix
     ./xdg.nix
     ./yazi.nix

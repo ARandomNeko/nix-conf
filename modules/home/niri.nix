@@ -2,10 +2,25 @@
 let
   inherit (import ../../hosts/${host}/variables.nix) 
     extraMonitorSettings keyboardLayout;
+    
+  # Kaku's quickshell wrapper script
+  qs = "${pkgs.quickshell}/bin/qs";
 in {
   home.packages = with pkgs; [
     niri
     xwayland-satellite
+    quickshell
+    # Kaku/QuickShell dependencies
+    accountsservice
+    brightnessctl
+    cava
+    cliphist
+    ddcutil
+    material-symbols
+    swww
+    wl-clipboard
+    wget
+    matugen
   ];
   
   # Niri configuration
@@ -20,7 +35,6 @@ in {
         
         touchpad {
             tap
-            // tap-drag is disabled by default (omitted)
             dwt
             dwtp
             natural-scroll
@@ -28,41 +42,65 @@ in {
         }
         
         mouse {
-            // natural-scroll disabled - inverted/traditional scroll direction
         }
+        
+        focus-follows-mouse max-scroll-amount="90%"
+        warp-mouse-to-focus
+        workspace-auto-back-and-forth
     }
     
     layout {
-        gaps 8
+        gaps 6
         center-focused-column "on-overflow"
+        always-center-single-column
         
         preset-column-widths {
-            proportion 0.33333
+            proportion 0.25
             proportion 0.5
-            proportion 0.66667
+            proportion 0.75
+            proportion 1.0
         }
         
         default-column-width { proportion 0.5; }
+        
+        focus-ring {
+            off
+        }
+        
+        border {
+            width 2
+        }
+        
+        shadow {
+            off
+        }
+        
+        tab-indicator {
+            hide-when-single-tab
+            place-within-column
+            position "left"
+            corner-radius 20.0
+            gap -12.0
+            gaps-between-tabs 10.0
+            width 4.0
+        }
     }
     
     ${extraMonitorSettings}
     
     prefer-no-csd
     
-    screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+    screenshot-path "~/Pictures/Screenshots/Screenshot-from-%Y-%m-%d-%H-%M-%S.png"
     
     hotkey-overlay {
         skip-at-startup
     }
     
-    // XWayland support for X11 apps (Steam, etc.)
+    // Startup applications
     spawn-at-startup "xwayland-satellite"
-    
-    // DMS autostart - use the Go tool to launch the shell and manage the session
-    spawn-at-startup "dms" "run"
-    
-    // Optional: Enable automatic refresh rate switching for battery savings
-    // Switches to 60Hz on battery, 120Hz on AC power
+    spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+    spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+    spawn-at-startup "qs" "-c" "noctalia"
     spawn-at-startup "niri-refresh-switch"
     
     environment {
@@ -72,16 +110,69 @@ in {
         ELECTRON_OZONE_PLATFORM_HINT "auto"
         NIXOS_OZONE_WL "1"
         GTK_USE_PORTAL "1"
-        // DISPLAY is set automatically by Niri's xwayland block
+        QT_QPA_PLATFORMTHEME "qt6ct"
+        WLR_RENDERER "vulkan"
+        WLR_NO_HARDWARE_CURSORS "1"
+    }
+    
+    cursor {
+        xcursor-size 20
+        xcursor-theme "Bibata-Original-Ice"
+    }
+    
+    overview {
+        backdrop-color "transparent"
+    }
+    
+    gestures {
+        hot-corners
     }
     
     binds {
+        // ===== Media/Volume/Brightness (Kaku quickshell) =====
+        XF86AudioPlay allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "media" "playPause"; }
+        XF86AudioStop allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "media" "stop"; }
+        XF86AudioNext allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "media" "next"; }
+        XF86AudioPrev allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "media" "previous"; }
+        XF86AudioMute allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "volume" "muteOutput"; }
+        XF86AudioMicMute allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "volume" "muteInput"; }
+        XF86AudioRaiseVolume allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "volume" "increase"; }
+        XF86AudioLowerVolume allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "volume" "decrease"; }
+        XF86MonBrightnessUp allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "brightness" "increase"; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn "qs" "-c" "noctalia" "ipc" "call" "brightness" "decrease"; }
+        
+        // ===== Launcher & Utilities (Kaku quickshell) =====
+        Ctrl+Alt+L { spawn "qs" "-c" "noctalia" "ipc" "call" "lockScreen" "lock"; }
+        Mod+V { spawn "qs" "-c" "noctalia" "ipc" "call" "launcher" "clipboard"; }
+        Mod+E { spawn "qs" "-c" "noctalia" "ipc" "call" "launcher" "emoji"; }
+        Mod+U { spawn "qs" "-c" "noctalia" "ipc" "call" "settings" "toggle"; }
+        Mod+D { spawn "qs" "-c" "noctalia" "ipc" "call" "launcher" "toggle"; }
+        Mod+Space { spawn "qs" "-c" "noctalia" "ipc" "call" "launcher" "toggle"; }
+        Alt+Space { spawn "qs" "-c" "noctalia" "ipc" "call" "launcher" "toggle"; }
+        
         Mod+Shift+Slash { show-hotkey-overlay; }
         
+        // Terminal
         Mod+T { spawn "ghostty"; }
-        Mod+S { spawn "screenshot-area"; }
-        Mod+Q { close-window; }
+        Mod+Return { spawn "ghostty"; }
         
+        // Screenshots
+        Mod+S { screenshot; }
+        Print { screenshot-screen; }
+        Ctrl+Print { screenshot-screen; }
+        Alt+Print { screenshot-window; }
+        Mod+Shift+S { screenshot; }
+        
+        // Window management
+        Mod+Q { close-window; }
+        Mod+R { switch-preset-column-width; }
+        Mod+F { maximize-column; }
+        Mod+Shift+F { toggle-window-floating; }
+        Mod+C { center-column; }
+        Mod+W { toggle-column-tabbed-display; }
+        Mod+Tab { switch-focus-between-floating-and-tiling; }
+        
+        // Navigation
         Mod+Left  { focus-column-left; }
         Mod+Down  { focus-window-down; }
         Mod+Up    { focus-window-up; }
@@ -91,6 +182,7 @@ in {
         Mod+K     { focus-window-up; }
         Mod+L     { focus-column-right; }
         
+        // Move windows
         Mod+Ctrl+Left  { move-column-left; }
         Mod+Ctrl+Down  { move-window-down; }
         Mod+Ctrl+Up    { move-window-up; }
@@ -105,6 +197,7 @@ in {
         Mod+Ctrl+Home { move-column-to-first; }
         Mod+Ctrl+End  { move-column-to-last; }
         
+        // Monitor navigation
         Mod+Shift+Left  { focus-monitor-left; }
         Mod+Shift+Down  { focus-monitor-down; }
         Mod+Shift+Up    { focus-monitor-up; }
@@ -123,14 +216,11 @@ in {
         Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
         Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
         
+        // Workspace navigation
         Mod+Page_Down      { focus-workspace-down; }
         Mod+Page_Up        { focus-workspace-up; }
-        Mod+U              { focus-workspace-down; }
-        Mod+I              { focus-workspace-up; }
         Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
         Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-        Mod+Ctrl+U         { move-column-to-workspace-down; }
-        Mod+Ctrl+I         { move-column-to-workspace-up; }
         
         Mod+1 { focus-workspace 1; }
         Mod+2 { focus-workspace 2; }
@@ -151,38 +241,41 @@ in {
         Mod+Ctrl+8 { move-column-to-workspace 8; }
         Mod+Ctrl+9 { move-column-to-workspace 9; }
         
+        // Column management
         Mod+Comma  { consume-window-into-column; }
         Mod+Period { expel-window-from-column; }
-        
         Mod+BracketLeft  { consume-or-expel-window-left; }
         Mod+BracketRight { consume-or-expel-window-right; }
         
-        Mod+R { switch-preset-column-width; }
-        Mod+F { maximize-column; }
-        Mod+Shift+F { fullscreen-window; }
-        Mod+C { center-column; }
-        
+        // Sizing
         Mod+Minus { set-column-width "-10%"; }
         Mod+Equal { set-column-width "+10%"; }
-        
         Mod+Shift+Minus { set-window-height "-10%"; }
         Mod+Shift+Equal { set-window-height "+10%"; }
         
-        Print { screenshot; }
-        Ctrl+Print { screenshot-screen; }
-        Alt+Print { screenshot-window; }
-        
+        // System
         Mod+Shift+E { quit; }
-        
         Mod+Shift+P { power-off-monitors; }
-        
         Mod+Shift+Ctrl+T { toggle-debug-tint; }
     }
 
-    // Include DMS-managed configurations at the END to allow overrides
-    include "/home/${username}/.config/niri/dms/colors.kdl";
-    include "/home/${username}/.config/niri/dms/binds.kdl";
-    include "/home/${username}/.config/niri/dms/wpblur.kdl";
-    include "/home/${username}/.config/niri/dms/alttab.kdl";
+    // Include Kaku's noctalia colors if they exist
+    // include "/home/${username}/.config/niri/noctalia.kdl"
+  '';
+  
+  # Clone noctalia quickshell config during activation
+  home.activation.cloneNoctalia = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    NOCTALIA_DIR="$HOME/.config/noctalia"
+    
+    if [ ! -d "$NOCTALIA_DIR" ]; then
+      echo "Cloning noctalia quickshell config..."
+      ${pkgs.git}/bin/git clone https://github.com/linuxmobile/kaku.git /tmp/kaku-clone 2>/dev/null || true
+      if [ -d "/tmp/kaku-clone" ]; then
+        # Look for quickshell config in kaku repo - adjust path as needed
+        mkdir -p "$NOCTALIA_DIR"
+        echo "Noctalia directory created at $NOCTALIA_DIR"
+        rm -rf /tmp/kaku-clone
+      fi
+    fi
   '';
 }

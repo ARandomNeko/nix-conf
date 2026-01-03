@@ -1,10 +1,12 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }: {
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    # Use zen kernel (override kaku's default)
+    kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
     kernelModules = [ "pcspkr" ];
     kernel.sysctl = {"vm.max_map_count" = 2147483642;};
     loader.systemd-boot.enable = true;
