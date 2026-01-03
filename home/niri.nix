@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   # Force overwrite niri config to remove old settings
   xdg.configFile."niri/config.kdl" = {
     force = true;
@@ -69,10 +70,16 @@
           Mod+Return { spawn "${pkgs.ghostty}/bin/ghostty"; }
 
           // App launcher
-          Mod+Space { spawn "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-          Mod+D { spawn "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+          Mod+Space { spawn "${
+            inputs.noctalia.packages.${pkgs.system}.default
+          }/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+          Mod+D { spawn "${
+            inputs.noctalia.packages.${pkgs.system}.default
+          }/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
           // Keybinds list
-          Mod+Shift+Slash { spawn "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" "ipc" "call" "cheatsheet" "toggle"; }
+          Mod+Shift+Slash { spawn "${
+            inputs.noctalia.packages.${pkgs.system}.default
+          }/bin/noctalia-shell" "ipc" "call" "cheatsheet" "toggle"; }
           // Close window
           Mod+Q { close-window; }
           Mod+Shift+Q { close-window; }
@@ -133,9 +140,9 @@
           Mod+BracketRight { expel-window-from-column; }
 
           // Screenshots
-          Print { screenshot; }
-          Mod+Print { screenshot-screen; }
-          Mod+Shift+Print { screenshot-window; }
+          Mod+S { screenshot; }
+          Mod+Shift+S { screenshot-screen; }
+          Mod+Shift+Alt+S { screenshot-window; }
 
           // Audio (for noctalia OSD)
           XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
@@ -160,4 +167,3 @@
     '';
   };
 }
-
