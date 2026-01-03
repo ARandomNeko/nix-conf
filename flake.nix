@@ -34,34 +34,34 @@
     };
 
   inputs = {
-    systems.url = "github:nix-systems/default-linux";
-    flake-compat.url = "github:edolstra/flake-compat";
+    systems.url = "git+https://github.com/nix-systems/default-linux";
+    flake-compat.url = "git+https://github.com/edolstra/flake-compat";
 
     flake-utils = {
-      url = "github:numtide/flake-utils";
+      url = "git+https://github.com/numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
 
     flake-parts = {
-      url = "github:hercules-ci/flake-parts";
+      url = "git+https://github.com/hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
 
-    import-tree.url = "github:vic/import-tree";
-    mynixpkgs.url = "github:linuxmobile/mynixpkgs";
+    import-tree.url = "git+https://github.com/vic/import-tree";
+    mynixpkgs.url = "git+https://github.com/linuxmobile/mynixpkgs";
 
     nix-index-db = {
-      url = "github:Mic92/nix-index-database";
+      url = "git+https://github.com/Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    stylix.url = "github:danth/stylix";
-    quickshell.url = "github:outfoxxed/quickshell";
+    nixos-hardware.url = "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
+    stylix.url = "git+https://github.com/danth/stylix";
+    quickshell.url = "git+https://github.com/outfoxxed/quickshell";
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "git+https://github.com/noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
