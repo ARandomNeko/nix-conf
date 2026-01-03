@@ -36,6 +36,15 @@
 
       trusted-users = ["root" "@wheel"];
       accept-flake-config = false;
+
+      # Network and GitHub API timeout handling
+      connect-timeout = 60;
+      # Increase timeout for stalled downloads (helps with GitHub API timeouts)
+      stalled-download-timeout = 300;
+      # Increase connections for parallel downloads
+      http-connections = 50;
+      # Retry failed downloads with longer delays
+      retry-attempts = 10;
     };
   };
 }
