@@ -29,17 +29,23 @@ in {
     // Niri configuration file
     // Generated from Nix configuration
 
-    // Monitor configuration
+    // Monitor configuration (Niri uses output blocks, not single-line monitor settings)
     ${if extraMonitorSettings != "" then 
       let
-        # Parse the monitor settings: "eDP-1 2880x1800@60 1.2" -> monitor "eDP-1" 2880x1800@60 1.2;
-        # Split by space and extract monitor name (first part) and rest (resolution/scale)
+        # Parse the monitor settings: "eDP-1 2880x1800@60 1.2" -> output "eDP-1" { mode "2880x1800@60"; scale 1.2; }
+        # Split by space and extract monitor name, resolution, and scale
         splitResult = builtins.split " " extraMonitorSettings;
         # builtins.split returns [before, match, after, match, ...] so we need to extract strings
-        monitorName = builtins.elemAt (builtins.filter (x: builtins.isString x && x != "") splitResult) 0;
-        # Get everything after first space
-        afterFirstSpace = builtins.substring (builtins.stringLength monitorName + 1) (builtins.stringLength extraMonitorSettings) extraMonitorSettings;
-      in "monitor \"${monitorName}\" ${afterFirstSpace};"
+        parts = builtins.filter (x: builtins.isString x && x != "") splitResult;
+        monitorName = builtins.elemAt parts 0;
+        resolution = builtins.elemAt parts 1;
+        scale = if builtins.length parts > 2 then builtins.elemAt parts 2 else "1.0";
+      in ''
+        output "${monitorName}" {
+            mode "${resolution}"
+            scale ${scale}
+        }
+      ''
     else "// Using default monitor settings"}
 
     // Input configuration
