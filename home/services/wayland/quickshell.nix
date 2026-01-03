@@ -50,8 +50,6 @@
       done
     '';
 in {
-  xdg.configFile."quickshell/noctalia".source = ./quickshell/noctalia;
-
   users.users.ritu.packages =
     [
       quickshellWrapped

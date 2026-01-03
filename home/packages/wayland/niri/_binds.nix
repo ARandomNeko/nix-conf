@@ -2,53 +2,53 @@
   # ===== Media/Volume/Brightness (QuickShell) =====
   "XF86AudioPlay" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "media" "playPause"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "media" "playPause"];
   };
   "XF86AudioStop" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "media" "stop"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "media" "stop"];
   };
   "XF86AudioNext" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "media" "next"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "media" "next"];
   };
   "XF86AudioPrev" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "media" "previous"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "media" "previous"];
   };
   "XF86AudioMute" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "volume" "muteOutput"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "volume" "muteOutput"];
   };
   "XF86AudioMicMute" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "volume" "muteInput"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "volume" "muteInput"];
   };
   "XF86AudioRaiseVolume" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "volume" "increase"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "volume" "increase"];
   };
   "XF86AudioLowerVolume" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "volume" "decrease"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "volume" "decrease"];
   };
   "XF86MonBrightnessUp" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "brightness" "increase"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "brightness" "increase"];
   };
   "XF86MonBrightnessDown" = {
     _props.allow-when-locked = true;
-    spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "brightness" "decrease"];
+    spawn._args = ["noctalia-shell" "ipc" "call" "brightness" "decrease"];
   };
 
   # ===== Launcher & Utilities (QuickShell) =====
-  "Ctrl+Alt+L".spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "lockScreen" "lock"];
-  "Mod+V".spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "launcher" "clipboard"];
-  "Mod+E".spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "launcher" "emoji"];
-  "Mod+U".spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "settings" "toggle"];
-  "Alt+Space".spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "launcher" "toggle"];
-  "Mod+D".spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "launcher" "toggle"];
-  "Mod+Space".spawn._args = ["quickshell" "-c" "noctalia" "ipc" "call" "launcher" "toggle"];
+  "Ctrl+Alt+L".spawn._args = ["noctalia-shell" "ipc" "call" "lockScreen" "lock"];
+  "Mod+V".spawn._args = ["noctalia-shell" "ipc" "call" "launcher" "clipboard"];
+  "Mod+E".spawn._args = ["noctalia-shell" "ipc" "call" "launcher" "emoji"];
+  "Mod+U".spawn._args = ["noctalia-shell" "ipc" "call" "settings" "toggle"];
+  "Alt+Space".spawn._args = ["noctalia-shell" "ipc" "call" "launcher" "toggle"];
+  "Mod+D".spawn._args = ["noctalia-shell" "ipc" "call" "launcher" "toggle"];
+  "Mod+Space".spawn._args = ["noctalia-shell" "ipc" "call" "launcher" "toggle"];
 
   # ===== Terminal (ghostty - user preference) =====
   "Mod+Return".spawn._args = ["${pkgs.ghostty}/bin/ghostty"];

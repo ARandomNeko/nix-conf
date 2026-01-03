@@ -19,7 +19,7 @@ in {
   spawn-at-startup = [
     ["wl-paste" "--watch" "cliphist" "store"]
     ["wl-paste" "--type" "text" "--watch" "cliphist" "store"]
-    ["quickshell" "-c" "noctalia"]
+    ["noctalia-shell"]
     ["xwayland-satellite"]
     ["swww-daemon"]
     ["swww" "img" "/home/ritu/nix-conf/wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg"]
