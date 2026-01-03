@@ -24,7 +24,7 @@ in {
     };
     greetd = {
       enable = true;
-      vt = 3;
+      # VT is now fixed to VT1, no longer configurable
       settings = {
         default_session = {
           user = username;

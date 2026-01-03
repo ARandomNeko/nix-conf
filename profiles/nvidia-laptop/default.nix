@@ -13,21 +13,21 @@ in {
       enable = true;
       enableUserService = true;
     };
-    tlp = {
-      enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "ondemand";
-
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 20;
-      };
-    };
+    # TLP disabled - using power-profiles-daemon instead (required for Noctalia)
+    # power-profiles-daemon is more modern and integrates better with Wayland compositors
+    # tlp = {
+    #   enable = true;
+    #   settings = {
+    #     CPU_SCALING_GOVERNOR_ON_AC = "performance";
+    #     CPU_SCALING_GOVERNOR_ON_BAT = "ondemand";
+    #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    #     CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+    #     CPU_MIN_PERF_ON_AC = 0;
+    #     CPU_MAX_PERF_ON_AC = 100;
+    #     CPU_MIN_PERF_ON_BAT = 0;
+    #     CPU_MAX_PERF_ON_BAT = 20;
+    #   };
+    # };
   };
   # Enable GPU Drivers
   drivers.amdgpu.enable = false;
