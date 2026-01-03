@@ -1,26 +1,36 @@
 {
   description = "ritu's NixOS configuration based on Kaku";
 
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux"];
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
 
-      imports = [./hosts ./pkgs];
+      imports = [
+        ./hosts
+        ./pkgs
+      ];
 
-      perSystem = {
-        config,
-        pkgs,
-        ...
-      }: {
-        devShells = {
-          default = pkgs.mkShell {
-            packages = [pkgs.alejandra pkgs.git config.packages.repl];
-            name = "nix-conf";
-            DIRENV_LOG_FORMAT = "";
+      perSystem =
+        {
+          config,
+          pkgs,
+          ...
+        }:
+        {
+          devShells = {
+            default = pkgs.mkShell {
+              packages = [
+                pkgs.alejandra
+                pkgs.git
+                config.packages.repl
+              ];
+              name = "nix-conf";
+              DIRENV_LOG_FORMAT = "";
+            };
           };
+          formatter = pkgs.alejandra;
         };
-        formatter = pkgs.alejandra;
-      };
     };
 
   inputs = {
@@ -52,7 +62,7 @@
     stylix.url = "github:danth/stylix";
     quickshell.url = "github:outfoxxed/quickshell";
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "git+https://github.com/noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
