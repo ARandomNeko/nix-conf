@@ -63,8 +63,9 @@
           Mod+T { spawn "${pkgs.ghostty}/bin/ghostty"; }
           Mod+Return { spawn "${pkgs.ghostty}/bin/ghostty"; }
 
-          // App launcher - handled by noctalia keybinds (Mod+D)
-
+          // App launcher
+          Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+          Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
           // Close window
           Mod+Q { close-window; }
           Mod+Shift+Q { close-window; }
