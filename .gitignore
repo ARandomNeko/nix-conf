@@ -3,4 +3,4 @@ result-*
 .direnv/
 *.backup
 *.backup.*
-
+nohup.out

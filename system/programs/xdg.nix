@@ -20,8 +20,6 @@
       pkgs.xdg-desktop-portal-gnome
     ];
   };
-
-  environment.sessionVariables = {
-    NIX_XDG_DESKTOP_PORTAL_DIR = lib.mkForce null;
-  };
 }
+
+

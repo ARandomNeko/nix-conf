@@ -1,30 +1,55 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
-  services = {
-    printing = {
-      enable = true;
-      drivers = [pkgs.hplip];
-    };
+{pkgs, inputs, ...}: {
+  imports = [
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+  ];
 
-    irqbalance.enable = true;
-    thermald.enable = true;
-    speechd.enable = lib.mkForce false;
+  # Required for noctalia features
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true;
+
+  # Power management (required for noctalia)
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
+
+  # Polkit authentication agent
+  systemd.user.services.polkit-kde-agent = {
+    description = "Polkit KDE Agent";
+    wantedBy = ["graphical-session.target"];
+    wants = ["graphical-session.target"];
+    after = ["graphical-session.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
   };
 
-  # Use in place of hypridle's before_sleep_cmd, since systemd does not wait for
-  # it to complete
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "schedutil";
-    powerDownCommands = ''
-      # Lock all sessions
-      loginctl lock-sessions
+  # D-Bus
+  services.dbus.enable = true;
 
-      # Wait for lockscreen(s) to be up
-      sleep 1
-    '';
+  # Printing
+  services.printing.enable = true;
+
+  # Firmware updates
+  services.fwupd.enable = true;
+
+  # Flatpak
+  services.flatpak = {
+    enable = true;
+    packages = [
+      "app.zen_browser.zen"
+    ];
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
   };
 }
+

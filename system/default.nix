@@ -1,28 +1,65 @@
-let
+# System module lists for different host types
+{
+  # Desktop configuration (NVIDIA GPU)
   desktop = [
+    # Core
+    ./core
     ./core/boot.nix
-    ./core/default.nix
+    ./core/security.nix
 
+    # Nix settings
+    ./nix
+
+    # Hardware
     ./hardware/graphics.nix
-    ./hardware/fwupd.nix
 
-    ./network/default.nix
+    # Network
+    ./network
 
-    ./programs
+    # Desktop environment
+    ./desktop/niri.nix
+    ./desktop/audio.nix
 
+    # Programs
+    ./programs/xdg.nix
+    ./programs/qt.nix
+
+    # Services
     ./services
-    ./services/greetd.nix
-    ./services/pipewire.nix
-    ./services/xdg-portal-fix.nix
-    ./services/flatpak.nix
+
+    # Packages
+    ./packages.nix
   ];
 
-  laptop =
-    desktop
-    ++ [
-      ./hardware/bluetooth.nix
-      ./services/power.nix
-    ];
-in {
-  inherit desktop laptop;
+  # Laptop configuration (hybrid graphics, power management)
+  laptop = [
+    # Core
+    ./core
+    ./core/boot.nix
+    ./core/security.nix
+
+    # Nix settings
+    ./nix
+
+    # Hardware
+    ./hardware/graphics.nix
+
+    # Network
+    ./network
+
+    # Desktop environment
+    ./desktop/niri.nix
+    ./desktop/audio.nix
+
+    # Programs
+    ./programs/xdg.nix
+    ./programs/qt.nix
+
+    # Services
+    ./services
+    ./services/laptop.nix
+
+    # Packages
+    ./packages.nix
+  ];
 }

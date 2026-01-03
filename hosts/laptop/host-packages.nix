@@ -1,14 +1,19 @@
 {pkgs, ...}: {
+  # Laptop-specific packages
   environment.systemPackages = with pkgs; [
-    audacity
-    discord
-    nodejs
-    obs-studio
+    # ASUS tools
     asusctl
     supergfxctl
+
+    # Power management
     acpi
-    amdctl
-    undervolt
+    powertop
+
+    # Media (laptop use)
+    audacity
+    obs-studio
+
+    # Dev tools
+    nodejs
   ];
 }
-

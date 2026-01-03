@@ -1,31 +1,36 @@
 {pkgs, ...}: {
   networking = {
-    nameservers = ["1.1.1.1" "1.0.0.1"];
+    # Use Cloudflare DNS
+    nameservers = ["1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001"];
 
+    # Modern firewall
     nftables.enable = true;
 
     networkmanager = {
       enable = true;
-      dns = "none";
+      dns = "default"; # Use nameservers above
       wifi.powersave = true;
       plugins = with pkgs; [
         networkmanager-openvpn
       ];
     };
-
-    useDHCP = false;
-    dhcpcd.enable = false;
   };
 
   services = {
     openssh = {
       enable = true;
-      settings.UseDns = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
     };
   };
 
-  # Don't wait for network startup
-  systemd.services.NetworkManager-wait-online.serviceConfig.ExecStart = ["" "${pkgs.networkmanager}/bin/nm-online -q"];
-  # Editable /etc/hosts for htb machines
-  environment.etc.hosts.enable = false;
+  # Don't wait for network startup (faster boot)
+  systemd.services.NetworkManager-wait-online.serviceConfig.ExecStart = [
+    ""
+    "${pkgs.networkmanager}/bin/nm-online -q"
+  ];
 }
+
+

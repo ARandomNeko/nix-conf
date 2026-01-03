@@ -2,8 +2,7 @@
   self,
   inputs,
   ...
-}: {
-  flake.nixosConfigurations = let
+}: let
     inherit (inputs.nixpkgs.lib) nixosSystem;
     mod = "${self}/system";
     home = "${self}/home";
@@ -23,9 +22,7 @@
           "${mod}/services/gnome-services.nix"
           "${home}"
 
-          inputs.stylix.nixosModules.stylix
-
-          ({pkgs, ...}: {
+        ({pkgs, config, ...}: {
             networking.hostName = "ritu";
 
             # NVIDIA
@@ -37,7 +34,8 @@
               powerManagement.finegrained = false;
               open = false;
               nvidiaSettings = true;
-              package = pkgs.linuxPackages.nvidiaPackages.stable;
+            # Use NVIDIA drivers matching the kernel version
+            package = config.boot.kernelPackages.nvidiaPackages.stable;
             };
 
             # Services
@@ -56,10 +54,14 @@
           "${mod}/services/gnome-services.nix"
           "${home}"
 
-          inputs.stylix.nixosModules.stylix
           inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia
 
-          ({pkgs, lib, ...}: {
+        ({
+          pkgs,
+          lib,
+          config,
+          ...
+        }: {
             networking.hostName = "laptop";
 
             # NVIDIA Prime - use mkForce to override nixos-hardware
@@ -71,7 +73,8 @@
               powerManagement.finegrained = true;
               open = false;
               nvidiaSettings = true;
-              package = pkgs.linuxPackages.nvidiaPackages.stable;
+            # Use NVIDIA drivers matching the kernel version
+            package = config.boot.kernelPackages.nvidiaPackages.stable;
               prime = {
                 offload = {
                   enable = lib.mkForce true;
@@ -91,6 +94,5 @@
             services.cloudflare-warp.enable = true;
           })
         ];
-    };
   };
 }

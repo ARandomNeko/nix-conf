@@ -7,21 +7,19 @@
 }: {
   imports = [
     ./nh.nix
-    ./nixpkgs.nix
+    ./substituters.nix
   ];
 
-  # we need git for flakes
+  # Git is required for flakes
   environment.systemPackages = [pkgs.git];
 
   nix = let
     flakeInputs = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
   in {
-    package = pkgs.lix;
-
-    # pin the registry to avoid downloading and evaling a new nixpkgs version every time
+    # Pin the registry to avoid downloading and evaling a new nixpkgs version every time
     registry = lib.mapAttrs (_: v: {flake = v;}) flakeInputs;
 
-    # set the path for channels compat
+    # Set the path for channels compat
     nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
     settings = {
@@ -30,21 +28,16 @@
       experimental-features = ["nix-command" "flakes"];
       flake-registry = "/etc/nix/registry.json";
 
-      # for direnv GC roots
+      # For direnv GC roots
       keep-derivations = true;
       keep-outputs = true;
 
       trusted-users = ["root" "@wheel"];
-      accept-flake-config = false;
-
-      # Network and GitHub API timeout handling
-      connect-timeout = 60;
-      # Increase timeout for stalled downloads (helps with GitHub API timeouts)
-      stalled-download-timeout = 300;
-      # Increase connections for parallel downloads
-      http-connections = 50;
-      # Retry failed downloads with longer delays
-      retry-attempts = 10;
     };
+
+    # Garbage collection is handled by nh.clean in nh.nix
   };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 }

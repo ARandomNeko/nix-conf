@@ -1,18 +1,37 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
-    (inputs.import-tree ./editors)
-    (inputs.import-tree ./packages)
-    (inputs.import-tree ./services)
-    ./terminal
-    ./xdg-compat.nix
-    inputs.nix-index-db.nixosModules.nix-index
+    inputs.home-manager.nixosModules.home-manager
   ];
 
-  programs = {
-    nix-index = {
-      enable = true;
-      enableFishIntegration = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";  # Backup existing files instead of failing
+    extraSpecialArgs = {inherit inputs;};
+
+    users.ritu = {
+      imports = [
+        inputs.noctalia.homeModules.default
+        ./programs
+        ./shell
+        ./noctalia.nix
+        ./niri.nix
+      ];
+
+      home = {
+        username = "ritu";
+        homeDirectory = "/home/ritu";
+        stateVersion = "24.11";
+      };
+
+      # Let home-manager manage itself
+      programs.home-manager.enable = true;
     };
-    nix-index-database.comma.enable = true;
   };
 }
+
+

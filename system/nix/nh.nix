@@ -1,13 +1,15 @@
-_: {
-  # nh default flake
-  environment.variables.NH_FLAKE = "/home/ritu/Dev/nixland";
+{
+  # nh default flake path
+  environment.variables.NH_FLAKE = "/home/ritu/nix-conf";
 
   programs.nh = {
     enable = true;
-    # weekly cleanup
+    # Weekly cleanup
     clean = {
       enable = true;
       extraArgs = "--keep-since 7d";
     };
   };
 }
+
+
