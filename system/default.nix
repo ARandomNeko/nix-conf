@@ -14,6 +14,7 @@ let
     ./services/greetd.nix
     ./services/pipewire.nix
     ./services/xdg-portal-fix.nix
+    ./services/flatpak.nix
   ];
 
   laptop =
