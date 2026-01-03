@@ -15,7 +15,7 @@
 
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [
+      plugins = with pkgs; [
         thunar-archive-plugin
         thunar-volman
         thunar-media-tags-plugin  # Better media support for drag and drop
@@ -41,7 +41,7 @@
     file-roller # Archive Manager
     gedit # Simple Graphical Text Editor
     # gimp # Great Photo Editor
-    greetd.tuigreet # The Login Manager (Sometimes Referred to As Display Manager)
+    tuigreet # The Login Manager (Sometimes Referred to As Display Manager)
     hyprpicker
     imv
     inxi
@@ -86,7 +86,6 @@
     cider
     libreoffice-qt
     lutris
-    olive-editor
     mgba
     qbittorrent
     wineWowPackages.waylandFull
@@ -115,7 +114,7 @@
     # Haskell toolchain      
     stack
     ghc
-    haskell.compiler.ghc982
+    haskell.compiler.ghc984
     cabal-install
 
     # C toolchain
@@ -126,7 +125,7 @@
     gcc
 
     # Java
-    zulu23
+    zulu
     eclipses.eclipse-java
 
     # Python toolchain

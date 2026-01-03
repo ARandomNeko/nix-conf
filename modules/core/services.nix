@@ -110,7 +110,7 @@ in {
     serviceConfig = {
       Type = "dbus";
       BusName = "org.freedesktop.FileManager1";
-      ExecStart = "${pkgs.xfce.thunar}/bin/thunar --daemon";
+      ExecStart = "${pkgs.thunar}/bin/thunar --daemon";
     };
   };
 }

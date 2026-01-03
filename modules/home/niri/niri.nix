@@ -30,7 +30,17 @@ in {
     // Generated from Nix configuration
 
     // Monitor configuration
-    ${if extraMonitorSettings != "" then "monitor " + extraMonitorSettings + ";" else "// Using default monitor settings"}
+    ${if extraMonitorSettings != "" then 
+      let
+        # Parse the monitor settings: "eDP-1 2880x1800@60 1.2" -> monitor "eDP-1" 2880x1800@60 1.2;
+        # Split by space and extract monitor name (first part) and rest (resolution/scale)
+        splitResult = builtins.split " " extraMonitorSettings;
+        # builtins.split returns [before, match, after, match, ...] so we need to extract strings
+        monitorName = builtins.elemAt (builtins.filter (x: builtins.isString x && x != "") splitResult) 0;
+        # Get everything after first space
+        afterFirstSpace = builtins.substring (builtins.stringLength monitorName + 1) (builtins.stringLength extraMonitorSettings) extraMonitorSettings;
+      in "monitor \"${monitorName}\" ${afterFirstSpace};"
+    else "// Using default monitor settings"}
 
     // Input configuration
     input {
