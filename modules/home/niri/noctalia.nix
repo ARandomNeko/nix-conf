@@ -16,7 +16,7 @@
     # Basic settings
     settings = {
       general = {
-        avatarImage = "/home/${username}/.config/face.jpg";
+        # avatarImage removed - not needed
         radiusRatio = 0.2;
       };
       

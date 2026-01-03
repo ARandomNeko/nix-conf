@@ -105,6 +105,9 @@
     keymapviz
     opencode    
     claude-code
+    gemini-cli-bin
+    code-cursor-fhs
+    antigravity-fhs
                    
     # Rust toolchain
     rustc         # Rust compiler
