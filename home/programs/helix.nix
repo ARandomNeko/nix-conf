@@ -7,9 +7,16 @@
     # LSP servers
     nil # Nix
     rust-analyzer # Rust
+    rustc
+    cargo
+    clippy
     haskell-language-server # Haskell
+    ghc
+    cabal-install
     tailwindcss-language-server # Tailwind
     typescript-language-server # JS/TS
+    nodePackages.typescript
+    nodejs
     pyright # Python
     svelte-language-server # Svelte
     vscode-langservers-extracted # HTML, CSS, JSON, ESLint
