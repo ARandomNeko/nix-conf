@@ -7,9 +7,6 @@
     lazygit
     zed-editor
     wl-clipboard
-    (writeShellScriptBin "hx" ''
-      ${pkgs.helix}/bin/hx "$@"
-    '')
   ];
 
   programs.fish = {
