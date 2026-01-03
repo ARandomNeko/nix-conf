@@ -4,35 +4,27 @@
   ...
 }: {
   users.users.ritu.packages = with pkgs; [
-    # ===== From Kaku =====
-    # messaging
+    # ===== Kaku defaults =====
     telegram-desktop
     vesktop
-
-    # misc
     pciutils
     nixos-icons
     ffmpegthumbnailer
     imagemagick
     bun
-
     fastfetch
-
-    # gnome
     dconf-editor
     file-roller
     gnome-control-center
     gnome-text-editor
     nautilus
     (papers.override {supportNautilus = true;})
-
     inkscape
     scrcpy
-
     swww
     openvpn
 
-    # ===== User's Programs =====
+    # ===== User's programs =====
     # Core utilities
     amfora
     appimage-run
@@ -55,12 +47,8 @@
     lolcat
     lshw
     lxqt.lxqt-policykit
-
-    # Power management and system tools
     powertop
     acpi
-
-    # Drag and drop support packages
     xdg-utils
     xdg-desktop-portal
     shared-mime-info
@@ -86,8 +74,6 @@
     ytmdl
     pipes
     direnv
-
-    # Custom list of core packages
     obsidian
     vscode
     nix-direnv
@@ -98,12 +84,7 @@
     qbittorrent
     wineWowPackages.waylandFull
     winetricks
-
-    # Minecraft/PolyMC support with Wayland-native GLFW
-    (prismlauncher.override {
-      glfw3-minecraft = glfw3-minecraft;
-    })
-
+    (prismlauncher.override {glfw3-minecraft = glfw3-minecraft;})
     jupyter
     zlib
     google-cloud-sdk
@@ -112,63 +93,83 @@
     nyxt
     cloudflare-warp
     pandoc
-    qmk
-    vial
-    keymapviz
+    # qmk vial keymapviz - disabled due to dfu-programmer C23 build issue
     easyeffects
 
-    # Rust toolchain
-    rustc
-    cargo
-    clippy
-
-    # Haskell toolchain
-    stack
-    ghc
-    haskell.compiler.ghc984
-    cabal-install
-
-    # C toolchain
-    lldb_20
-    clang
-    llvm
-    libclang
-    gcc
-    libcxx
-
-    # Java
+    # Toolchains
+    rustc cargo clippy rust-analyzer
+    stack ghc cabal-install haskell-language-server
+    lldb_20 clang llvm libclang gcc libcxx clang-tools
     zulu
-    eclipses.eclipse-java
-
-    # Python toolchain
-    python3
-    uv
-
-    # SQL
-    mysql84
-    sqlcl
-
-    # LSPs
-    rust-analyzer
-    clang-tools
-    jdt-language-server
-    pyright
+    python3 uv pyright
+    mysql84 sqlcl
     nil
-    haskell-language-server
     typescript-language-server
     vscode-langservers-extracted
     svelte-language-server
     tailwindcss-language-server
-
-    # Additional LSP dependencies
+    jdt-language-server
     nodejs_20
-    python3Packages.python-lsp-server
-    qt6Packages.qt6ct
 
-    # Host-specific packages (desktop)
+    # Desktop apps
     audacity
     discord
-    nodejs
     obs-studio
+    qt6Packages.qt6ct
+
+    # XWayland
+    xwayland-satellite
   ];
+
+  # Stylix theming
+  stylix = {
+    enable = true;
+    image = ../../wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg;
+    base16Scheme = {
+      base00 = "100F0F";
+      base01 = "1C1B1A";
+      base02 = "343331";
+      base03 = "575653";
+      base04 = "878580";
+      base05 = "CECDC3";
+      base06 = "CECDC3";
+      base07 = "CECDC3";
+      base08 = "D14D41";
+      base09 = "DA702C";
+      base0A = "D0A215";
+      base0B = "879A39";
+      base0C = "3AA99F";
+      base0D = "4385BE";
+      base0E = "8B7EC8";
+      base0F = "CE5D97";
+      name = "flexoki";
+    };
+    polarity = "dark";
+    opacity.terminal = 1.0;
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrains Mono";
+      };
+      sansSerif = {
+        package = pkgs.montserrat;
+        name = "Montserrat";
+      };
+      serif = {
+        package = pkgs.montserrat;
+        name = "Montserrat";
+      };
+      sizes = {
+        applications = 12;
+        terminal = 15;
+        desktop = 11;
+        popups = 12;
+      };
+    };
+  };
 }

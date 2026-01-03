@@ -20,11 +20,12 @@ in {
     ["wl-paste" "--watch" "cliphist" "store"]
     ["wl-paste" "--type" "text" "--watch" "cliphist" "store"]
     ["qs" "-c" "noctalia"]
-    ["xwayland-satellite"]  # XWayland support for X11 apps
+    ["xwayland-satellite"]
   ];
 
   input = {
-    keyboard.xkb.layout = "latam";
+    # User's keyboard layout
+    keyboard.xkb.layout = "us";
     touchpad = {
       click-method = "button-areas";
       dwt = {};
@@ -43,22 +44,16 @@ in {
 
   screenshot-path = "~/Pictures/Screenshots/Screenshot-from-%Y-%m-%d-%H-%M-%S.png";
 
+  # Laptop output (will be overridden per-host if needed)
   output = [
     {
       _args = ["eDP-1"];
-      scale = 1.0;
+      mode = "2880x1800@60";
+      scale = 1.2;
+      variable-refresh-rate = {};
       position._props = {
         x = 0;
         y = 0;
-      };
-    }
-    {
-      _args = ["HDMI-A-1"];
-      mode = "1920x1080";
-      scale = 1.0;
-      position._props = {
-        x = 0;
-        y = -1080;
       };
     }
   ];
@@ -71,7 +66,7 @@ in {
   gestures.hot-corners = {};
 
   cursor = {
-    xcursor-size = 20;
+    xcursor-size = 24;  # Match stylix cursor size
     xcursor-theme = pointer;
   };
 

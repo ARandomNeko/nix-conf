@@ -1,54 +1,39 @@
 {pkgs, ...}: {
   users.users.ritu.packages = [pkgs.btop];
 
-  programs.btop = {
-    enable = true;
-    settings = {
-      vim_keys = true;
-      theme_background = false;
-      truecolor = true;
-
-      # Enable GPU monitoring
-      show_gpu_info = true;
-      presets = "cpu:1:default,proc:0:default gpu0:0:default";
-
-      # Graph settings
-      graph_symbol = "braille";
-      gpu_mirror_graph = true;
-
-      # Temperature monitoring
-      check_temp = true;
-      show_coretemp = true;
-      cpu_sensor = "Auto";
-      temp_scale = "celsius";
-
-      # Update intervals
-      update_ms = 2000;
-      proc_update_mult = 2;
-
-      # Display settings
-      show_battery = true;
-      selected_battery = "Auto";
-      show_uptime = true;
-      show_cpu_freq = true;
-      mem_graphs = true;
-      show_disks = true;
-      show_io_stat = true;
-
-      # Process settings
-      proc_sorting = "cpu lazy";
-      proc_colors = true;
-      proc_gradient = true;
-      proc_mem_bytes = true;
-      proc_cpu_graphs = true;
-
-      # Network settings
-      net_download = " ↓";
-      net_upload = " ↑";
-      net_auto = true;
-
-      log_level = "WARNING";
-    };
+  # Btop config via xdg.configFile
+  xdg.configFile."btop/btop.conf" = {
+    force = true;
+    text = ''
+      vim_keys = True
+      theme_background = False
+      truecolor = True
+      show_gpu_info = True
+      presets = "cpu:1:default,proc:0:default gpu0:0:default"
+      graph_symbol = "braille"
+      gpu_mirror_graph = True
+      check_temp = True
+      show_coretemp = True
+      cpu_sensor = "Auto"
+      temp_scale = "celsius"
+      update_ms = 2000
+      proc_update_mult = 2
+      show_battery = True
+      selected_battery = "Auto"
+      show_uptime = True
+      show_cpu_freq = True
+      mem_graphs = True
+      show_disks = True
+      show_io_stat = True
+      proc_sorting = "cpu lazy"
+      proc_colors = True
+      proc_gradient = True
+      proc_mem_bytes = True
+      proc_cpu_graphs = True
+      net_download = " ↓"
+      net_upload = " ↑"
+      net_auto = True
+      log_level = "WARNING"
+    '';
   };
 }
-

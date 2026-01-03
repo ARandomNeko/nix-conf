@@ -5,79 +5,91 @@
 }: {
   flake.nixosConfigurations = let
     inherit (inputs.nixpkgs.lib) nixosSystem;
+    mod = "${self}/system";
+    home = "${self}/home";
 
-    # Your modules
-    yourCore = "${self}/modules/core";
-    yourDrivers = "${self}/modules/drivers";
+    # Get the basic config from system
+    inherit (import "${self}/system") desktop laptop;
 
-    # Only Kaku's modules that add new functionality (don't conflict)
-    kakuSystem = "${self}/system";
-
-    # Common modules
-    commonModules = [
-      yourCore
-      yourDrivers
-
-      # Kaku additions that don't conflict with your modules
-      "${kakuSystem}/hardware/graphics.nix"    # GPU hardware config
-      "${kakuSystem}/hardware/fwupd.nix"       # Firmware updates
-      "${kakuSystem}/services/xdg-portal-fix.nix"  # Portal fixes
-      "${kakuSystem}/services/gnome-services.nix"  # GNOME services
-
-      # Flake modules
-      inputs.chaotic.nixosModules.default
-    ];
+    specialArgs = {inherit inputs self;};
   in {
     # Desktop with NVIDIA
     ritu = nixosSystem {
-      specialArgs = {
-        inherit inputs self;
-        nixpkgs-unstable = inputs.nixpkgs;
-        username = "ritu";
-        host = "ritu";
-        profile = "nvidia";
-      };
+      inherit specialArgs;
       modules =
-        commonModules
+        desktop
         ++ [
           ./ritu
+          "${mod}/services/gnome-services.nix"
+          "${home}"
 
-          ({...}: {
-            drivers.nvidia.enable = true;
-            drivers.amdgpu.enable = false;
-            drivers.intel.enable = false;
+          inputs.chaotic.nixosModules.default
+          inputs.stylix.nixosModules.stylix
+
+          ({pkgs, ...}: {
+            networking.hostName = "ritu";
+
+            # NVIDIA
+            hardware.graphics.enable = true;
+            services.xserver.videoDrivers = ["nvidia"];
+            hardware.nvidia = {
+              modesetting.enable = true;
+              powerManagement.enable = false;
+              powerManagement.finegrained = false;
+              open = false;
+              nvidiaSettings = true;
+              package = pkgs.linuxPackages.nvidiaPackages.stable;
+            };
+
+            # Services
             services.cloudflare-warp.enable = true;
           })
         ];
     };
 
-    # Laptop with NVIDIA + AMD hybrid
+    # Laptop with NVIDIA + AMD hybrid (ASUS ROG Zephyrus G14)
     laptop = nixosSystem {
-      specialArgs = {
-        inherit inputs self;
-        nixpkgs-unstable = inputs.nixpkgs;
-        username = "ritu";
-        host = "laptop";
-        profile = "nvidia-laptop";
-      };
+      inherit specialArgs;
       modules =
-        commonModules
+        laptop
         ++ [
           ./laptop
-          "${kakuSystem}/hardware/bluetooth.nix"
+          "${mod}/services/gnome-services.nix"
+          "${home}"
+
+          inputs.chaotic.nixosModules.default
+          inputs.stylix.nixosModules.stylix
           inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia
 
-          ({...}: let
-            vars = import ./laptop/variables.nix;
-          in {
-            drivers.nvidia.enable = true;
-            drivers.nvidia-prime = {
-              enable = true;
-              amdgpuBusID = vars.intelID;
-              nvidiaBusID = vars.nvidiaID;
+          ({pkgs, lib, ...}: {
+            networking.hostName = "laptop";
+
+            # NVIDIA Prime - use mkForce to override nixos-hardware
+            hardware.graphics.enable = true;
+            services.xserver.videoDrivers = ["nvidia"];
+            hardware.nvidia = {
+              modesetting.enable = true;
+              powerManagement.enable = true;
+              powerManagement.finegrained = true;
+              open = false;
+              nvidiaSettings = true;
+              package = pkgs.linuxPackages.nvidiaPackages.stable;
+              prime = {
+                offload = {
+                  enable = lib.mkForce true;
+                  enableOffloadCmd = lib.mkForce true;
+                };
+                amdgpuBusId = lib.mkForce "PCI:65:0:0";
+                nvidiaBusId = lib.mkForce "PCI:0:2:0";
+              };
             };
-            drivers.amdgpu.enable = false;
-            drivers.intel.enable = false;
+
+            # ASUS services
+            services.asusd.enable = true;
+            services.asusd.enableUserService = true;
+            services.supergfxd.enable = true;
+
+            # Services
             services.cloudflare-warp.enable = true;
           })
         ];

@@ -1,7 +1,9 @@
-{
+{lib, ...}: {
   qt = {
     enable = true;
-    platformTheme = "gnome";
+    platformTheme = lib.mkForce "qt6ct";
     style = "adwaita-dark";
   };
+
+  environment.variables.QT_QPA_PLATFORMTHEME = lib.mkForce "qt6ct";
 }
