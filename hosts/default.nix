@@ -23,7 +23,6 @@
           "${mod}/services/gnome-services.nix"
           "${home}"
 
-          inputs.chaotic.nixosModules.default
           inputs.stylix.nixosModules.stylix
 
           ({pkgs, ...}: {
@@ -57,7 +56,6 @@
           "${mod}/services/gnome-services.nix"
           "${home}"
 
-          inputs.chaotic.nixosModules.default
           inputs.stylix.nixosModules.stylix
           inputs.nixos-hardware.nixosModules.asus-zephyrus-ga402x-nvidia
 
