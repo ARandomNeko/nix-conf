@@ -3,17 +3,6 @@
   lib,
   ...
 }: {
-  imports = [
-    ./nix-settings.nix
-  ];
-
-  # Boot
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Networking
-  networking.networkmanager.enable = true;
-
   # Locale
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -36,18 +25,13 @@
   users.users.ritu = {
     isNormalUser = true;
     description = "ritu";
-    extraGroups = ["networkmanager" "wheel" "video" "audio"];
+    extraGroups = ["networkmanager" "wheel" "video" "audio" "docker"];
     shell = pkgs.fish;
   };
 
   # Enable fish system-wide for proper integration
   programs.fish.enable = true;
 
-  # Security
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-
   # System state version
   system.stateVersion = "24.11";
 }
-

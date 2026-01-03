@@ -11,15 +11,6 @@
   # Enable niri compositor
   programs.niri.enable = true;
 
-  # XDG portal for screen sharing, file picking, etc.
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-gnome
-    ];
-  };
-
   # Required for niri/Wayland
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -40,6 +31,7 @@
     brightnessctl
     playerctl
     cliphist
+    gpu-screen-recorder
   ];
 
   # Enable greetd for login
