@@ -48,30 +48,16 @@ in {
       ''
     else "// Using default monitor settings"}
 
-    // Input configuration - simplified for now
-    // Note: Niri configuration structure may differ - this is a minimal working config
+    // Input configuration - using minimal valid structure
     input {
-      xkb {
-        layout "${keyboardLayout}";
-        options "grp:alt_caps_toggle";
+      keyboard {
+        xkb-layout "${keyboardLayout}";
+        xkb-options "grp:alt_caps_toggle";
       }
-      repeat-delay 300;
-      repeat-rate 30;
-      touchpad {
-        tap false;
-        natural-scroll true;
-        disable-while-typing true;
-        scroll-factor 0.8;
-      }
-      follow-cursor true;
-      cursor-zoom 1.0;
     }
 
-    // Layout configuration
+    // Layout configuration - simplified
     layout {
-      default-column-width 600;
-      center-focused-column true;
-      center-focused-column-max-width 1200;
       gaps 8;
     }
 
