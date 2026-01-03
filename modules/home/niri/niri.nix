@@ -82,11 +82,14 @@ in {
       }
     }
 
-    // Window rules - Niri uses different syntax than Hyprland
-    // For now, keeping it minimal - can be expanded later
-    window-rules {
-      rule { class "pavucontrol"; } { open-floating; }
-      rule { class "rofi"; } { open-floating; }
+    // Window rules - Niri uses window-rule with match directives
+    window-rule {
+      match app-id="pavucontrol"
+      open-floating
+    }
+    window-rule {
+      match app-id="rofi"
+      open-floating
     }
 
     // Keybindings
