@@ -69,5 +69,3 @@ This configuration is built upon the giants:
 - **[kaku:](https://github.com/linuxmobile/kaku)** For deep inspiration and config patterns.
 - **[Noctalia Devs](https://github.com/noctalia-dev):** For the incredible shell framework.
 
----
-*This shit is maintained by [Rituparan Reddy](https://github.com/ARandomNeko)*
