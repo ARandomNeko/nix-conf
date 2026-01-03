@@ -8,11 +8,11 @@
       # high priority since it's almost always used
       "https://cache.nixos.org?priority=10"
 
-      "https://chaotic-nyx.cachix.org/"
+      # "https://chaotic-nyx.cachix.org/"
       "https://fufexan.cachix.org"
       "https://ritu.cachix.org"
       "https://niri.cachix.org"
-      "https://nix-community.cachix.org"
+      # "https://nix-community.cachix.org"
       "https://quickshell.cachix.org"
     ];
 

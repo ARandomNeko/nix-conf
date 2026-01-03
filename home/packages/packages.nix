@@ -29,6 +29,7 @@
     amfora
     appimage-run
     brave
+    google-chrome
     brightnessctl
     cmatrix
     cowsay
@@ -119,6 +120,9 @@
 
     # XWayland
     xwayland-satellite
+
+    # Gaming
+    antigravity-fhs
   ];
 
   # Stylix theming
