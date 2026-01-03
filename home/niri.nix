@@ -56,15 +56,14 @@
       screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
       spawn-at-startup "${pkgs.swaybg}/bin/swaybg" "-m" "fill" "-i" "/home/ritu/nix-conf/wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg"
+      spawn-at-startup "noctalia"
 
       binds {
           // Terminal
           Mod+T { spawn "${pkgs.ghostty}/bin/ghostty"; }
           Mod+Return { spawn "${pkgs.ghostty}/bin/ghostty"; }
 
-          // App launcher (noctalia)
-          Mod+D { spawn "noctalia" "--toggle-launcher"; }
-          Mod+Space { spawn "noctalia" "--toggle-launcher"; }
+          // App launcher - handled by noctalia keybinds (Mod+D)
 
           // Close window
           Mod+Q { close-window; }
@@ -136,20 +135,16 @@
           XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
           XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-          // Brightness - handled by ASUS daemon or use Mod+keys
-          Mod+F3 { spawn "brightnessctl" "set" "5%+"; }
-          Mod+F2 { spawn "brightnessctl" "set" "5%-"; }
+          // Brightness
+          Mod+F8 { spawn "brightnessctl" "-d" "amdgpu_bl1" "s" "+5%"; }
+          Mod+F7 { spawn "brightnessctl" "-d" "amdgpu_bl1" "s" "5%-"; }
 
           // Media
           XF86AudioPlay { spawn "playerctl" "play-pause"; }
           XF86AudioNext { spawn "playerctl" "next"; }
           XF86AudioPrev { spawn "playerctl" "previous"; }
 
-          // Power menu
-          Mod+Shift+E { spawn "noctalia" "--toggle-session"; }
-
-          // Lock
-          Mod+Escape { spawn "noctalia" "--lock"; }
+          // Power menu and lock - handled by noctalia keybinds
 
           // Quit niri
           Mod+Shift+Escape { quit; }

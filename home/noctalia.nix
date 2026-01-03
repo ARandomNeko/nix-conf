@@ -176,6 +176,14 @@
         showHeader = true;
         showNumberLabels = true;
       };
+
+      # Keybinds for noctalia panels
+      keybinds = {
+        toggleLauncher = ["Mod" "D"];
+        toggleControlCenter = ["Mod" "A"];
+        toggleSessionMenu = ["Mod" "Shift" "E"];
+        lockScreen = ["Mod" "Escape"];
+      };
     };
   };
 
