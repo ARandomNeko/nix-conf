@@ -66,7 +66,7 @@ sudo nixos-rebuild switch --flake .#<hostname>
 ## 🛠️ Credits & Inspiration
 This configuration is built upon the giants:
 - **[zaneyOS](https://gitlab.com/Zaney/zaneyos):** For the initial structure and base modules.
-- **kaku:** For deep inspiration and config patterns.
+- **[kaku:](https://github.com/linuxmobile/kaku)** For deep inspiration and config patterns.
 - **[Noctalia Devs](https://github.com/noctalia-dev):** For the incredible shell framework.
 
 ---
