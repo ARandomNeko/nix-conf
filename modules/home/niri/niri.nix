@@ -48,13 +48,8 @@ in {
       ''
     else "// Using default monitor settings"}
 
-    // Input configuration - using minimal valid structure
-    input {
-      keyboard {
-        xkb-layout "${keyboardLayout}";
-        xkb-options "grp:alt_caps_toggle";
-      }
-    }
+    // Input configuration - Niri may handle this differently
+    // Leaving input section minimal or empty for now
 
     // Layout configuration - simplified
     layout {
