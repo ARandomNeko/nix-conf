@@ -22,7 +22,7 @@ in {
         "${mod}/services/gnome-services.nix"
         "${home}"
 
-        ({pkgs, ...}: {
+        ({pkgs, config, ...}: {
           networking.hostName = "ritu";
 
           # NVIDIA
@@ -34,7 +34,8 @@ in {
             powerManagement.finegrained = false;
             open = false;
             nvidiaSettings = true;
-            package = pkgs.linuxPackages.nvidiaPackages.stable;
+            # Use NVIDIA drivers matching the kernel version
+            package = config.boot.kernelPackages.nvidiaPackages.stable;
           };
 
           # Services
@@ -58,6 +59,7 @@ in {
         ({
           pkgs,
           lib,
+          config,
           ...
         }: {
           networking.hostName = "laptop";
@@ -71,7 +73,8 @@ in {
             powerManagement.finegrained = true;
             open = false;
             nvidiaSettings = true;
-            package = pkgs.linuxPackages.nvidiaPackages.stable;
+            # Use NVIDIA drivers matching the kernel version
+            package = config.boot.kernelPackages.nvidiaPackages.stable;
             prime = {
               offload = {
                 enable = lib.mkForce true;
