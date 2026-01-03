@@ -19,6 +19,7 @@
         ./programs
         ./shell
         ./noctalia.nix
+        ./niri.nix
       ];
 
       home = {

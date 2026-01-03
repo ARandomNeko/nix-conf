@@ -3,40 +3,44 @@
 
   # Ghostty configuration
   # Note: Colors will be managed by noctalia's matugen templates
-  xdg.configFile."ghostty/config".text = ''
-    # Font
-    font-family = JetBrainsMono Nerd Font
-    font-size = 12
+  xdg.configFile."ghostty/config" = {
+    force = true;  # Overwrite existing config
+    text = ''
+      # Shell - explicitly use fish
+      command = ${pkgs.fish}/bin/fish
 
-    # Window
-    window-padding-x = 10
-    window-padding-y = 10
-    window-decoration = false
+      # Font
+      font-family = JetBrainsMono Nerd Font
+      font-size = 12
 
-    # Cursor
-    cursor-style = bar
-    cursor-style-blink = true
+      # Window
+      window-padding-x = 10
+      window-padding-y = 10
+      window-decoration = false
 
-    # Shell integration
-    shell-integration = fish
+      # Cursor
+      cursor-style = bar
+      cursor-style-blink = true
 
-    # Scrollback
-    scrollback-limit = 10000
+      # Shell integration
+      shell-integration = fish
 
-    # Clipboard
-    clipboard-read = allow
-    clipboard-write = allow
+      # Scrollback
+      scrollback-limit = 10000
 
-    # Keybindings
-    keybind = ctrl+shift+c=copy_to_clipboard
-    keybind = ctrl+shift+v=paste_from_clipboard
-    keybind = ctrl+shift+n=new_window
-    keybind = ctrl+shift+t=new_tab
-    keybind = ctrl+shift+w=close_surface
-    keybind = ctrl+plus=increase_font_size:1
-    keybind = ctrl+minus=decrease_font_size:1
-    keybind = ctrl+zero=reset_font_size
-  '';
+      # Clipboard
+      clipboard-read = allow
+      clipboard-write = allow
+
+      # Keybindings
+      keybind = ctrl+shift+c=copy_to_clipboard
+      keybind = ctrl+shift+v=paste_from_clipboard
+      keybind = ctrl+shift+n=new_window
+      keybind = ctrl+shift+t=new_tab
+      keybind = ctrl+shift+w=close_surface
+      keybind = ctrl+plus=increase_font_size:1
+      keybind = ctrl+minus=decrease_font_size:1
+      keybind = ctrl+zero=reset_font_size
+    '';
+  };
 }
-
-

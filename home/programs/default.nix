@@ -110,6 +110,9 @@
     };
   };
 
+  # Force overwrite existing config files
+  xdg.configFile."mpv/mpv.conf".force = true;
+
   # Zathura PDF viewer
   programs.zathura = {
     enable = true;

@@ -112,6 +112,15 @@
     enable = true;
     enableFishIntegration = true;
   };
+
+  # Force overwrite existing fish config
+  xdg.configFile."fish/config.fish".force = true;
+  
+  # Remove old atuin config that references missing command
+  xdg.configFile."fish/conf.d/atuin.fish" = {
+    force = true;
+    text = "# atuin disabled - remove this file if you want to use atuin";
+  };
 }
 
 
