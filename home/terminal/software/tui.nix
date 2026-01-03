@@ -23,7 +23,6 @@
       killall
       jq
       ps_mem
-      inshellisense
 
       fum
       gtt

@@ -11,8 +11,8 @@
     };
     supportedFilesystems = ["ntfs"];
 
-    # use latest kernel
-    kernelPackages = pkgs.linuxPackages_latest;
+    # use stable LTS kernel for NVIDIA compatibility  
+    kernelPackages = pkgs.linuxPackages;
 
     consoleLogLevel = 3;
     kernelParams = [

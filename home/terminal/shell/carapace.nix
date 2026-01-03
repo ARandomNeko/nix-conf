@@ -8,11 +8,10 @@
     carapace-bridge
     zsh
     bash
-    inshellisense
   ];
 
   environment.sessionVariables = {
-    CARAPACE_BRIDGES = "fish,zsh,bash,inshellisense";
+    CARAPACE_BRIDGES = "fish,zsh,bash";
     CARAPACE_CACHE_DIR = "${config.xdg.cacheHome}/carapace";
   };
 
