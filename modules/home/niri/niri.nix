@@ -82,26 +82,11 @@ in {
       }
     }
 
-    // Window rules
+    // Window rules - simplified for Niri (no regex support, use exact class names)
     window-rules {
-      // Browser windows
-      rule { class="^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr|Brave-browser|google-chrome|zen_browser)$"; } {
-        spawn-on-output "None";
-      }
-      
-      // Terminal windows
-      rule { class="^(Alacritty|kitty|ghostty)$"; } {
-        spawn-on-output "None";
-      }
-      
       // Floating windows
-      rule { class="^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$"; } {
-        open-floating;
-      }
-      
-      rule { class="^([Rr]ofi)$"; } {
-        open-floating;
-      }
+      rule class="pavucontrol" { open-floating; }
+      rule class="rofi" { open-floating; }
     }
 
     // Keybindings
@@ -272,8 +257,8 @@ in {
     source = ../../../wallpapers;
     recursive = true;
   };
-  home.file.".face.icon".source = ../hyprland/face.jpg;
-  home.file.".config/face.jpg".source = ../hyprland/face.jpg;
+  home.file.".face.icon".source = ./face.jpg;
+  home.file.".config/face.jpg".source = ./face.jpg;
   home.file.".config/swappy/config".text = ''
     [Default]
     save_dir=/home/${username}/Pictures/Screenshots
