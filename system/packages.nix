@@ -25,6 +25,10 @@
     # Development
     gcc
     gnumake
+    code-cursor-fhs
+
+    # AI tools
+    gemini-cli-bin
 
     # Fonts
     nerd-fonts.jetbrains-mono

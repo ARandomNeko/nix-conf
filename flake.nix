@@ -20,6 +20,8 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = inputs @ {
@@ -29,6 +31,7 @@
     noctalia,
     niri,
     nixos-hardware,
+    nix-flatpak,
     ...
   }: let
     system = "x86_64-linux";

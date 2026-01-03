@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
+  imports = [
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+  ];
+
   # Required for noctalia features
   hardware.bluetooth = {
     enable = true;
@@ -35,6 +39,17 @@
   services.fwupd.enable = true;
 
   # Flatpak
-  services.flatpak.enable = true;
+  services.flatpak = {
+    enable = true;
+    packages = [
+      "app.zen_browser.zen"
+    ];
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+  };
 }
 
