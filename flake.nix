@@ -47,7 +47,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
 
     import-tree.url = "git+https://github.com/vic/import-tree";
     mynixpkgs.url = "git+https://github.com/linuxmobile/mynixpkgs";
@@ -57,7 +57,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "git+https://github.com/NixOS/nixos-hardware?ref=master";
+    nixos-hardware.url = "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
     stylix.url = "git+https://github.com/danth/stylix";
     quickshell.url = "git+https://github.com/outfoxxed/quickshell";
     noctalia = {
