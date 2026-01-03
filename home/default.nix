@@ -10,6 +10,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "backup";  # Backup existing files instead of failing
     extraSpecialArgs = {inherit inputs;};
 
     users.ritu = {
@@ -31,4 +32,5 @@
     };
   };
 }
+
 
