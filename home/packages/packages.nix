@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   users.users.ritu.packages = with pkgs; [
     # ===== Kaku defaults =====
     telegram-desktop
@@ -18,7 +19,7 @@
     gnome-control-center
     gnome-text-editor
     nautilus
-    (papers.override {supportNautilus = true;})
+    (papers.override { supportNautilus = true; })
     inkscape
     scrcpy
     swww
@@ -85,7 +86,7 @@
     qbittorrent
     wineWowPackages.waylandFull
     winetricks
-    (prismlauncher.override {glfw3-minecraft = glfw3-minecraft;})
+    (prismlauncher.override { glfw3-minecraft = glfw3-minecraft; })
     jupyter
     zlib
     google-cloud-sdk
@@ -98,12 +99,27 @@
     easyeffects
 
     # Toolchains
-    rustc cargo clippy rust-analyzer
-    stack ghc cabal-install haskell-language-server
-    lldb_20 clang llvm libclang gcc libcxx clang-tools
+    rustc
+    cargo
+    clippy
+    rust-analyzer
+    stack
+    ghc
+    cabal-install
+    haskell-language-server
+    lldb_20
+    clang
+    llvm
+    libclang
+    gcc
+    libcxx
+    clang-tools
     zulu
-    python3 uv pyright
-    mysql84 sqlcl
+    python3
+    uv
+    pyright
+    mysql84
+    sqlcl
     nil
     typescript-language-server
     vscode-langservers-extracted
@@ -121,8 +137,10 @@
     # XWayland
     xwayland-satellite
 
-    # Gaming
+    # Vibecoding
     antigravity-fhs
+    gemini-cli-bin
+    code-cursor-fhs
   ];
 
   # Stylix theming

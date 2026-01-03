@@ -19,8 +19,9 @@ in {
   spawn-at-startup = [
     ["wl-paste" "--watch" "cliphist" "store"]
     ["wl-paste" "--type" "text" "--watch" "cliphist" "store"]
-    ["qs" "-c" "noctalia"]
+    ["quickshell" "-c" "noctalia"]
     ["xwayland-satellite"]
+    ["swww-daemon"]
   ];
 
   input = {
