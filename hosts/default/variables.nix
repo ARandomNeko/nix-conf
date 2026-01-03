@@ -3,7 +3,7 @@
   gitUsername = "Tyler Kelley";
   gitEmail = "tylerzanekelley@gmail.com";
 
-  # Hyprland Settings
+  # Niri Settings
   extraMonitorSettings = "";
 
   # Waybar Settings

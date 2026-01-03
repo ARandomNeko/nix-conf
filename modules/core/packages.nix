@@ -1,4 +1,4 @@
-{pkgs, nixpkgs-unstable, ...}: {
+{pkgs, ...}: {
   programs = {
     firefox.enable = true; # Firefox is not installed by default
     dconf.enable = true;
@@ -25,14 +25,6 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [
-      (final: prev: {
-        unstable = import nixpkgs-unstable {
-          system = prev.system;
-          config.allowUnfree = true;
-        };
-      })
-    ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -112,8 +104,8 @@
     qmk
     vial
     keymapviz
-    unstable.opencode    
-    unstable.claude-code
+    opencode    
+    claude-code
                    
     # Rust toolchain
     rustc         # Rust compiler

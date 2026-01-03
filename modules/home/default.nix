@@ -10,7 +10,7 @@
     ./ghostty.nix
     ./git.nix
     ./gtk.nix
-    ./hyprland
+    ./niri
     ./kitty.nix
     ./nvf.nix
     ./helix.nix

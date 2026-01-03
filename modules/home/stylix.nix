@@ -2,7 +2,7 @@
   stylix.targets = {
     waybar.enable = false;
     rofi.enable = false;
-    hyprland.enable = false;
+    # Niri doesn't use stylix integration like hyprland
     hyprlock.enable = false;
     ghostty.enable = true;
     neovim.enable = true;

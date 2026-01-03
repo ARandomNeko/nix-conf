@@ -3,8 +3,8 @@
   gitUsername = "ARandomNeko";
   gitEmail = "rituparanreddy2006@gmail.com";
 
-  # Hyprland Settings
-  extraMonitorSettings = "monitor = eDP-1, 2880x1800@60, auto, 1.2, vrr, 1";
+  # Niri Settings
+  extraMonitorSettings = "eDP-1 2880x1800@60 1.2";
 
   # Waybar Settings
   clock24h = true;

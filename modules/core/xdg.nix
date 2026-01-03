@@ -1,10 +1,10 @@
 {pkgs, ...}: {
   xdg.portal = {
     enable = true;
-    wlr.enable = false;  # Disable this for Hyprland
+    wlr.enable = true;  # Enable wlr portal for Niri
     xdgOpenUsePortal = true;  # Force apps to use portals
     extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-wlr
       pkgs.xdg-desktop-portal-gtk
     ];
     config = {
@@ -12,13 +12,8 @@
         default = ["gtk"];
         "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
         "org.freedesktop.impl.portal.AppChooser" = ["gtk"];
-        "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
-        "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
-      };
-      hyprland = {
-        default = ["gtk"];
-        "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
-        "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
+        "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
+        "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
       };
     };
   };

@@ -17,10 +17,10 @@ in
         {
           layer = "top";
           position = "top";
-          modules-center = ["hyprland/workspaces"];
+          modules-center = ["wlr/workspaces"];
           modules-left = [
             "custom/startmenu"
-            "hyprland/window"
+            "wlr/window"
             "pulseaudio"
             "cpu"
             "memory"
@@ -35,15 +35,15 @@ in
             "clock"
           ];
 
-          "hyprland/workspaces" = {
+          "wlr/workspaces" = {
             format = "{name}";
             format-icons = {
               default = " ";
               active = " ";
               urgent = " ";
             };
-            on-scroll-up = "hyprctl dispatch workspace e+1";
-            on-scroll-down = "hyprctl dispatch workspace e-1";
+            on-scroll-up = "niri msg action focus-workspace-or-monitor next";
+            on-scroll-down = "niri msg action focus-workspace-or-monitor previous";
           };
           "clock" = {
             format =
@@ -53,7 +53,7 @@ in
             tooltip = true;
             tooltip-format = "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>";
           };
-          "hyprland/window" = {
+          "wlr/window" = {
             max-length = 22;
             separate-outputs = false;
             rewrite = {
@@ -123,7 +123,7 @@ in
             # exec = "rofi -show drun";
             on-click = "sleep 0.1 && rofi-launcher";
           };
-          "custom/hyprbindings" = {
+          "custom/niribindings" = {
             tooltip = false;
             format = "󱕴";
             on-click = "sleep 0.1 && list-keybinds";
@@ -232,7 +232,7 @@ in
           tooltip label {
             color: #${config.lib.stylix.colors.base08};
           }
-          #window, #pulseaudio, #cpu, #memory, #idle_inhibitor {
+          #window, #pulseaudio, #cpu, #memory, #idle_inhibitor, #custom-niribindings {
             font-weight: bold;
             margin: 4px 0px;
             margin-left: 7px;
@@ -249,7 +249,7 @@ in
             padding: 0px 30px 0px 15px;
             border-radius: 0px 0px 40px 0px;
           }
-          #custom-hyprbindings, #network, #battery,
+          #custom-niribindings, #network, #battery,
           #custom-notification, #tray, #custom-exit {
             font-weight: bold;
             background: #${config.lib.stylix.colors.base08};

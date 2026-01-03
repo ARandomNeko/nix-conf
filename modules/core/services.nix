@@ -28,7 +28,7 @@ in {
       settings = {
         default_session = {
           user = username;
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri"; # start Niri with a TUI login manager
         };
       };
     };
@@ -64,6 +64,9 @@ in {
     };
     rpcbind.enable = true;
     nfs.server.enable = true;
+    # Required for Noctalia features (wifi, bluetooth, power-profile, battery)
+    power-profiles-daemon.enable = true;
+    upower.enable = true;
   };
 
   systemd.services.flatpak-repo = {
