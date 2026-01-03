@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # System-wide packages
   environment.systemPackages = with pkgs; [
     # Core utilities
@@ -24,13 +25,18 @@
     usbutils
     lshw
 
+    # System packages
+    obsidian
+    prismlauncher
+    steam
+
     # Development
     gcc
     gnumake
-    code-cursor-fhs
 
     # AI tools
     gemini-cli-bin
+    code-cursor-fhs
 
     # Fonts
     nerd-fonts.jetbrains-mono
@@ -45,10 +51,9 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = ["JetBrainsMono Nerd Font"];
-      sansSerif = ["Inter"];
-      serif = ["Roboto"];
+      monospace = [ "JetBrainsMono Nerd Font" ];
+      sansSerif = [ "Inter" ];
+      serif = [ "Roboto" ];
     };
   };
 }
-
