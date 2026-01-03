@@ -9,6 +9,7 @@
     text = ''
       // Niri configuration
       // Colors managed by noctalia matugen
+      include "./noctalia.kdl"
 
       input {
           keyboard {
@@ -70,6 +71,8 @@
           // App launcher
           Mod+Space { spawn "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
           Mod+D { spawn "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+          // Keybinds list
+          Mod+Shift+Slash { spawn "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" "ipc" "call" "cheatsheet" "toggle"; }
           // Close window
           Mod+Q { close-window; }
           Mod+Shift+Q { close-window; }

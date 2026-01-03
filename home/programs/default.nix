@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./git.nix
   ];
@@ -8,15 +9,15 @@
     helix
 
     # LSP servers
-    nil  # Nix
-    rust-analyzer  # Rust
-    haskell-language-server  # Haskell
-    tailwindcss-language-server  # Tailwind
-    typescript-language-server  # JS/TS
-    pyright  # Python
-    svelte-language-server  # Svelte
-    vscode-langservers-extracted  # HTML, CSS, JSON, ESLint
-    nodePackages.prettier  # Formatter
+    nil # Nix
+    rust-analyzer # Rust
+    haskell-language-server # Haskell
+    tailwindcss-language-server # Tailwind
+    typescript-language-server # JS/TS
+    pyright # Python
+    svelte-language-server # Svelte
+    vscode-langservers-extracted # HTML, CSS, JSON, ESLint
+    nodePackages.prettier # Formatter
 
     # File management
     yazi
@@ -53,13 +54,12 @@
     enable = true;
     defaultEditor = true;
     settings = {
-      theme = "base16_transparent";
+      theme = "noctalia";
       editor = {
         line-number = "relative";
         cursorline = true;
         bufferline = "multiple";
         true-color = true;
-        rulers = [80 120];
         soft-wrap.enable = true;
         cursor-shape = {
           insert = "bar";
@@ -90,86 +90,111 @@
         nil = {
           command = "nil";
         };
+
         rust-analyzer = {
           command = "rust-analyzer";
           config.check.command = "clippy";
         };
         haskell-language-server = {
           command = "haskell-language-server-wrapper";
-          args = ["--lsp"];
+          args = [ "--lsp" ];
         };
         tailwindcss-ls = {
           command = "tailwindcss-language-server";
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
         typescript-language-server = {
           command = "typescript-language-server";
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
         pyright = {
           command = "pyright-langserver";
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
         svelte-ls = {
           command = "svelteserver";
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
       };
       language = [
         {
           name = "nix";
-          language-servers = ["nil"];
+          language-servers = [ "nil" ];
           formatter.command = "nixfmt";
           auto-format = true;
         }
         {
           name = "rust";
-          language-servers = ["rust-analyzer"];
+          language-servers = [ "rust-analyzer" ];
           auto-format = true;
         }
         {
           name = "haskell";
-          language-servers = ["haskell-language-server"];
+          language-servers = [ "haskell-language-server" ];
           auto-format = true;
         }
         {
           name = "javascript";
-          language-servers = ["typescript-language-server" "tailwindcss-ls"];
+          language-servers = [
+            "typescript-language-server"
+            "tailwindcss-ls"
+          ];
           formatter.command = "prettier";
-          formatter.args = ["--parser" "javascript"];
+          formatter.args = [
+            "--parser"
+            "javascript"
+          ];
           auto-format = true;
         }
         {
           name = "typescript";
-          language-servers = ["typescript-language-server" "tailwindcss-ls"];
+          language-servers = [
+            "typescript-language-server"
+            "tailwindcss-ls"
+          ];
           formatter.command = "prettier";
-          formatter.args = ["--parser" "typescript"];
+          formatter.args = [
+            "--parser"
+            "typescript"
+          ];
           auto-format = true;
         }
         {
           name = "python";
-          language-servers = ["pyright"];
+          language-servers = [ "pyright" ];
           auto-format = true;
         }
         {
           name = "svelte";
-          language-servers = ["svelte-ls" "tailwindcss-ls"];
+          language-servers = [
+            "svelte-ls"
+            "tailwindcss-ls"
+          ];
           formatter.command = "prettier";
-          formatter.args = ["--parser" "svelte"];
+          formatter.args = [
+            "--parser"
+            "svelte"
+          ];
           auto-format = true;
         }
         {
           name = "html";
-          language-servers = ["tailwindcss-ls"];
+          language-servers = [ "tailwindcss-ls" ];
           formatter.command = "prettier";
-          formatter.args = ["--parser" "html"];
+          formatter.args = [
+            "--parser"
+            "html"
+          ];
           auto-format = true;
         }
         {
           name = "css";
-          language-servers = ["tailwindcss-ls"];
+          language-servers = [ "tailwindcss-ls" ];
           formatter.command = "prettier";
-          formatter.args = ["--parser" "css"];
+          formatter.args = [
+            "--parser"
+            "css"
+          ];
           auto-format = true;
         }
       ];
@@ -182,6 +207,7 @@
     enableFishIntegration = true;
     settings = {
       manager = {
+        flavor = "noctalia";
         show_hidden = true;
         sort_by = "natural";
         sort_dir_first = true;
@@ -233,5 +259,3 @@
     };
   };
 }
-
-

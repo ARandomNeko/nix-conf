@@ -24,21 +24,24 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    noctalia,
-    niri,
-    nixos-hardware,
-    nix-flatpak,
-    ...
-  }: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    nixosConfigurations = import ./hosts {
-      inherit self inputs;
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      noctalia,
+      niri,
+      nixos-hardware,
+      nix-flatpak,
+      ...
+    }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      nixosConfigurations = import ./hosts {
+        inherit self inputs;
+      };
     };
-  };
 }

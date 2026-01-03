@@ -18,6 +18,9 @@
       window-padding-y = 10
       window-decoration = false
 
+      # Theme
+      theme = noctalia
+
       # Cursor
       cursor-style = bar
       cursor-style-blink = true

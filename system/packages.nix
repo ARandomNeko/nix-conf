@@ -17,6 +17,8 @@
     # System tools
     htop
     btop
+    procps
+    matugen
     fastfetch
     pciutils
     usbutils
