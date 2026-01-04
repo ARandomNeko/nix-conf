@@ -29,6 +29,7 @@
     obsidian
     prismlauncher
     steam
+    komikku
 
     # Development
     gcc

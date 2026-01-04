@@ -22,11 +22,11 @@
           touchpad {
               tap
               natural-scroll
-              accel-speed 0.3
+              accel-speed 0
           }
 
           mouse {
-              accel-speed 0.3
+              accel-speed 0
           }
       }
 
