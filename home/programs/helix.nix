@@ -52,7 +52,9 @@
           hidden = false;
         };
         statuslines = {
-          left = ["mode", "spinner", "file-name"]
+          left = ["mode" "spinner" "file-name" "file-modification-indicator" "read-only-indicator"];
+          right = ["diagnostics" "version-control" "selections" "position" "position-percentage" "file-type"];
+          separator = ">";
           mode = {
             normal = "Normal";
             insert = "Insert";
@@ -65,6 +67,15 @@
         space.f = "file_picker_in_current_buffer_directory";
         space.b = "buffer_picker";
         space.s = "symbol_picker";
+      };
+
+      keys.insert = {
+        "C-space" = "completion";
+        "C-h" = "move_char_left";    #Ctrl + vim keys to move around in insert mode 
+        "C-j" = "move_line_down";
+        "C-k" = "move_line_up";
+        "C-l" = "move_char_right";
+        "j" = {"k" = "normal_mode";};
       };
     };
     languages = {
