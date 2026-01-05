@@ -51,6 +51,14 @@
         file-picker = {
           hidden = false;
         };
+        statuslines = {
+          left = ["mode", "spinner", "file-name"]
+          mode = {
+            normal = "Normal";
+            insert = "Insert";
+            select = "Visual"; 
+          }
+        };
       };
       keys.normal = {
         space.space = "file_picker";
