@@ -1,10 +1,11 @@
-{pkgs, ...}: {
-  home.packages = [pkgs.ghostty];
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.ghostty ];
 
   # Ghostty configuration
   # Note: Colors will be managed by noctalia's matugen templates
   xdg.configFile."ghostty/config" = {
-    force = true;  # Overwrite existing config
+    force = true; # Overwrite existing config
     text = ''
       # Shell - explicitly use fish
       command = ${pkgs.fish}/bin/fish
@@ -44,6 +45,13 @@
       keybind = ctrl+plus=increase_font_size:1
       keybind = ctrl+minus=decrease_font_size:1
       keybind = ctrl+zero=reset_font_size
+      keybind = ctrl+n=new_tab
+      keybind = alt+s=new_split::down
+      keybind = alt+v=new_split::right
+      keybind = ctrl+h=goto_split::left
+      keybind = ctrl+j=goto_split::down
+      keybind = ctrl+k=goto_split::up
+      keybind = ctrl+l=goto_split::right
     '';
   };
 }
