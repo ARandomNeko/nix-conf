@@ -51,15 +51,28 @@
         file-picker = {
           hidden = false;
         };
-        statuslines = {
-          left = ["mode" "spinner" "file-name" "file-modification-indicator" "read-only-indicator"];
-          right = ["diagnostics" "version-control" "selections" "position" "position-percentage" "file-type"];
+        statusline = {
+          left = [
+            "mode"
+            "spinner"
+            "file-name"
+            "file-modification-indicator"
+            "read-only-indicator"
+          ];
+          right = [
+            "diagnostics"
+            "version-control"
+            "selections"
+            "position"
+            "position-percentage"
+            "file-type"
+          ];
           separator = ">";
           mode = {
             normal = "Normal";
             insert = "Insert";
-            select = "Visual"; 
-          }
+            select = "Visual";
+          };
         };
       };
       keys.normal = {
@@ -71,11 +84,13 @@
 
       keys.insert = {
         "C-space" = "completion";
-        "C-h" = "move_char_left";    #Ctrl + vim keys to move around in insert mode 
+        "C-h" = "move_char_left"; # Ctrl + vim keys to move around in insert mode
         "C-j" = "move_line_down";
         "C-k" = "move_line_up";
         "C-l" = "move_char_right";
-        "j" = {"k" = "normal_mode";};
+        "j" = {
+          "k" = "normal_mode";
+        };
       };
     };
     languages = {
