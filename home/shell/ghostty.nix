@@ -46,12 +46,12 @@
       keybind = ctrl+minus=decrease_font_size:1
       keybind = ctrl+zero=reset_font_size
       keybind = ctrl+n=new_tab
-      keybind = alt+s=new_split::down
-      keybind = alt+v=new_split::right
-      keybind = ctrl+h=goto_split::left
-      keybind = ctrl+j=goto_split::down
-      keybind = ctrl+k=goto_split::up
-      keybind = ctrl+l=goto_split::right
+      keybind = alt+s=new_split:down
+      keybind = alt+v=new_split:right
+      keybind = alt+h=goto_split:left
+      keybind = alt+j=goto_split:down
+      keybind = alt+k=goto_split:up
+      keybind = alt+l=goto_split:right
     '';
   };
 }
