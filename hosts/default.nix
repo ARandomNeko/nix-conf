@@ -89,6 +89,7 @@
             services.asusd.enable = true;
             services.asusd.enableUserService = true;
             services.supergfxd.enable = true;
+            services.power-profiles-daemon.enable = lib.mkForce false;
 
             # Services
             services.cloudflare-warp.enable = true;
