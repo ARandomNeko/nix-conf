@@ -19,6 +19,8 @@
     nodejs
     pyright # Python
     svelte-language-server # Svelte
+    nodePackages."@angular/language-server"
+    nodePackages."@angular/cli"
     vscode-langservers-extracted # HTML, CSS, JSON, ESLint
     nodePackages.prettier # Formatter
   ];
@@ -123,6 +125,10 @@
           command = "svelteserver";
           args = [ "--stdio" ];
         };
+        angular-ls = {
+          command = "ngserver";
+          args = [ "--stdio" "--tsProbeLocations" "" "--ngProbeLocations" "" ];
+        };
       };
       language = [
         {
@@ -157,6 +163,7 @@
         {
           name = "typescript";
           language-servers = [
+            "angular-ls"
             "typescript-language-server"
             "tailwindcss-ls"
           ];
@@ -187,7 +194,10 @@
         }
         {
           name = "html";
-          language-servers = [ "tailwindcss-ls" ];
+          language-servers = [
+            "angular-ls"
+            "tailwindcss-ls"
+          ];
           formatter.command = "prettier";
           formatter.args = [
             "--parser"
