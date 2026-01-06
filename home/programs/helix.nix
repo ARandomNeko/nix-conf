@@ -19,7 +19,7 @@
     nodejs
     pyright # Python
     svelte-language-server # Svelte
-    nodePackages."@angular/language-server"
+    angular-language-server
     nodePackages."@angular/cli"
     vscode-langservers-extracted # HTML, CSS, JSON, ESLint
     nodePackages.prettier # Formatter

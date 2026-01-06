@@ -24,6 +24,7 @@
     pciutils
     usbutils
     lshw
+    stress
 
     # System packages
     obsidian
