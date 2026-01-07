@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   # Noctalia shell configuration with matugen theming
   programs.noctalia-shell = {
     enable = true;
@@ -14,6 +15,8 @@
         radiusRatio = 0.2;
       };
 
+      # Location settings
+      location.name = "Hyderabad, India";
       # Bar configuration
       bar = {
         density = "normal";
@@ -120,16 +123,16 @@
         position = "close_to_bar_button";
         shortcuts = {
           left = [
-            {id = "WiFi";}
-            {id = "Bluetooth";}
-            {id = "ScreenRecorder";}
-            {id = "WallpaperSelector";}
+            { id = "WiFi"; }
+            { id = "Bluetooth"; }
+            { id = "ScreenRecorder"; }
+            { id = "WallpaperSelector"; }
           ];
           right = [
-            {id = "Notifications";}
-            {id = "PowerProfile";}
-            {id = "KeepAwake";}
-            {id = "NightLight";}
+            { id = "Notifications"; }
+            { id = "PowerProfile"; }
+            { id = "KeepAwake"; }
+            { id = "NightLight"; }
           ];
         };
       };
@@ -184,11 +187,11 @@
   systemd.user.services.noctalia = {
     Unit = {
       Description = "Noctalia Shell";
-      PartOf = ["graphical-session.target"];
-      After = ["graphical-session.target"];
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
     };
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = [ "graphical-session.target" ];
     };
     Service = {
       ExecStart = "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell";
@@ -197,5 +200,3 @@
     };
   };
 }
-
-
