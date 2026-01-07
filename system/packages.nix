@@ -39,6 +39,7 @@
     # AI tools
     gemini-cli-bin
     code-cursor-fhs
+    opencode
 
     # Fonts
     nerd-fonts.jetbrains-mono
