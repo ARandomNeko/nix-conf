@@ -30,7 +30,7 @@
     enable = true;
     defaultEditor = true;
     settings = {
-      theme = "noctalia";
+      theme = "base16_transparent";
       editor = {
         line-number = "relative";
         cursorline = true;
@@ -127,7 +127,13 @@
         };
         angular-ls = {
           command = "ngserver";
-          args = [ "--stdio" "--tsProbeLocations" "" "--ngProbeLocations" "" ];
+          args = [
+            "--stdio"
+            "--tsProbeLocations"
+            ""
+            "--ngProbeLocations"
+            ""
+          ];
         };
       };
       language = [
