@@ -14,6 +14,7 @@
     bat
     fzf
     jq
+    sshfs
 
     # System tools
     htop

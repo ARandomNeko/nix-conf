@@ -18,6 +18,8 @@
     nodePackages.typescript
     nodejs
     pyright # Python
+    python314
+    uv
     svelte-language-server # Svelte
     angular-language-server
     nodePackages."@angular/cli"
