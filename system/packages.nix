@@ -37,6 +37,7 @@
     gcc
     gnumake
     gcc-arm-embedded
+    qemu
 
     # AI tools
     gemini-cli-bin
