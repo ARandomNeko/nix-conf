@@ -38,6 +38,7 @@
     gnumake
     gcc-arm-embedded
     qemu
+    renode
 
     # AI tools
     gemini-cli-bin
