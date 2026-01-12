@@ -36,6 +36,7 @@
     # Development
     gcc
     gnumake
+    gcc-arm-embedded
 
     # AI tools
     gemini-cli-bin
