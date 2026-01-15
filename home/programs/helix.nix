@@ -137,6 +137,10 @@
             ""
           ];
         };
+        vscode-html-language-server = {
+          command = "vscode-html-language-server";
+          args = [ "--stdio" ];
+        };
       };
       language = [
         {
@@ -203,6 +207,7 @@
         {
           name = "html";
           language-servers = [
+            "vscode-html-language-server"
             "angular-ls"
             "tailwindcss-ls"
           ];
