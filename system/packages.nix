@@ -44,7 +44,7 @@
     gemini-cli-bin
     code-cursor-fhs
     opencode
-
+    antigravity-fhs
     # Fonts
     nerd-fonts.jetbrains-mono
     inter
@@ -54,7 +54,7 @@
     noto-fonts-color-emoji
   ];
 
-  # Font configuration
+  # Font configurationyy
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
