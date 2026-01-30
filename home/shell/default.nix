@@ -80,5 +80,3 @@
     enableNushellIntegration = true;
   };
 }
-
-

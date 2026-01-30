@@ -7,8 +7,8 @@
   xdg.configFile."ghostty/config" = {
     force = true; # Overwrite existing config
     text = ''
-      # Shell - explicitly use fish
-      command = ${pkgs.fish}/bin/fish
+      # Shell - use nushell
+      command = ${pkgs.nushell}/bin/nu
 
       # Font
       font-family = JetBrainsMono Nerd Font
@@ -26,8 +26,8 @@
       cursor-style = bar
       cursor-style-blink = true
 
-      # Shell integration
-      shell-integration = fish
+      # Shell integration (none for nushell - it handles its own)
+      shell-integration = none
 
       # Scrollback
       scrollback-limit = 10000
