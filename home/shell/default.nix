@@ -1,13 +1,13 @@
 {pkgs, ...}: {
   imports = [
     ./ghostty.nix
-    ./fish.nix
+    ./nushell.nix
   ];
 
   # Starship prompt
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
+    enableNushellIntegration = true;
     settings = {
       format = "$all";
       add_newline = true;
@@ -54,13 +54,14 @@
   # Direnv for dev environments
   programs.direnv = {
     enable = true;
+    enableNushellIntegration = true;
     nix-direnv.enable = true;
   };
 
   # Fuzzy finder
   programs.fzf = {
     enable = true;
-    enableFishIntegration = true;
+    enableNushellIntegration = true;
     defaultOptions = [
       "--height 40%"
       "--layout=reverse"
@@ -71,7 +72,13 @@
   # Zoxide (smart cd)
   programs.zoxide = {
     enable = true;
-    enableFishIntegration = true;
+    enableNushellIntegration = true;
+  };
+
+  # Carapace completions for nushell
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
   };
 }
 

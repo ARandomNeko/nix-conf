@@ -26,11 +26,11 @@
     isNormalUser = true;
     description = "ritu";
     extraGroups = ["networkmanager" "wheel" "video" "audio" "docker"];
-    shell = pkgs.fish;
+    shell = pkgs.nushell;
   };
 
-  # Enable fish system-wide for proper integration
-  programs.fish.enable = true;
+  # Enable nushell system-wide for proper integration
+  programs.nushell.enable = true;
 
   # System state version
   system.stateVersion = "24.11";
