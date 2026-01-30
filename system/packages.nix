@@ -26,12 +26,14 @@
     usbutils
     lshw
     stress
+    openssl
 
     # System packages
     obsidian
     prismlauncher
     steam
     komikku
+    kicad
 
     # Development
     gcc
