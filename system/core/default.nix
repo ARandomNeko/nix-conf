@@ -29,9 +29,6 @@
     shell = pkgs.nushell;
   };
 
-  # Enable nushell system-wide for proper integration
-  programs.nushell.enable = true;
-
   # System state version
   system.stateVersion = "24.11";
 }

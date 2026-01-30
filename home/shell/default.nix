@@ -61,7 +61,6 @@
   # Fuzzy finder
   programs.fzf = {
     enable = true;
-    enableNushellIntegration = true;
     defaultOptions = [
       "--height 40%"
       "--layout=reverse"
