@@ -40,13 +40,15 @@
     gnumake
     gcc-arm-embedded
     qemu
-    renode
+    libclang
+    lldp
 
     # AI tools
     gemini-cli-bin
     code-cursor-fhs
     opencode
     antigravity-fhs
+
     # Fonts
     nerd-fonts.jetbrains-mono
     inter
