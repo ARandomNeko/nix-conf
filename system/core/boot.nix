@@ -14,8 +14,9 @@
     # Filesystem support
     supportedFilesystems = ["ntfs" "exfat"];
 
-    # Use Linux 6.18 (mkForce to override nixos-hardware)
-    kernelPackages = lib.mkForce pkgs.linuxPackages_6_18;
+    # Use Linux 6.19 RC (mkForce to override nixos-hardware)
+    # TODO: switch to linuxPackages_6_19 once it lands in nixpkgs stable
+    kernelPackages = lib.mkForce pkgs.linuxPackages_testing;
 
     # Quiet boot
     consoleLogLevel = 3;

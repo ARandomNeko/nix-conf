@@ -57,12 +57,18 @@
           }
       }
 
+      // Make inactive windows slightly transparent
+      window-rule {
+          match is-active=false
+          opacity 0.95
+      }
+
       prefer-no-csd
 
       screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
       spawn-at-startup "${pkgs.swaybg}/bin/swaybg" "-m" "fill" "-i" "/home/ritu/nix-conf/wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg"
-      spawn-at-startup "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell"
+      spawn-at-startup "${pkgs.swayidle}/bin/swayidle" "-w" "before-sleep" "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell ipc call lockScreen lock" "lock" "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell ipc call lockScreen lock"
 
       binds {
           // Terminal
@@ -77,9 +83,7 @@
             inputs.noctalia.packages.${pkgs.system}.default
           }/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
           // Keybinds list
-          Mod+Shift+Slash { spawn "${
-            inputs.noctalia.packages.${pkgs.system}.default
-          }/bin/noctalia-shell" "ipc" "call" "cheatsheet" "toggle"; }
+          Mod+Shift+Slash { show-hotkey-overlay; }
           // Close window
           Mod+Q { close-window; }
           Mod+Shift+Q { close-window; }

@@ -49,6 +49,7 @@
     code-cursor-fhs
     opencode
     antigravity-fhs
+    cursor-cli
 
     # Fonts
     nerd-fonts.jetbrains-mono

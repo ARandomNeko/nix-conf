@@ -1,25 +1,16 @@
-{pkgs, ...}: {
+{...}: {
   # Laptop-specific power management
   services.thermald.enable = true;
 
   # TLP for battery optimization (disabled since power-profiles-daemon is used)
   # services.tlp.enable = true;
 
-  # Lid switch behavior - lock screen then suspend
+  # Lid switch behavior:
+  # - On battery: suspend (swayidle triggers noctalia lock before sleep)
+  # - On AC power: lock only (swayidle catches lock signal from logind)
   services.logind = {
     lidSwitch = "suspend";
-    lidSwitchExternalPower = "suspend";
-  };
-
-  # Ensure screen locks before suspend
-  systemd.services."lock-before-suspend" = {
-    description = "Lock screen before suspend";
-    before = [ "sleep.target" ];
-    wantedBy = [ "sleep.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.systemd}/bin/loginctl lock-sessions";
-    };
+    lidSwitchExternalPower = "lock";
   };
 
   # Backlight control
