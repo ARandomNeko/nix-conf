@@ -9,11 +9,6 @@
   services.logind = {
     lidSwitch = "suspend";
     lidSwitchExternalPower = "suspend";
-    # Lock screen before suspend via logind's lock signal
-    extraConfig = ''
-      HandleLidSwitch=suspend
-      HandleLidSwitchExternalPower=suspend
-    '';
   };
 
   # Ensure screen locks before suspend
