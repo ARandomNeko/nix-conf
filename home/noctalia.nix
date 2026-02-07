@@ -15,8 +15,11 @@
         radiusRatio = 0.2;
       };
 
-      # Location settings
-      location.name = "Hyderabad, India";
+      # Location settings - auto-detect with Hyderabad fallback
+      location = {
+        provider = "auto";
+        name = "Hyderabad, India";  # Fallback if auto-detection fails
+      };
       # Bar configuration
       bar = {
         density = "normal";

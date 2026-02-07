@@ -41,7 +41,8 @@
     gcc-arm-embedded
     qemu
     libclang
-    lldp
+    google-cloud-sdk
+    lldb
 
     # AI tools
     gemini-cli-bin

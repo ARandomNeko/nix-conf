@@ -5,11 +5,25 @@
   # TLP for battery optimization (disabled since power-profiles-daemon is used)
   # services.tlp.enable = true;
 
-  # Lid switch behavior
-  services.logind.settings = {
-    Login = {
-      HandleLidSwitch = "suspend";
-      HandleLidSwitchExternalPower = "lock";
+  # Lid switch behavior - lock screen then suspend
+  services.logind = {
+    lidSwitch = "suspend";
+    lidSwitchExternalPower = "suspend";
+    # Lock screen before suspend via logind's lock signal
+    extraConfig = ''
+      HandleLidSwitch=suspend
+      HandleLidSwitchExternalPower=suspend
+    '';
+  };
+
+  # Ensure screen locks before suspend
+  systemd.services."lock-before-suspend" = {
+    description = "Lock screen before suspend";
+    before = [ "sleep.target" ];
+    wantedBy = [ "sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/loginctl lock-sessions";
     };
   };
 
