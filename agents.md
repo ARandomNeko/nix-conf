@@ -59,6 +59,10 @@
 - noctalia-shell was started twice: once via `spawn-at-startup` in niri config, once via systemd user service in `noctalia.nix`
 - Removed the `spawn-at-startup` line; kept the systemd service (handles restarts, proper session ordering)
 
+## Workflow Rules
+- **Small changes**: always commit and push immediately after making them.
+- **Large changes/features**: ask the user to create a branch first. These are multi-step changes that may not work right away and need iteration.
+
 ## Config Structure Notes
 - `boot.nix` uses `lib.mkForce` on kernelPackages to override nixos-hardware module defaults
 - Niri is the compositor, noctalia-shell is the shell/lock screen

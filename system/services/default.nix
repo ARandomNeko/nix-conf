@@ -14,6 +14,9 @@
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
 
+  # Location services (required for noctalia auto location / night light)
+  services.geoclue2.enable = true;
+
   # Polkit authentication agent
   systemd.user.services.polkit-kde-agent = {
     description = "Polkit KDE Agent";
