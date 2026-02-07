@@ -68,7 +68,7 @@
       screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
       spawn-at-startup "${pkgs.swaybg}/bin/swaybg" "-m" "fill" "-i" "/home/ritu/nix-conf/wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg"
-      spawn-at-startup "${pkgs.swayidle}/bin/swayidle" "-w" "before-sleep" "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell ipc call lockScreen lock" "lock" "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell ipc call lockScreen lock"
+      spawn-at-startup "${pkgs.swayidle}/bin/swayidle" "-w" "before-sleep" "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell ipc call lockScreen lock" "lock" "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell ipc call lockScreen lock"
 
       binds {
           // Terminal
@@ -77,10 +77,10 @@
 
           // App launcher
           Mod+Space { spawn "${
-            inputs.noctalia.packages.${pkgs.system}.default
+            inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
           }/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
           Mod+D { spawn "${
-            inputs.noctalia.packages.${pkgs.system}.default
+            inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
           }/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
           // Keybinds list
           Mod+Shift+Slash { show-hotkey-overlay; }

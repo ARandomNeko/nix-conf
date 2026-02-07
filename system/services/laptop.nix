@@ -8,9 +8,9 @@
   # Lid switch behavior:
   # - On battery: suspend (swayidle triggers noctalia lock before sleep)
   # - On AC power: lock only (swayidle catches lock signal from logind)
-  services.logind = {
-    lidSwitch = "suspend";
-    lidSwitchExternalPower = "lock";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "lock";
   };
 
   # Backlight control
