@@ -20,6 +20,7 @@
         ./shell
         ./noctalia.nix
         ./niri.nix
+        ./pointer.nix
       ];
 
       home = {

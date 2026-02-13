@@ -30,6 +30,11 @@
           }
       }
 
+      cursor {
+          xcursor-theme "Bibata-Modern-Ice"
+          xcursor-size 24
+      }
+
       output "eDP-1" {
           mode "2880x1800@60"
           scale 1.2
