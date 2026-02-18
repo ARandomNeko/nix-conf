@@ -31,7 +31,6 @@
     # System packages
     obsidian
     prismlauncher
-    steam
     komikku
     kicad
 
@@ -60,7 +59,12 @@
     noto-fonts-color-emoji
   ];
 
-  # Font configurationyy
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
