@@ -22,7 +22,6 @@
     uv
     svelte-language-server # Svelte
     angular-language-server
-    nodePackages."@angular/cli"
     vscode-langservers-extracted # HTML, CSS, JSON, ESLint
     nodePackages.prettier # Formatter
   ];
