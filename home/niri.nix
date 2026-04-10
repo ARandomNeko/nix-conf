@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   inputs,
   ...
@@ -139,6 +140,7 @@
           // Layout
           Mod+W { maximize-column; }
           Mod+F { fullscreen-window; }
+          Mod+Shift+F { toggle-window-floating; }
           Mod+C { center-column; }
 
           Mod+Minus { set-column-width "-10%"; }
