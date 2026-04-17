@@ -31,6 +31,7 @@
     # System packages
     obsidian
     prismlauncher
+    glfw3-minecraft
     komikku
     kicad
 
