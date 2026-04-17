@@ -13,6 +13,4 @@
     HandleLidSwitchExternalPower = "lock";
   };
 
-  # Backlight control
-  programs.light.enable = true;
 }

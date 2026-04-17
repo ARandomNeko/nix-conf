@@ -15,7 +15,7 @@
     cabal-install
     tailwindcss-language-server # Tailwind
     typescript-language-server # JS/TS
-    nodePackages.typescript
+    typescript
     nodejs
     pyright # Python
     python314
@@ -23,7 +23,7 @@
     svelte-language-server # Svelte
     angular-language-server
     vscode-langservers-extracted # HTML, CSS, JSON, ESLint
-    nodePackages.prettier # Formatter
+    prettier # Formatter
   ];
 
   # Helix configuration
