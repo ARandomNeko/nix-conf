@@ -34,7 +34,7 @@
     glfw3-minecraft
     komikku
     kicad
-
+    qbittorrent
     # Development
     gcc
     gnumake
@@ -48,7 +48,6 @@
     gemini-cli-bin
     code-cursor-fhs
     opencode
-    antigravity-fhs
     cursor-cli
 
     # Fonts
