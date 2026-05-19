@@ -30,6 +30,7 @@
 
     # System packages
     obsidian
+    logseq
     prismlauncher
     glfw3-minecraft
     komikku
