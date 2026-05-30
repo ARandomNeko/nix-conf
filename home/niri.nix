@@ -68,9 +68,23 @@
           opacity 0.95
       }
 
+      // Keep browser Picture-in-Picture above windowed games.
+      window-rule {
+          match title=r#"(?i)^picture[- ]in[- ]picture$"#
+          open-floating true
+          default-column-width { fixed 480; }
+          default-window-height { fixed 270; }
+          default-floating-position x=24 y=24 relative-to="top-right"
+      }
+
       prefer-no-csd
 
       screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
+
+      debug {
+          // Keep floating overlays/PiP visible over fullscreen-sized games.
+          disable-direct-scanout
+      }
 
       spawn-at-startup "${pkgs.swaybg}/bin/swaybg" "-m" "fill" "-i" "/home/ritu/nix-conf/wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg"
       spawn-at-startup "${pkgs.swayidle}/bin/swayidle" "-w" "before-sleep" "${
