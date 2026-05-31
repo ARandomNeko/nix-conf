@@ -27,6 +27,7 @@
     lshw
     stress
     openssl
+    kanshi
 
     # System packages
     obsidian
