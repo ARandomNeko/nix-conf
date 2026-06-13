@@ -79,6 +79,7 @@
         yazi = true;
         cava = true;
         niri = true;
+        zed = true;
         foot = false;
         kitty = false;
         alacritty = false;
