@@ -72,17 +72,17 @@
 
       # Matugen templates for application theming
       templates = {
-        gtk = true;
-        qt = true;
-        ghostty = true;
-        helix = true;
-        yazi = true;
-        cava = true;
-        niri = true;
-        zed = true;
-        foot = false;
-        kitty = false;
-        alacritty = false;
+        enableUserTheming = true;
+        activeTemplates = [
+          { id = "gtk"; enabled = true; }
+          { id = "qt"; enabled = true; }
+          { id = "ghostty"; enabled = true; }
+          { id = "helix"; enabled = true; }
+          { id = "yazi"; enabled = true; }
+          { id = "cava"; enabled = true; }
+          { id = "niri"; enabled = true; }
+          { id = "zed"; enabled = true; }
+        ];
       };
 
       # App launcher
@@ -184,6 +184,14 @@
         showNumberLabels = true;
       };
 
+    };
+
+    user-templates = {
+      templates.zed = {
+        input_path = "${inputs.noctalia}/Assets/Templates/zed.json";
+        output_path = "~/.config/zed/themes/noctalia.json";
+        post_hook = "touch ~/.config/zed/settings.json";
+      };
     };
   };
 
