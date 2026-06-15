@@ -12,8 +12,5 @@
     # Media (laptop use)
     audacity
     obs-studio
-
-    # Dev tools
-    nodejs
   ];
 }

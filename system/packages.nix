@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./packages/development.nix
+  ];
+
   # System-wide packages
   environment.systemPackages = with pkgs; [
     # Core utilities
@@ -31,7 +35,7 @@
 
     # System packages
     obsidian
-    logseq
+    keepassxc
     prismlauncher
     glfw3-minecraft
     komikku

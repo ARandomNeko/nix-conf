@@ -29,8 +29,6 @@
     slurp
     wl-clipboard
     hyprpicker
-    swaybg
-    swayidle
     brightnessctl
     playerctl
     cliphist

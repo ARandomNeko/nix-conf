@@ -3,6 +3,21 @@
   pkgs,
   ...
 }:
+let
+  noctalia = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  noctaliaLauncher = pkgs.writeShellScript "noctalia-launcher" ''
+    ${pkgs.systemd}/bin/systemctl --user start noctalia.service
+
+    for attempt in 1 2 3 4 5; do
+      if ${noctalia}/bin/noctalia msg panel-toggle launcher; then
+        exit 0
+      fi
+      ${pkgs.coreutils}/bin/sleep 0.1
+    done
+
+    exit 1
+  '';
+in
 {
   # Force overwrite niri config to remove old settings
   xdg.configFile."niri/config.kdl" = {
@@ -86,25 +101,14 @@
           disable-direct-scanout
       }
 
-      spawn-at-startup "${pkgs.swaybg}/bin/swaybg" "-m" "fill" "-i" "/home/ritu/nix-conf/wallpapers/adrien-olichon-RCAhiGJsUUE-unsplash.jpg"
-      spawn-at-startup "${pkgs.swayidle}/bin/swayidle" "-w" "before-sleep" "${
-        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-      }/bin/noctalia-shell ipc call lockScreen lock" "lock" "${
-        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-      }/bin/noctalia-shell ipc call lockScreen lock"
-
       binds {
           // Terminal
           Mod+T { spawn "${pkgs.ghostty}/bin/ghostty"; }
           Mod+Return { spawn "${pkgs.ghostty}/bin/ghostty"; }
 
           // App launcher
-          Mod+Space { spawn "${
-            inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-          }/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-          Mod+D { spawn "${
-            inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-          }/bin/noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+          Mod+Space { spawn "${noctaliaLauncher}"; }
+          Mod+D { spawn "${noctaliaLauncher}"; }
           // Keybinds list
           Mod+Shift+Slash { show-hotkey-overlay; }
           // Close window

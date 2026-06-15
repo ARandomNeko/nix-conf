@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    noctalia-legacy-templates = {
+      url = "github:noctalia-dev/noctalia-shell/a7c724181fca5d1aff2d47b18fa733504cfdbda2";
+      flake = false;
+    };
+
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";

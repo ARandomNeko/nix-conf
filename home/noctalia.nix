@@ -1,214 +1,133 @@
-{
-  pkgs,
-  inputs,
-  ...
-}:
+{ inputs, ... }:
 {
   # Noctalia shell configuration with matugen theming
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
+    systemd.enable = true;
 
     settings = {
-      # General settings
-      general = {
-        avatarImage = "/home/ritu/.face";
-        radiusRatio = 0.2;
+      shell = {
+        avatar_path = "/home/ritu/.face";
+        corner_radius_scale = 0.2;
+        settings_show_advanced = true;
+        time_format = "{:%H:%M}";
+
+        panel = {
+          launcher_placement = "centered";
+          launcher_categories = true;
+          launcher_show_icons = true;
+          launcher_sort_by_usage = true;
+          control_center_placement = "attached";
+          open_near_click_control_center = true;
+        };
       };
 
-      # Location settings - auto-detect with Hyderabad fallback
       location = {
-        provider = "auto";
-        name = "Hyderabad, India";  # Fallback if auto-detection fails
+        auto_locate = true;
+        address = "Hyderabad, India"; # Fallback if auto-detection fails
       };
-      # Bar configuration
+
       bar = {
-        density = "normal";
-        position = "top";
-        showCapsule = true;
-        widgets = {
-          left = [
-            {
-              id = "ControlCenter";
-              useDistroLogo = true;
-            }
-            {
-              id = "WiFi";
-            }
-            {
-              id = "Bluetooth";
-            }
+        default = {
+          position = "top";
+          thickness = 34;
+          margin_ends = 0;
+          margin_edge = 0;
+          padding = 8;
+          widget_spacing = 6;
+          background_opacity = 1.0;
+          radius = 0;
+          shadow = false;
+          reserve_space = true;
+          capsule = true;
+          start = [
+            "control-center"
+            "network"
+            "bluetooth"
           ];
-          center = [
-            {
-              id = "Workspace";
-              hideUnoccupied = false;
-              labelMode = "none";
-            }
-          ];
-          right = [
-            {
-              id = "Battery";
-              alwaysShowPercentage = true;
-              warningThreshold = 20;
-            }
-            {
-              id = "Clock";
-              formatHorizontal = "HH:mm";
-              formatVertical = "HH mm";
-              useMonospacedFont = true;
-              usePrimaryColor = true;
-            }
+          center = [ "workspaces" ];
+          end = [
+            "battery"
+            "clock"
           ];
         };
       };
 
-      # Color scheme - use wallpaper colors with matugen
-      colorSchemes = {
-        useWallpaperColors = true;
-        darkMode = true;
-        matugenSchemeType = "scheme-fruit-salad";
-        generateTemplatesForPredefined = true;
+      theme = {
+        source = "wallpaper";
+        mode = "dark";
+        wallpaper_scheme = "m3-fruit-salad";
+        templates = {
+          enable_builtin_templates = true;
+          enable_community_templates = false;
+          builtin_ids = [
+            "gtk3"
+            "gtk4"
+            "qt"
+            "ghostty"
+            "helix"
+            "cava"
+            "niri"
+          ];
+          user = {
+            yazi = {
+              input_path = "${inputs.noctalia-legacy-templates}/Assets/Templates/yazi.toml";
+              output_path = "$XDG_CONFIG_HOME/yazi/flavors/noctalia.yazi/flavor.toml";
+            };
+            zed = {
+              input_path = "${inputs.noctalia-legacy-templates}/Assets/Templates/zed.json";
+              output_path = "$XDG_CONFIG_HOME/zed/themes/noctalia.json";
+              post_hook = "mkdir -p \"$HOME/.config/zed\" && touch \"$HOME/.config/zed/settings.json\"";
+            };
+          };
+        };
       };
 
-      # Matugen templates for application theming
-      templates = {
-        enableUserTheming = true;
-        activeTemplates = [
-          { id = "gtk"; enabled = true; }
-          { id = "qt"; enabled = true; }
-          { id = "ghostty"; enabled = true; }
-          { id = "helix"; enabled = true; }
-          { id = "yazi"; enabled = true; }
-          { id = "cava"; enabled = true; }
-          { id = "niri"; enabled = true; }
-          { id = "zed"; enabled = true; }
-        ];
-      };
-
-      # App launcher
-      appLauncher = {
-        position = "center";
-        sortByMostUsed = true;
-        terminalCommand = "ghostty -e";
-        viewMode = "list";
-        showCategories = true;
-        iconMode = "tabler";
-      };
-
-      # Wallpaper settings
       wallpaper = {
-        mode = "random";
-        randomIntervalSec = 300;
-        transitionDuration = 1500;
-        transitionType = "random";
-      };
-
-      # Notifications
-      notifications = {
         enabled = true;
-        location = "top_right";
-        overlayLayer = true;
-        backgroundOpacity = 1;
-        lowUrgencyDuration = 3;
-        normalUrgencyDuration = 8;
-        criticalUrgencyDuration = 15;
-      };
+        directory = "/home/ritu/nix-conf/wallpapers";
+        transition = [ "fade" ];
 
-      # OSD (volume, brightness overlays)
-      osd = {
-        enabled = true;
-        location = "top_right";
-        autoHideMs = 2000;
-        overlayLayer = true;
-      };
-
-      # Control center
-      controlCenter = {
-        position = "close_to_bar_button";
-        shortcuts = {
-          left = [
-            { id = "WiFi"; }
-            { id = "Bluetooth"; }
-            { id = "ScreenRecorder"; }
-            { id = "WallpaperSelector"; }
-          ];
-          right = [
-            { id = "Notifications"; }
-            { id = "PowerProfile"; }
-            { id = "KeepAwake"; }
-            { id = "NightLight"; }
-          ];
+        automation = {
+          enabled = true;
+          interval_seconds = 300;
+          order = "random";
         };
       };
 
-      # Audio settings
-      audio = {
-        volumeStep = 5;
-        volumeOverdrive = false;
-        cavaFrameRate = 30;
-        visualizerType = "linear";
-        externalMixer = "pwvucontrol || pavucontrol";
+      lockscreen = {
+        enabled = true;
       };
 
-      # Brightness
-      brightness = {
-        brightnessStep = 5;
-        enforceMinimum = true;
+      notification = {
+        enable_daemon = true;
+        position = "top_right";
+        layer = "overlay";
+        background_opacity = 1.0;
       };
 
-      # Night light
-      nightLight = {
-        enabled = false;
-        autoSchedule = true;
-        nightTemp = "4000";
-        dayTemp = "6500";
+      osd = {
+        position = "top_right";
+        background_opacity = 1.0;
       };
 
-      # Dock
       dock = {
         enabled = true;
-        displayMode = "auto_hide";
-        backgroundOpacity = 1;
-        size = 1;
-        onlySameOutput = true;
-        colorizeIcons = false;
-        animationSpeed = 1;
+        auto_hide = true;
+        reserve_space = false;
+        active_monitor_only = true;
+        background_opacity = 1.0;
+        active_scale = 1.0;
       };
 
-      # Session menu
-      sessionMenu = {
-        enableCountdown = true;
-        countdownDuration = 10000;
-        position = "center";
-        showHeader = true;
-        showNumberLabels = true;
+      audio.enable_overdrive = false;
+      battery.warning_threshold = 20;
+
+      nightlight = {
+        enabled = false;
+        temperature_night = 4000;
+        temperature_day = 6500;
       };
-
-    };
-
-    user-templates = {
-      templates.zed = {
-        input_path = "${inputs.noctalia}/Assets/Templates/zed.json";
-        output_path = "~/.config/zed/themes/noctalia.json";
-        post_hook = "touch ~/.config/zed/settings.json";
-      };
-    };
-  };
-
-  # Run noctalia with systemd
-  systemd.user.services.noctalia = {
-    Unit = {
-      Description = "Noctalia Shell";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell";
-      Restart = "on-failure";
-      RestartSec = 1;
     };
   };
 }

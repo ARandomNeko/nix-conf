@@ -1,31 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  home.packages = with pkgs; [
-    # Text editors
-    helix
-
-    # LSP servers
-    nil # Nix
-    rust-analyzer # Rust
-    rustc
-    cargo
-    clippy
-    haskell-language-server # Haskell
-    ghc
-    cabal-install
-    tailwindcss-language-server # Tailwind
-    typescript-language-server # JS/TS
-    typescript
-    nodejs
-    pyright # Python
-    python314
-    uv
-    svelte-language-server # Svelte
-    angular-language-server
-    vscode-langservers-extracted # HTML, CSS, JSON, ESLint
-    prettier # Formatter
-  ];
-
   # Helix configuration
   programs.helix = {
     enable = true;
