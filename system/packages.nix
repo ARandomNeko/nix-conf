@@ -51,6 +51,7 @@
     gemini-cli-bin
     code-cursor-fhs
     opencode
+    codex
     cursor-cli
 
     # Fonts
