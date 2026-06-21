@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # Laptop-specific packages
   environment.systemPackages = with pkgs; [
     # ASUS tools

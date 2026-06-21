@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}: {
+{ pkgs, inputs, ... }: {
   imports = [
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
@@ -20,9 +20,9 @@
   # Polkit authentication agent
   systemd.user.services.polkit-kde-agent = {
     description = "Polkit KDE Agent";
-    wantedBy = ["graphical-session.target"];
-    wants = ["graphical-session.target"];
-    after = ["graphical-session.target"];
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
@@ -55,4 +55,3 @@
     ];
   };
 }
-

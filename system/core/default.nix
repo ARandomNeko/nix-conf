@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   # Locale
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -25,7 +26,13 @@
   users.users.ritu = {
     isNormalUser = true;
     description = "ritu";
-    extraGroups = ["networkmanager" "wheel" "video" "audio" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+      "docker"
+    ];
     shell = pkgs.nushell;
   };
 

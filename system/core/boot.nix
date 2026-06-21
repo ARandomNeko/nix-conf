@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   boot = {
     bootspec.enable = true;
 
@@ -12,7 +13,10 @@
     };
 
     # Filesystem support
-    supportedFilesystems = ["ntfs" "exfat"];
+    supportedFilesystems = [
+      "ntfs"
+      "exfat"
+    ];
 
     # Keep the currently installed testing kernel (mkForce to override nixos-hardware).
     kernelPackages = lib.mkForce pkgs.linuxPackages_testing;
@@ -49,5 +53,5 @@
   };
 
   # CPU power management tools
-  environment.systemPackages = [config.boot.kernelPackages.cpupower];
+  environment.systemPackages = [ config.boot.kernelPackages.cpupower ];
 }

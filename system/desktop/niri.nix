@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   # Import niri flake module
   imports = [
     inputs.niri.nixosModules.niri
@@ -11,7 +12,7 @@
   # Enable niri compositor with stable package from cache
   programs.niri = {
     enable = true;
-    package = pkgs.niri;  # Use nixpkgs niri instead of flake's (avoids building from source)
+    package = pkgs.niri; # Use nixpkgs niri instead of flake's (avoids building from source)
   };
 
   # Required for niri/Wayland
@@ -33,7 +34,7 @@
     playerctl
     cliphist
     gpu-screen-recorder
-    xwayland-satellite  # XWayland support for niri
+    xwayland-satellite # XWayland support for niri
   ];
 
   # Enable greetd for login

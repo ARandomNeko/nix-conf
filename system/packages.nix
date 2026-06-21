@@ -57,6 +57,7 @@
     opencode
     codex
     cursor-cli
+    t3code
 
     # Fonts
     nerd-fonts.jetbrains-mono

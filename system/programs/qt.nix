@@ -5,5 +5,3 @@
     style = "adwaita-dark";
   };
 }
-
-

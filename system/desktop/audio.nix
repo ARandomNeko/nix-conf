@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # PipeWire audio
   security.rtkit.enable = true;
   services.pipewire = {
@@ -17,5 +17,3 @@
     cava
   ];
 }
-
-

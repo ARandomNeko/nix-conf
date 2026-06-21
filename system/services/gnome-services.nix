@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # GNOME services for integration
   services.gvfs.enable = true;
   services.gnome.gnome-keyring.enable = true;
@@ -23,5 +23,3 @@
     evince
   ];
 }
-
-

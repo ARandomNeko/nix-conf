@@ -11,7 +11,7 @@
 
   programs.fish = {
     enable = true;
-    
+
     interactiveShellInit = ''
       # Secrets and API keys
       if test -f /run/agenix/openrouter
@@ -85,16 +85,16 @@
       bloat = "nix path-info -Sh /run/current-system";
       cleanram = "sudo sh -c 'sync; echo 3 > /proc/sys/vm/drop_caches'";
       trimall = "sudo fstrim -va";
-      
+
       # Utilities
       c = "clear";
       q = "exit";
       temp = "cd /tmp/";
-      
+
       # Build
       test-build = "sudo nixos-rebuild test --flake .";
       switch-build = "sudo nixos-rebuild switch --flake .";
-      
+
       # Git
       add = "git add .";
       commit = "git commit";
@@ -103,19 +103,19 @@
       diff = "git diff --staged";
       gcld = "git clone --depth 1";
       gitui = "lazygit";
-      
+
       # Eza
       l = "eza -lF --time-style=long-iso --icons";
       ll = "eza -h --git --icons --color=auto --group-directories-first -s extension";
       tree = "eza --tree --icons --tree";
-      
+
       # Bat
       cat = "bat --paging=never";
-      
+
       # Weather
       moon = "curl -s wttr.in/Moon";
       weather = "curl -s wttr.in";
-      
+
       # Misc
       store-path = "readlink (which $argv)";
       us = "systemctl --user";
@@ -188,7 +188,7 @@
 
   # Force overwrite existing fish config
   xdg.configFile."fish/config.fish".force = true;
-  
+
   # Remove old atuin config that references missing command
   xdg.configFile."fish/conf.d/atuin.fish" = {
     force = true;

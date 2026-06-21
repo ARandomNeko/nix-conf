@@ -19,7 +19,6 @@
   consoleKeyMap = "us";
 
   # For Nvidia Prime support
-  intelID= "PCI:65:0:0";
+  intelID = "PCI:65:0:0";
   nvidiaID = "PCI:0:2:0";
 }
-
