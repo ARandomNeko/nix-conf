@@ -5,8 +5,8 @@
     # Prevent bogus ICMP errors from filling up logs
     "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
     # Reverse path filtering - mitigate IP spoofing
-    "net.ipv4.conf.default.rp_filter" = 1;
-    "net.ipv4.conf.all.rp_filter" = 1;
+    "net.ipv4.conf.default.rp_filter" = 2;
+    "net.ipv4.conf.all.rp_filter" = 2;
     # Do not accept IP source route packets (we're not a router)
     "net.ipv4.conf.all.accept_source_route" = 0;
     "net.ipv6.conf.all.accept_source_route" = 0;
@@ -30,7 +30,7 @@
     "net.ipv4.tcp_fastopen" = 3;
     # BBR congestion control for better throughput
     "net.ipv4.tcp_congestion_control" = "bbr";
-    "net.core.default_qdisc" = "cake";
+    "net.core.default_qdisc" = "fq";
 
     ## Network buffer sizes
     "net.core.rmem_default" = 262144;
@@ -46,14 +46,13 @@
     "net.ipv4.tcp_window_scaling" = 1;
     "net.ipv4.tcp_timestamps" = 1;
     "net.ipv4.tcp_sack" = 1;
-    "net.ipv4.tcp_low_latency" = 1;
 
     # Reduce TIME_WAIT sockets
     "net.ipv4.tcp_fin_timeout" = 15;
     "net.ipv4.tcp_tw_reuse" = 1;
   };
 
-  boot.kernelModules = ["tcp_bbr"];
+  boot.kernelModules = [ "tcp_bbr" ];
 
   security = {
     rtkit.enable = true;
@@ -69,5 +68,3 @@
     sudo.wheelNeedsPassword = false;
   };
 }
-
-

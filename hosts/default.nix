@@ -64,7 +64,8 @@
         }: {
             networking.hostName = "laptop";
 
-            # NVIDIA Prime - use mkForce to override nixos-hardware
+            # NVIDIA Prime for the laptop RTX 4070 Max-Q.
+            # Keep runtime PM enabled so PRIME offload can idle the dGPU.
             hardware.graphics.enable = true;
             services.xserver.videoDrivers = ["nvidia"];
             hardware.nvidia = {
@@ -88,9 +89,10 @@
             # ASUS services
             services.asusd.enable = true;
             services.supergfxd.enable = true;
-            services.power-profiles-daemon.enable = lib.mkForce false;
 
-            # Services
+            # Laptop service budget
+            hardware.bluetooth.powerOnBoot = lib.mkForce false;
+            services.printing.enable = lib.mkForce false;
             services.cloudflare-warp.enable = true;
           })
         ];

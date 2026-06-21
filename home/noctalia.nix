@@ -89,8 +89,8 @@
         transition = [ "fade" ];
 
         automation = {
-          enabled = true;
-          interval_seconds = 300;
+          enabled = false;
+          interval_seconds = 1800;
           order = "random";
         };
       };
