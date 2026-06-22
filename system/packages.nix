@@ -50,6 +50,8 @@
     libclang
     google-cloud-sdk
     lldb
+    chromium
+    playwright-test
 
     # AI tools
     gemini-cli-bin
