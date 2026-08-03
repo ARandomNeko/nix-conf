@@ -15,8 +15,8 @@ shown below. Press `Ctrl-a Ctrl-a` to send a literal `Ctrl-a` to an application.
 | `Y` | Toggle synchronized typing across panes |
 | `C-l` | Clear the active pane and its scrollback |
 
-Sessions are also saved automatically every 10 minutes. Interactive terminals
-attach to the persistent `dev` session automatically.
+Sessions are also saved automatically every 10 minutes. Run `tm` to create or
+attach to the persistent `dev` session.
 
 ## Panes
 

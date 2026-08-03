@@ -288,12 +288,6 @@
       def gitgrep [pattern: string] {
         git ls-files | rg $pattern
       }
-
-      # Every interactive terminal enters the persistent workspace. The TMUX
-      # guard prevents nesting, while scripts and `nu -c` remain unaffected.
-      if $nu.is-interactive and ($env.TMUX? | default "" | is-empty) {
-        exec tmux new-session -A -s dev
-      }
     '';
   };
 }

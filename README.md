@@ -87,8 +87,8 @@ ssh mnemosyne
 
 The same `mnemosyne` entry works with editor Remote SSH extensions. For a
 terminal that survives network changes, use `mosh mnemosyne`. Every interactive
-terminal automatically creates or attaches to the persistent tmux session
-named `dev`; detach safely with `Ctrl-a d`.
+shell provides `tm` to create or attach to the persistent tmux session named
+`dev`; detach safely with `Ctrl-a d`.
 
 Taildrop files sent to either Linux machine are received automatically in
 `~/Taildrop`, beside `~/Downloads`. The receiver starts with the user session;
