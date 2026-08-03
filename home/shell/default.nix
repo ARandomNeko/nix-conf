@@ -1,14 +1,4 @@
 { pkgs, ... }:
-let
-  # FZF 0.74 still emits a command deprecated by Nushell 0.114.
-  # Patch the embedded integration until the pinned FZF release catches up.
-  fzfForNushell = pkgs.fzf.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace shell/completion.nu \
-        --replace-fail "str downcase" "str lowercase"
-    '';
-  });
-in
 {
   imports = [
     ./ghostty.nix
@@ -72,7 +62,7 @@ in
   # Fuzzy finder
   programs.fzf = {
     enable = true;
-    package = fzfForNushell;
+    package = pkgs.fzf;
     defaultOptions = [
       "--height 40%"
       "--layout=reverse"
