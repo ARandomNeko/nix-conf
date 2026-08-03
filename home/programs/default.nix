@@ -9,6 +9,7 @@
     ./zathura.nix
     ./imv.nix
     ./zed.nix
+    ./tmux.nix
   ];
 
   home.packages = with pkgs; [

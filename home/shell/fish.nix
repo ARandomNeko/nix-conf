@@ -90,6 +90,9 @@
       c = "clear";
       q = "exit";
       temp = "cd /tmp/";
+      tm = "tmux new-session -A -s dev";
+      ta = "tmux attach-session";
+      tl = "tmux list-sessions";
 
       # Build
       test-build = "sudo nixos-rebuild test --flake .";

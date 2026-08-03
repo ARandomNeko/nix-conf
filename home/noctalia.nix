@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
   # Noctalia shell configuration with matugen theming
   programs.noctalia = {
@@ -78,6 +78,11 @@
               input_path = "${inputs.noctalia-legacy-templates}/Assets/Templates/zed.json";
               output_path = "$XDG_CONFIG_HOME/zed/themes/noctalia.json";
               post_hook = "mkdir -p \"$HOME/.config/zed\" && touch \"$HOME/.config/zed/settings.json\"";
+            };
+            tmux = {
+              input_path = ./templates/tmux.conf;
+              output_path = "$XDG_CONFIG_HOME/tmux/noctalia.conf";
+              post_hook = "${pkgs.tmux}/bin/tmux source-file \"$XDG_CONFIG_HOME/tmux/tmux.conf\" 2>/dev/null || true";
             };
           };
         };

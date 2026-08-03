@@ -210,6 +210,9 @@
       alias c = clear
       alias q = exit
       alias temp = cd /tmp/
+      alias tm = tmux new-session -A -s dev
+      alias ta = tmux attach-session
+      alias tl = tmux list-sessions
 
       # Build
       alias test-build = sudo nixos-rebuild test --flake .
