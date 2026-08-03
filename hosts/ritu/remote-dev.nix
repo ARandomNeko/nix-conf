@@ -1,4 +1,20 @@
 { lib, pkgs, ... }:
+let
+  # Sunshine loads NVENC through dlopen. LD_LIBRARY_PATH is intentionally
+  # ignored for capability-wrapped executables, so add the live NVIDIA driver
+  # directory to the binary's RUNPATH instead.
+  sunshineNvidia =
+    pkgs.runCommand "${pkgs.sunshine.name}-nvidia"
+      {
+        nativeBuildInputs = [ pkgs.addDriverRunpath ];
+        meta.mainProgram = "sunshine";
+      }
+      ''
+        cp -a ${pkgs.sunshine} $out
+        chmod u+w $out/bin/sunshine
+        addDriverRunpath $out/bin/sunshine
+      '';
+in
 {
   # Private connectivity for the Hyderabad server. The first login still
   # requires `sudo tailscale up --ssh --hostname=mnemosyne` locally.
@@ -74,6 +90,7 @@
   # an unattended reboot rather than waiting for a local login.
   services.sunshine = {
     enable = true;
+    package = sunshineNvidia;
     autoStart = true;
     capSysAdmin = true;
     openFirewall = false;
