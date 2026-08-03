@@ -17,7 +17,7 @@ My personal NixOS configuration, built around the **Niri** scrollable tiling com
 - **Window Management:** [Niri](https://github.com/sodiboo/niri-flake) - A unique scrollable-tiling Wayland compositor that feels more natural than traditional grids.
 - **Desktop Shell:** [Noctalia](https://github.com/noctalia-dev/noctalia-shell) - A complete shell with a status bar, notifications, and integrated system controls.
 - **Dynamic Theming:** [Matugen](https://github.com/InioS/matugen) - Material You color generation that pulls palettes from your wallpaper.
-- **Optimized Shell:** `fish` with `starship` prompt and custom aliases.
+- **Optimized Shell:** Nushell with a `starship` prompt, FZF integration, and custom aliases.
 - **Modern CLI Tools:** `yazi` for files, `helix` for code, `btop` for monitoring.
 
 ## 📦 Core Applications
@@ -86,8 +86,36 @@ ssh mnemosyne
 ```
 
 The same `mnemosyne` entry works with editor Remote SSH extensions. For a
-terminal that survives network changes, use `mosh mnemosyne`; for persistent
-work, start a named session with `tmux new -s dev` on the server.
+terminal that survives network changes, use `mosh mnemosyne`. Every interactive
+terminal automatically creates or attaches to the persistent tmux session
+named `dev`; detach safely with `Ctrl-a d`.
+
+### Tmux cheatsheet
+
+Tmux uses `Ctrl-a` as its prefix: press `Ctrl-a`, release it, then press the key
+listed below. The full field manual is always available inside tmux with
+`Ctrl-a ?` and closes with `q`.
+
+| Key | Action |
+| :--- | :--- |
+| `Ctrl-a d` | Detach while leaving every process running |
+| `Ctrl-a ?` | Open the complete cheatsheet in a popup |
+| `Ctrl-a \|` / `Ctrl-a -` | Split right / below in the current directory |
+| `Ctrl-a h/j/k/l` | Move between panes |
+| `Ctrl-a H/J/K/L` | Resize panes |
+| `Ctrl-a c` | Create a window in the current directory |
+| `Ctrl-a n/p` | Move to the next / previous window |
+| `Ctrl-a s` | Browse sessions, windows, and panes |
+| `Ctrl-a g/e/b` | Open lazygit / Helix / btop in a popup |
+| `Ctrl-a F` | Fuzzy-find tmux objects and commands |
+| `Ctrl-a Space` | Select and copy visible URLs, paths, hashes, or numbers |
+| `Ctrl-a [` | Enter Vim-style copy mode; use `v`, then `y` |
+| `Ctrl-a C-s` / `Ctrl-a C-r` | Save / restore a session snapshot |
+| `Ctrl-a r` | Reload the configuration |
+
+Continuum snapshots all sessions every 10 minutes and restores them when tmux
+starts after a reboot. The status bar and popup colors are regenerated from the
+active Noctalia wallpaper palette.
 
 ### Remote desktop
 

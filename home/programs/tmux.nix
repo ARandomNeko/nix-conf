@@ -74,8 +74,8 @@
 
       # Quality-of-life controls.
       bind -N 'Reload tmux configuration' r source-file ~/.config/tmux/tmux.conf \; display-message ' tmux reloaded '
-      bind -N 'Toggle pane synchronization' C-s setw synchronize-panes \; display-message ' pane sync: #{?pane_synchronized,on,off} '
-      bind -N 'Show key bindings' ? list-keys -N
+      bind -N 'Toggle pane synchronization' Y setw synchronize-panes \; display-message ' pane sync: #{?pane_synchronized,on,off} '
+      bind -N 'Open tmux cheatsheet' ? display-popup -E -w 88% -h 88% '${pkgs.bat}/bin/bat --language=md --style=plain --color=always --paging=always ${./tmux-cheatsheet.md}'
       bind -N 'Clear pane and history' C-l send-keys C-l \; clear-history
 
       # Vim-style copy mode. tmux-yank and OSC 52 handle local and remote copies.
