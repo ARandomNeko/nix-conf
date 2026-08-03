@@ -19,6 +19,7 @@
         inputs.noctalia.homeModules.default
         ./programs
         ./shell
+        ./taildrop.nix
         ./noctalia.nix
         ./niri.nix
         ./pointer.nix

@@ -5,7 +5,10 @@
   services.tailscale = {
     enable = true;
     openFirewall = true;
-    extraSetFlags = [ "--hostname=eschaton" ];
+    extraSetFlags = [
+      "--hostname=eschaton"
+      "--operator=ritu"
+    ];
   };
 
   # Avoid routing Tailscale traffic into Cloudflare WARP.

@@ -23,6 +23,7 @@ in
     openFirewall = true;
     extraSetFlags = [
       "--hostname=mnemosyne"
+      "--operator=ritu"
       "--ssh"
     ];
   };

@@ -90,6 +90,13 @@ terminal that survives network changes, use `mosh mnemosyne`. Every interactive
 terminal automatically creates or attaches to the persistent tmux session
 named `dev`; detach safely with `Ctrl-a d`.
 
+Taildrop files sent to either Linux machine are received automatically in
+`~/Taildrop`, beside `~/Downloads`. The receiver starts with the user session;
+on `mnemosyne`, user lingering keeps it running after boot without a login.
+Duplicate filenames are renamed instead of overwritten. The declarative
+`--operator=ritu` setting lets the user service empty Tailscale's inbox without
+root access.
+
 ### Tmux cheatsheet
 
 Tmux uses `Ctrl-a` as its prefix: press `Ctrl-a`, release it, then press the key
