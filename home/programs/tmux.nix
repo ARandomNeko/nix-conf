@@ -43,6 +43,7 @@
       set -as terminal-features ',xterm*:RGB:clipboard:hyperlinks:usstyle'
       set -as terminal-features ',ghostty:RGB:clipboard:hyperlinks:usstyle'
       set -g set-clipboard on
+      set -g @thumbs-osc52 1
       set -g extended-keys on
       set -g extended-keys-format csi-u
       set -g focus-events on
