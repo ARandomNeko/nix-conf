@@ -41,7 +41,6 @@
     komikku
     kicad
     qbittorrent
-    vesktop
     # Development
     gcc
     gnumake

@@ -89,6 +89,20 @@ in
           # ASUS services
           services.asusd.enable = true;
           services.supergfxd.enable = true;
+          systemd.services = {
+            # asus-shutdown is PartOf=asusd and intentionally ignores SIGTERM
+            # until it reaches a hardware-safe point. Avoid restarting these
+            # package-provided ASUS units during a config switch; reboot picks
+            # up updated binaries cleanly.
+            asusd = {
+              overrideStrategy = "asDropin";
+              restartIfChanged = false;
+            };
+            "asus-shutdown" = {
+              overrideStrategy = "asDropin";
+              restartIfChanged = false;
+            };
+          };
 
           # Laptop service budget
           hardware.bluetooth.powerOnBoot = lib.mkForce false;

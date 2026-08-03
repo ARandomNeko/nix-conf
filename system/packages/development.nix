@@ -28,6 +28,7 @@
     angular-language-server
     vscode-langservers-extracted
     prettier
+    bun
 
     # Python
     pyright

@@ -6,7 +6,6 @@
 }:
 {
   boot = {
-    bootspec.enable = true;
 
     initrd = {
       systemd.enable = true;
@@ -18,8 +17,8 @@
       "exfat"
     ];
 
-    # Keep the currently installed testing kernel (mkForce to override nixos-hardware).
-    kernelPackages = lib.mkForce pkgs.linuxPackages_testing;
+    # Keep a recent non-RC kernel (mkForce to override nixos-hardware).
+    kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
     # Quiet boot
     consoleLogLevel = 3;
