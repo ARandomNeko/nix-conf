@@ -23,7 +23,7 @@ in
       "${home}"
 
       ({ pkgs, config, ... }: {
-        networking.hostName = "ritu";
+        networking.hostName = "mnemosyne";
 
         # NVIDIA
         hardware.graphics.enable = true;
@@ -62,7 +62,7 @@ in
           ...
         }:
         {
-          networking.hostName = "laptop";
+          networking.hostName = "eschaton";
 
           # NVIDIA Prime for the laptop RTX 4070 Max-Q.
           # Keep runtime PM enabled so PRIME offload can idle the dGPU.

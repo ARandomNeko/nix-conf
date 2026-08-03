@@ -1,15 +1,19 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   # Private connectivity for the Hyderabad server. The first login still
-  # requires `sudo tailscale up --ssh --hostname=hyd` from a local terminal.
+  # requires `sudo tailscale up --ssh --hostname=mnemosyne` locally.
   services.tailscale = {
     enable = true;
     openFirewall = true;
     extraSetFlags = [
-      "--hostname=hyd"
+      "--hostname=mnemosyne"
       "--ssh"
     ];
   };
+
+  # WARP currently installs routes covering Tailscale's 100.64.0.0/10 space.
+  # Do not let two overlay VPNs compete on an unattended server.
+  services.cloudflare-warp.enable = lib.mkForce false;
 
   # Keep the regular OpenSSH daemon available as a fallback, but expose it
   # only inside the tailnet. Tailscale SSH normally handles connections to
@@ -35,7 +39,21 @@
   };
 
   networking.firewall.interfaces.tailscale0 = {
-    allowedTCPPorts = [ 22 ];
+    # SSH plus Sunshine's HTTPS, HTTP, and RTSP endpoints. The Sunshine
+    # administration UI (47990) stays closed and is reached through SSH.
+    allowedTCPPorts = [
+      22
+      47984
+      47989
+      48010
+    ];
+    allowedUDPPorts = [
+      47998
+      47999
+      48000
+      48002
+      48010
+    ];
     allowedUDPPortRanges = [
       {
         from = 60000;
@@ -50,6 +68,21 @@
     mosh
     tmux
   ];
+
+  # Stream the existing Niri session to Moonlight. Sunshine is a user service
+  # tied to graphical-session.target, so greetd must start that session after
+  # an unattended reboot rather than waiting for a local login.
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = false;
+  };
+
+  services.greetd.settings.initial_session = {
+    command = "${pkgs.niri}/bin/niri-session";
+    user = "ritu";
+  };
 
   # A remote server must not disappear because a desktop power action put it
   # to sleep. Shutdown and reboot remain available.

@@ -65,33 +65,58 @@ sudo nixos-rebuild switch --flake .#<hostname>
 
 ## 🌏 Remote development: NJ → Hyderabad
 
-The `ritu` profile is the Hyderabad server and the `laptop` profile is the
-New Jersey client. They connect through Tailscale, so SSH does not require a
-public IP, router port forwarding, or a public port 22.
+The `ritu` profile builds the Hyderabad server named `mnemosyne`; the `laptop`
+profile builds the New Jersey client named `eschaton`. They connect through
+Tailscale, so SSH does not require a public IP, router port forwarding, or a
+public port 22.
 
 On the Hyderabad machine, rebuild locally and enroll it in the tailnet:
 
 ```bash
 sudo nixos-rebuild switch --flake .#ritu
-sudo tailscale up --ssh --hostname=hyd
+sudo tailscale up --ssh --hostname=mnemosyne
 ```
 
 On the New Jersey laptop:
 
 ```bash
 sudo nixos-rebuild switch --flake .#laptop
-sudo tailscale up --hostname=nj
-ssh hyd
+sudo tailscale up --hostname=eschaton
+ssh mnemosyne
 ```
 
-The same `hyd` entry works with editor Remote SSH extensions. For a terminal
-that survives network changes, use `mosh hyd`; for persistent work, start a
-named session with `tmux new -s dev` on the server.
+The same `mnemosyne` entry works with editor Remote SSH extensions. For a
+terminal that survives network changes, use `mosh mnemosyne`; for persistent
+work, start a named session with `tmux new -s dev` on the server.
+
+### Remote desktop
+
+The server starts a Niri session automatically after boot and runs Sunshine in
+that session. The laptop profile installs Moonlight. Sunshine's stream ports
+are open only on the Tailscale interface; its administration page remains
+local-only.
+
+After rebuilding both profiles, open a temporary tunnel from the laptop:
+
+```bash
+ssh -L 47990:localhost:47990 mnemosyne
+```
+
+Keep that terminal open, visit `https://localhost:47990`, and create the
+Sunshine administrator account. Launch Moonlight, manually add the computer
+`mnemosyne`, select **Desktop**, and enter Moonlight's pairing PIN in the
+tunneled Sunshine page. The tunnel is only needed for administration and
+pairing, not for normal desktop streaming.
+
+The auto-login is intentional: Sunshine captures an active graphical session,
+so without it remote desktop would remain unavailable after an unattended
+reboot. The server still needs firmware/BIOS **Restore on AC Power Loss** set to
+**Power On** if it must recover automatically from a complete power outage.
 
 Tailscale SSH access is governed by the tailnet access policy. Both machines
 must be signed into the same tailnet, and that policy must allow your identity
-to SSH as `ritu`. If Cloudflare WARP interferes with Tailscale routing or DNS,
-disconnect WARP while using the tailnet.
+to SSH as `ritu`. Cloudflare WARP is disabled on these two profiles because its
+routes overlap Tailscale's address space on this setup.
 
 ## 🛠️ Credits & Inspiration
 This configuration is built upon the giants:
