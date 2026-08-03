@@ -63,9 +63,38 @@ nh os switch . --hostname <laptop|ritu|default>
 sudo nixos-rebuild switch --flake .#<hostname>
 ```
 
+## 🌏 Remote development: NJ → Hyderabad
+
+The `ritu` profile is the Hyderabad server and the `laptop` profile is the
+New Jersey client. They connect through Tailscale, so SSH does not require a
+public IP, router port forwarding, or a public port 22.
+
+On the Hyderabad machine, rebuild locally and enroll it in the tailnet:
+
+```bash
+sudo nixos-rebuild switch --flake .#ritu
+sudo tailscale up --ssh --hostname=hyd
+```
+
+On the New Jersey laptop:
+
+```bash
+sudo nixos-rebuild switch --flake .#laptop
+sudo tailscale up --hostname=nj
+ssh hyd
+```
+
+The same `hyd` entry works with editor Remote SSH extensions. For a terminal
+that survives network changes, use `mosh hyd`; for persistent work, start a
+named session with `tmux new -s dev` on the server.
+
+Tailscale SSH access is governed by the tailnet access policy. Both machines
+must be signed into the same tailnet, and that policy must allow your identity
+to SSH as `ritu`. If Cloudflare WARP interferes with Tailscale routing or DNS,
+disconnect WARP while using the tailnet.
+
 ## 🛠️ Credits & Inspiration
 This configuration is built upon the giants:
 - **[zaneyOS](https://gitlab.com/Zaney/zaneyos):** For the initial structure and base modules.
 - **[kaku:](https://github.com/linuxmobile/kaku)** For deep inspiration and config patterns.
 - **[Noctalia Devs](https://github.com/noctalia-dev):** For the incredible shell framework.
-
