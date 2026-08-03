@@ -18,7 +18,6 @@
     fd
     eza
     bat
-    fzf
     jq
     trashy
 
