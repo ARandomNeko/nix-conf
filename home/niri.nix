@@ -102,6 +102,9 @@ in
       }
 
       binds {
+          // Always-local escape hatch for Moonlight/remote-desktop keyboard grabs.
+          Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
           // Terminal
           Mod+T { spawn "${pkgs.ghostty}/bin/ghostty"; }
           Mod+Return { spawn "${pkgs.ghostty}/bin/ghostty"; }
