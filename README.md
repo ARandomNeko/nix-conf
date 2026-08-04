@@ -69,14 +69,13 @@ The `ritu` profile runs Hermes as the unprivileged `hermes` user with
 `gpt-5.6-luna` at medium reasoning effort. Its home and writable workspace are
 under `/var/lib/hermes`; the systemd sandbox hides normal user home directories.
 
-After the first rebuild, add the OpenAI API key without exposing it to the Nix
-store or shell history:
+After the first rebuild, sign in through the OpenAI Codex device flow. Run the
+login as the dedicated service user so the gateway owns and can refresh its
+private OAuth token store:
 
 ```bash
-sudoedit /var/lib/hermes/env
-# Add: OPENAI_API_KEY=sk-...
-sudo chown hermes:hermes /var/lib/hermes/env
-sudo chmod 600 /var/lib/hermes/env
+sudo -u hermes -H env HERMES_HOME=/var/lib/hermes/.hermes \
+  hermes auth add openai-codex
 sudo systemctl restart hermes-agent
 ```
 

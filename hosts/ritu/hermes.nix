@@ -4,13 +4,6 @@
   ...
 }:
 {
-  # Keep credentials outside the Nix store. The activation creates this file
-  # empty on first deployment; populate it with OPENAI_API_KEY afterwards.
-  systemd.tmpfiles.rules = [
-    "f /var/lib/hermes/env 0600 hermes hermes -"
-    "z /var/lib/hermes/env 0600 hermes hermes - -"
-  ];
-
   users.users.ritu.extraGroups = [ "hermes" ];
 
   services.hermes-agent = {
@@ -20,9 +13,9 @@
 
     settings = {
       model = {
-        provider = "openai-api";
+        provider = "openai-codex";
         default = "gpt-5.6-luna";
-        base_url = "https://api.openai.com/v1";
+        base_url = "https://chatgpt.com/backend-api/codex";
         context_length = 1050000;
       };
 
@@ -59,7 +52,6 @@
   # The upstream native unit is already hardened. Hide user homes as an
   # additional boundary; Hermes only needs its dedicated state/workspace.
   systemd.services.hermes-agent.serviceConfig = {
-    EnvironmentFile = "/var/lib/hermes/env";
     ProtectHome = lib.mkForce true;
     PrivateDevices = true;
     ProtectControlGroups = true;
