@@ -27,6 +27,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    hermes-agent.url = "github:NousResearch/hermes-agent";
   };
 
   outputs =

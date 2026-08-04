@@ -63,6 +63,32 @@ nh os switch . --hostname <laptop|ritu|default>
 sudo nixos-rebuild switch --flake .#<hostname>
 ```
 
+## Hermes Agent
+
+The `ritu` profile runs Hermes as the unprivileged `hermes` user with
+`gpt-5.6-luna` at medium reasoning effort. Its home and writable workspace are
+under `/var/lib/hermes`; the systemd sandbox hides normal user home directories.
+
+After the first rebuild, add the OpenAI API key without exposing it to the Nix
+store or shell history:
+
+```bash
+sudoedit /var/lib/hermes/env
+# Add: OPENAI_API_KEY=sk-...
+sudo chown hermes:hermes /var/lib/hermes/env
+sudo chmod 600 /var/lib/hermes/env
+sudo systemctl restart hermes-agent
+```
+
+Log out and back in once to pick up membership in the `hermes` group, then use
+`hermes` from a terminal. Check the gateway with
+`systemctl status hermes-agent` and `journalctl -u hermes-agent`.
+
+The desktop updates all flake inputs every Sunday morning, builds both real host
+configurations, and switches only after both builds succeed. A successful lock
+file update is committed and pushed to `main`. Flatpaks update on a separate
+weekly timer. Neither timer reboots the machine; firmware updates remain manual.
+
 ## 🌏 Remote development: NJ → Hyderabad
 
 The `ritu` profile builds the Hyderabad server named `mnemosyne`; the `laptop`

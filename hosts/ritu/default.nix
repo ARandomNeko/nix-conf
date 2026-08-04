@@ -1,6 +1,8 @@
 { ... }: {
   imports = [
+    ./auto-update.nix
     ./hardware.nix
+    ./hermes.nix
     ./host-packages.nix
     ./remote-dev.nix
   ];

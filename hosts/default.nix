@@ -22,6 +22,8 @@ in
       "${mod}/services/gnome-services.nix"
       "${home}"
 
+      inputs.hermes-agent.nixosModules.default
+
       ({ pkgs, config, ... }: {
         networking.hostName = "mnemosyne";
 
