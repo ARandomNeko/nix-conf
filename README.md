@@ -115,6 +115,30 @@ terminal that survives network changes, use `mosh mnemosyne`. Every interactive
 shell provides `tm` to create or attach to the persistent tmux session named
 `dev`; detach safely with `Ctrl-a d`.
 
+### Network DNS
+
+`mnemosyne` runs the native NixOS Pi-hole FTL and web modules. DNS is exposed
+only on the wired LAN (`192.168.29.38`) and Tailscale (`100.105.150.62`). The
+dashboard is loopback-only; reach it from another tailnet machine with:
+
+```bash
+ssh -L 8080:127.0.0.1:8080 mnemosyne
+```
+
+Then open `http://127.0.0.1:8080/admin/`. Keep the tunnel open while using the
+dashboard.
+
+Reserve `192.168.29.38` for Ethernet MAC `04:7c:16:75:d5:a5` in the router.
+Configure the router's LAN/DHCP DNS servers as `192.168.29.38` followed by
+Cloudflare `1.1.1.1`. Secondary DNS is not strict failover on every client, so
+some queries may bypass Pi-hole even while it is healthy. The router must also
+stop advertising its ISP-provided IPv6 DNS server or clients can bypass Pi-hole
+over IPv6; IPv6 connectivity itself does not need to be disabled.
+
+In the Tailscale DNS admin page, add `100.105.150.62` and `1.1.1.1` as global
+nameservers, enable **Override DNS servers**, and enable **Use with exit node**
+for the Pi-hole nameserver if `mnemosyne` is later advertised as an exit node.
+
 Taildrop files sent to either Linux machine are received automatically in
 `~/Taildrop`, beside `~/Downloads`. The receiver starts with the user session;
 on `mnemosyne`, user lingering keeps it running after boot without a login.
