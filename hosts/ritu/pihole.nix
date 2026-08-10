@@ -56,7 +56,11 @@
       # loopback. Administration therefore requires the existing SSH access.
       webserver = {
         acl = "+127.0.0.1,+[::1]";
-        api.allow_destructive = false;
+        api = {
+          allow_destructive = false;
+          # Required for the setup unit's short-lived API authentication.
+          cli_pw = true;
+        };
       };
     };
   };
@@ -66,14 +70,43 @@
     ports = [ "127.0.0.1:8080" ];
   };
 
-  networking.firewall.interfaces = {
-    enp42s0 = {
+  # Route this host's ordinary DNS through its own Pi-hole. The route-only
+  # root domain takes precedence over DNS learned from router DHCP, while
+  # Tailscale's more-specific MagicDNS domains continue to use Tailscale.
+  services.resolved.settings.Resolve = {
+    DNS = [ "127.0.0.1" ];
+    Domains = [ "~." ];
+    # Do not silently bypass filtering if FTL is unavailable.
+    FallbackDNS = [ ];
+  };
+
+  networking.firewall = {
+    # Limit Ethernet clients by source address. Interface-wide port rules
+    # would also admit globally routed IPv6 traffic arriving on enp42s0.
+    extraInputRules = ''
+      iifname "enp42s0" ip saddr 192.168.29.0/24 tcp dport 53 accept comment "Pi-hole DNS from LAN"
+      iifname "enp42s0" ip saddr 192.168.29.0/24 udp dport 53 accept comment "Pi-hole DNS from LAN"
+    '';
+
+    # Tailscale authenticates and encrypts this interface; tailnet ACLs remain
+    # the authority for which enrolled devices may reach the resolver.
+    interfaces.tailscale0 = {
       allowedTCPPorts = [ 53 ];
       allowedUDPPorts = [ 53 ];
     };
-    tailscale0 = {
-      allowedTCPPorts = [ 53 ];
-      allowedUDPPorts = [ 53 ];
+  };
+
+  # On a new installation the upstream setup unit can race FTL reopening the
+  # freshly-created gravity database. A retry sees the database in place and
+  # loads the declarative lists normally.
+  systemd.services.pihole-ftl-setup = {
+    # Staying active makes a later declarative list change restart this unit
+    # during nixos-rebuild instead of leaving the new list unapplied.
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      RemainAfterExit = true;
+      Restart = "on-failure";
+      RestartSec = "2s";
     };
   };
 

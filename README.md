@@ -125,7 +125,7 @@ dashboard is loopback-only; reach it from another tailnet machine with:
 ssh -L 8080:127.0.0.1:8080 mnemosyne
 ```
 
-Then open `http://127.0.0.1:8080/admin/`. Keep the tunnel open while using the
+Then open `http://127.0.0.1:8080/`. Keep the tunnel open while using the
 dashboard.
 
 Reserve `192.168.29.38` for Ethernet MAC `04:7c:16:75:d5:a5` in the router.

@@ -22,6 +22,9 @@ in
     enable = true;
     openFirewall = true;
     extraSetFlags = [
+      # This host provides the tailnet's DNS; do not consume the DNS policy it
+      # serves back to clients. Ordinary local lookups use Pi-hole directly.
+      "--accept-dns=false"
       "--hostname=mnemosyne"
       "--operator=ritu"
       "--ssh"
