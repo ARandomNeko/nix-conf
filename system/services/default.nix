@@ -14,7 +14,10 @@
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
 
-  # Location services (required for noctalia auto location / night light)
+  # Keep the system timezone in sync with the current GeoClue location.
+  services.automatic-timezoned.enable = true;
+
+  # Location services (required for automatic timezone updates and Noctalia)
   services.geoclue2.enable = true;
 
   # Polkit authentication agent
