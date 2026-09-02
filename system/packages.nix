@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  codexbar = pkgs.callPackage ./packages/codexbar.nix { };
+in
 {
   imports = [
     ./packages/development.nix
@@ -53,6 +56,7 @@
     playwright-test
 
     # AI tools
+    codexbar
     gemini-cli-bin
     code-cursor-fhs
     opencode
