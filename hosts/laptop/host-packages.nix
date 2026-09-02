@@ -1,4 +1,7 @@
 { lib, pkgs, ... }:
+let
+  librepods = pkgs.callPackage ../../system/packages/librepods-noctalia.nix { };
+in
 {
   # Advertise an Apple DeviceID so AirPods expose the features LibrePods uses.
   hardware.bluetooth.settings.General.DeviceID = "bluetooth:004C:0000:0000";
@@ -19,11 +22,9 @@
     obs-studio
   ];
 
-  # LibrePods is tray-based, so start it with the desktop and expose Noctalia's
-  # tray widget on this host.
+  # The Noctalia plugin is the UI, so run its patched LibrePods backend without
+  # the upstream Qt tray/window.
   home-manager.users.ritu = {
-    programs.noctalia.settings.bar.default.end = lib.mkBefore [ "tray" ];
-
     systemd.user.services.librepods = {
       Unit = {
         Description = "LibrePods AirPods integration";
@@ -32,9 +33,11 @@
       };
 
       Service = {
-        ExecStart = lib.getExe pkgs.librepods;
+        Environment = [ "QT_LOGGING_RULES=openpods.debug=false" ];
+        ExecStart = "${lib.getExe librepods} --headless";
         Restart = "on-failure";
         RestartSec = 3;
+        UMask = "0077";
       };
 
       Install.WantedBy = [ "graphical-session.target" ];
