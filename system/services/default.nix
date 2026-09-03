@@ -8,7 +8,6 @@
     enable = true;
     powerOnBoot = true;
   };
-  services.blueman.enable = true;
 
   # Power management (required for noctalia)
   services.power-profiles-daemon.enable = true;
