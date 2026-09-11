@@ -35,6 +35,7 @@ in
     stress
     openssl
     kanshi
+    calcure
 
     # System packages
     obsidian
