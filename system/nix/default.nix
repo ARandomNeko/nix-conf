@@ -23,7 +23,7 @@
       registry = lib.mapAttrs (_: v: { flake = v; }) flakeInputs;
 
       # Set the path for channels compat
-      nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
+      settings.nix-path = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
       settings = {
         auto-optimise-store = true;

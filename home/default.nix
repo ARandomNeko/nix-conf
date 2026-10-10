@@ -16,7 +16,6 @@
 
     users.ritu = {
       imports = [
-        inputs.noctalia.homeModules.default
         ./programs
         ./shell
         ./taildrop.nix

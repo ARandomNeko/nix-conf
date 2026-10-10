@@ -3,6 +3,8 @@
   # Noctalia shell configuration with matugen theming
   programs.noctalia = {
     enable = true;
+    # Use Home Manager's module with the package pinned by our Noctalia input.
+    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
     systemd.enable = true;
 
     settings = {
