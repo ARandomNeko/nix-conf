@@ -1,209 +1,154 @@
-# ❄️ nix-conf
+# nix-conf
 
-My personal NixOS configuration, built around the **Niri** scrollable tiling compositor and **Noctalia** shell. This setup is designed to be aesthetic, functional, and highly optimized for both my ASUS G14 laptop and my NVIDIA-powered desktop.
+My personal NixOS configuration for an NVIDIA desktop and an ASUS ROG Zephyrus
+G14 laptop. Both use the Niri Wayland compositor, Noctalia shell, and Home Manager
+for user configuration.
 
----
+This repository is shared as a reference for others building a similar setup.
+Hardware, user accounts, paths, and network services are specific to my machines;
+adapt those settings before applying a profile to your own system.
 
-## 🖥️ System Overview
+## Desktop and tools
 
-| Host | Description | Hardware Focus |
-| :--- | :--- | :--- |
-| `laptop` | **ASUS ROG Zephyrus G14 (2024)** | AMD CPU/GPU, Power management, Lid behavior |
-| `ritu` | **Main Workstation** | AMD CPU, NVIDIA GPU, Performance focused |
-| `default` | **Template** | Generic x86_64 NixOS configuration |
+- **Niri + Noctalia:** scrollable tiling, an application launcher, notifications,
+  a lock screen, and wallpaper-based colors through Matugen.
+- **Ghostty + Nushell:** Starship prompt, Carapace completions, Zoxide, FZF, and
+  Direnv with nix-direnv.
+- **Development:** Helix and Zed, language servers and toolchains, Git with Delta,
+  and tmux with session snapshots and themed popups.
+- **Everyday applications:** Zen Browser through Flatpak, Yazi and Nautilus,
+  MPV, IMV, Zathura, and Steam.
+- **Laptop support:** NVIDIA PRIME offload, ASUS utilities, TLP power management,
+  zram, and LibrePods integration with Noctalia. Closing the lid suspends on
+  battery and locks without suspending on AC power.
 
-## ✨ Key Features
+Dependencies come from `nixos-unstable` and the other inputs in
+[flake.nix](flake.nix); [flake.lock](flake.lock) pins their revisions. Home Manager
+is integrated into the NixOS configurations, so a system rebuild also applies
+the user configuration.
 
-- **Window Management:** [Niri](https://github.com/sodiboo/niri-flake) - A unique scrollable-tiling Wayland compositor that feels more natural than traditional grids.
-- **Desktop Shell:** [Noctalia](https://github.com/noctalia-dev/noctalia-shell) - A complete shell with a status bar, notifications, and integrated system controls.
-- **Dynamic Theming:** [Matugen](https://github.com/InioS/matugen) - Material You color generation that pulls palettes from your wallpaper.
-- **Optimized Shell:** Nushell with a `starship` prompt, FZF integration, and custom aliases.
-- **Modern CLI Tools:** `yazi` for files, `helix` for code, `btop` for monitoring.
+## Host profiles
 
-## 📦 Core Applications
+| Flake target | System hostname | Purpose |
+| --- | --- | --- |
+| `ritu` | `mnemosyne` | NVIDIA desktop, remote development server, and LAN/tailnet DNS |
+| `laptop` | `eschaton` | ASUS ROG Zephyrus G14 with AMD/NVIDIA hybrid graphics and remote development clients |
 
-- **Editor:** Helix (hx)
-- **Terminal:** Ghostty
-- **File Manager:** Yazi (TUI) / Nautilus (GUI)
-- **Browser:** Zen Browser (Flatpak)
-- **Media:** MPV, IMV, Zathura (PDF)
-- **Social:** Vesktop (Discord)
+These are the two exported `nixosConfigurations`, both for `x86_64-linux`.
+`hosts/default/` contains template files but is not an exported build target.
+Use the flake target, rather than the system hostname, in rebuild commands.
 
-## 🚀 Installation
+## Repository layout
 
-> [!CAUTION]
-> This configuration is tailored to my specific hardware. If you are not me, **do not** run this blindly. You will likely need to adjust `hardware.nix` and `variables.nix`.
-
-### 1. Prerequisites
-- **NixOS** installed on your machine.
-- **Experimental features** enabled (`nix-command` and `flakes`).
-
-### 2. Clone the Repository
-```bash
-git clone https://github.com/ARandomNeko/nix-conf.git ~/nix-conf
-cd ~/nix-conf
+```text
+flake.nix              Flake inputs and outputs
+flake.lock             Pinned dependency revisions
+hosts/default.nix      Host definitions and module wiring
+hosts/ritu/            Desktop hardware, packages, and services
+hosts/laptop/          Laptop hardware, packages, and services
+hosts/default/         Unwired template files
+system/                Shared NixOS modules and package definitions
+home/                  Home Manager modules, desktop settings, and shell config
+home/templates/        Custom wallpaper-based theme templates
+wallpapers/            Wallpaper collection used by Noctalia
 ```
 
-### 3. Setup Hardware Configuration
-Each host directory expects a `hardware.nix`. If you're setting up a new host, generate it first:
-```bash
-nixos-generate-config --show-hardware-config > ./hosts/<your-host-name>/hardware.nix
-```
+## Adapting the configuration
 
-### 4. Deploy Configuration
-I use `nh` for a better management experience.
+Start with an existing NixOS installation, Git, and the `nix-command` and `flakes`
+experimental features enabled. The included boot configuration assumes UEFI with
+systemd-boot.
 
-**Install/Switch:**
-```bash
-nh os switch . --hostname <laptop|ritu|default>
-```
-
-**Manual (No `nh`):**
-```bash
-sudo nixos-rebuild switch --flake .#<hostname>
-```
-
-## Hermes Agent
-
-The `ritu` profile runs Hermes as the unprivileged `hermes` user with
-`gpt-5.6-luna` at medium reasoning effort. Its home and writable workspace are
-under `/var/lib/hermes`; the systemd sandbox hides normal user home directories.
-
-After the first rebuild, sign in through the OpenAI Codex device flow. Run the
-login as the dedicated service user so the gateway owns and can refresh its
-private OAuth token store:
+Fork the repository if you plan to maintain your own version, then clone your
+fork. To browse this configuration locally:
 
 ```bash
-sudo -u hermes -H env HERMES_HOME=/var/lib/hermes/.hermes \
-  hermes auth add openai-codex
-sudo systemctl restart hermes-agent
+git clone https://github.com/ARandomNeko/nix-conf.git
+cd nix-conf
 ```
 
-Log out and back in once to pick up membership in the `hermes` group, then use
-`hermes` from a terminal. Check the gateway with
-`systemctl status hermes-agent` and `journalctl -u hermes-agent`.
-
-The desktop updates all flake inputs every Sunday morning, builds both real host
-configurations, and switches only after both builds succeed. A successful lock
-file update is committed and pushed to `main`. Flatpaks update on a separate
-weekly timer. Neither timer reboots the machine; firmware updates remain manual.
-
-## 🌏 Remote development: NJ → Hyderabad
-
-The `ritu` profile builds the Hyderabad server named `mnemosyne`; the `laptop`
-profile builds the New Jersey client named `eschaton`. They connect through
-Tailscale, so SSH does not require a public IP, router port forwarding, or a
-public port 22.
-
-On the Hyderabad machine, rebuild locally and enroll it in the tailnet:
+Choose a profile to adapt. The examples below use `laptop`; use `ritu` for the
+desktop profile. Generate a hardware configuration on the machine you intend to
+configure and review it before replacing the selected profile's `hardware.nix`:
 
 ```bash
-sudo nixos-rebuild switch --flake .#ritu
-sudo tailscale up --ssh --hostname=mnemosyne
+nixos-generate-config --show-hardware-config > /tmp/hardware-configuration.nix
 ```
 
-On the New Jersey laptop:
+Review these settings before the first rebuild:
+
+- **Hardware and boot:** replace the selected host's `hardware.nix`, check
+  [boot settings](system/core/boot.nix), and adjust the GPU drivers, PRIME bus IDs,
+  hostname, and hardware module in [hosts/default.nix](hosts/default.nix). The
+  desktop also declares a `/data` filesystem in
+  [hosts/ritu/default.nix](hosts/ritu/default.nix).
+- **User account:** change the `ritu` account in
+  [system/core/default.nix](system/core/default.nix) and
+  [home/default.nix](home/default.nix), including the home directory. Update
+  references in any host services you retain. Set your own Git identity in
+  [home/programs/git.nix](home/programs/git.nix).
+- **Desktop and paths:** adjust display settings and keybindings in
+  [home/niri.nix](home/niri.nix), wallpaper and avatar paths in
+  [home/noctalia.nix](home/noctalia.nix), and `NH_FLAKE` in
+  [system/nix/nh.nix](system/nix/nh.nix).
+- **Host services:** review the imports in the selected host's `default.nix`.
+  Adapt or remove the remote access, Pi-hole, Hermes, and automatic update modules
+  as appropriate. The laptop's [eduroam profile](hosts/laptop/eduroam.nix) contains
+  an institution-specific identity and certificate configuration.
+- **Access policy:** review [system/core/security.nix](system/core/security.nix),
+  including passwordless sudo for the `wheel` group, and the desktop's automatic
+  graphical login in [hosts/ritu/remote-dev.nix](hosts/ritu/remote-dev.nix).
+
+The `variables.nix` files are not currently imported by the active configurations;
+edit the modules above directly. Keep passwords, tokens, and private keys out of
+tracked Nix files; provision credentials locally for the services you enable.
+
+Build the adapted profile before activating it:
 
 ```bash
-sudo nixos-rebuild switch --flake .#laptop
-sudo tailscale up --hostname=eschaton
-ssh mnemosyne
+nix build '.#nixosConfigurations.laptop.config.system.build.toplevel' --no-link
+sudo nixos-rebuild switch --flake '.#laptop'
 ```
 
-The same `mnemosyne` entry works with editor Remote SSH extensions. For a
-terminal that survives network changes, use `mosh mnemosyne`. Every interactive
-shell provides `tm` to create or attach to the persistent tmux session named
-`dev`; detach safely with `Ctrl-a d`.
-
-### Network DNS
-
-`mnemosyne` runs the native NixOS Pi-hole FTL and web modules. DNS is exposed
-only on the wired LAN (`192.168.29.38`) and Tailscale (`100.105.150.62`). The
-dashboard is loopback-only; reach it from another tailnet machine with:
+Once `nh` is available, the equivalent switch command is:
 
 ```bash
-ssh -L 8080:127.0.0.1:8080 mnemosyne
+nh os switch . --hostname laptop
 ```
 
-Then open `http://127.0.0.1:8080/`. Keep the tunnel open while using the
-dashboard.
+To add a separate host, create its directory under `hosts/` and wire a new
+`nixosSystem` entry into [hosts/default.nix](hosts/default.nix).
 
-Reserve `192.168.29.38` for Ethernet MAC `04:7c:16:75:d5:a5` in the router.
-Configure the router's LAN/DHCP DNS servers as `192.168.29.38` followed by
-Cloudflare `1.1.1.1`. Secondary DNS is not strict failover on every client, so
-some queries may bypass Pi-hole even while it is healthy. The router must also
-stop advertising its ISP-provided IPv6 DNS server or clients can bypass Pi-hole
-over IPv6; IPv6 connectivity itself does not need to be disabled.
+## Host-specific services
 
-In the Tailscale DNS admin page, add `100.105.150.62` and `1.1.1.1` as global
-nameservers, enable **Override DNS servers**, and enable **Use with exit node**
-for the Pi-hole nameserver if `mnemosyne` is later advertised as an exit node.
+The service modules document the deployment details and are useful starting
+points if you want similar functionality:
 
-Taildrop files sent to either Linux machine are received automatically in
-`~/Taildrop`, beside `~/Downloads`. The receiver starts with the user session;
-on `mnemosyne`, user lingering keeps it running after boot without a login.
-Duplicate filenames are renamed instead of overwritten. The declarative
-`--operator=ritu` setting lets the user service empty Tailscale's inbox without
-root access.
+- **Remote development:** [desktop](hosts/ritu/remote-dev.nix) and
+  [laptop](hosts/laptop/remote-dev.nix) modules configure Tailscale, SSH/Mosh, and
+  Sunshine/Moonlight. The desktop starts a graphical session automatically for
+  streaming; its Sunshine administration port is accessed through an SSH tunnel.
+  Tailscale enrollment and tailnet access policies are configured separately.
+- **DNS:** [hosts/ritu/pihole.nix](hosts/ritu/pihole.nix) configures native Pi-hole
+  services for the LAN and tailnet, with a loopback-only dashboard. Interface
+  names, addresses, and DNS policy need adapting to your network.
+- **Hermes:** [hosts/ritu/hermes.nix](hosts/ritu/hermes.nix) runs the agent under a
+  dedicated service account with its own workspace. Authentication is provisioned
+  locally after deployment.
+- **Updates:** [hosts/ritu/auto-update.nix](hosts/ritu/auto-update.nix) runs weekly
+  desktop updates from a clean checkout, builds both profiles, switches the
+  desktop, and commits and pushes lockfile changes to `main`. Flatpaks update on
+  a separate timer. Review the repository path and Git remote before retaining
+  this automation.
 
-### Tmux cheatsheet
+Both profiles also use [Taildrop](home/taildrop.nix) to receive files in
+`~/Taildrop`. Tmux uses `Ctrl-a` as its prefix; `Ctrl-a ?` opens the
+[full cheatsheet](home/programs/tmux-cheatsheet.md). In Nushell, `tm` creates or
+attaches to the persistent `dev` session.
 
-Tmux uses `Ctrl-a` as its prefix: press `Ctrl-a`, release it, then press the key
-listed below. The full field manual is always available inside tmux with
-`Ctrl-a ?` and closes with `q`.
+## Credits
 
-| Key | Action |
-| :--- | :--- |
-| `Ctrl-a d` | Detach while leaving every process running |
-| `Ctrl-a ?` | Open the complete cheatsheet in a popup |
-| `Ctrl-a \|` / `Ctrl-a -` | Split right / below in the current directory |
-| `Ctrl-a h/j/k/l` | Move between panes |
-| `Ctrl-a H/J/K/L` | Resize panes |
-| `Ctrl-a c` | Create a window in the current directory |
-| `Ctrl-a n/p` | Move to the next / previous window |
-| `Ctrl-a s` | Browse sessions, windows, and panes |
-| `Ctrl-a g/e/b` | Open lazygit / Helix / btop in a popup |
-| `Ctrl-a F` | Fuzzy-find tmux objects and commands |
-| `Ctrl-a Space` | Select and copy visible URLs, paths, hashes, or numbers |
-| `Ctrl-a [` | Enter Vim-style copy mode; use `v`, then `y` |
-| `Ctrl-a C-s` / `Ctrl-a C-r` | Save / restore a session snapshot |
-| `Ctrl-a r` | Reload the configuration |
-
-Continuum snapshots all sessions every 10 minutes and restores them when tmux
-starts after a reboot. The status bar and popup colors are regenerated from the
-active Noctalia wallpaper palette.
-
-### Remote desktop
-
-The server starts a Niri session automatically after boot and runs Sunshine in
-that session. The laptop profile installs Moonlight. Sunshine's stream ports
-are open only on the Tailscale interface; its administration page remains
-local-only.
-
-After rebuilding both profiles, open a temporary tunnel from the laptop:
-
-```bash
-ssh -L 47990:localhost:47990 mnemosyne
-```
-
-Keep that terminal open, visit `https://localhost:47990`, and create the
-Sunshine administrator account. Launch Moonlight, manually add the computer
-`mnemosyne`, select **Desktop**, and enter Moonlight's pairing PIN in the
-tunneled Sunshine page. The tunnel is only needed for administration and
-pairing, not for normal desktop streaming.
-
-The auto-login is intentional: Sunshine captures an active graphical session,
-so without it remote desktop would remain unavailable after an unattended
-reboot. The server still needs firmware/BIOS **Restore on AC Power Loss** set to
-**Power On** if it must recover automatically from a complete power outage.
-
-Tailscale SSH access is governed by the tailnet access policy. Both machines
-must be signed into the same tailnet, and that policy must allow your identity
-to SSH as `ritu`. Cloudflare WARP is disabled on these two profiles because its
-routes overlap Tailscale's address space on this setup.
-
-## 🛠️ Credits & Inspiration
-This configuration is built upon the giants:
-- **[zaneyOS](https://gitlab.com/Zaney/zaneyos):** For the initial structure and base modules.
-- **[kaku:](https://github.com/linuxmobile/kaku)** For deep inspiration and config patterns.
-- **[Noctalia Devs](https://github.com/noctalia-dev):** For the incredible shell framework.
+- [zaneyOS](https://gitlab.com/Zaney/zaneyos) for the initial structure and base modules.
+- [kaku](https://github.com/linuxmobile/kaku) for configuration patterns and inspiration.
+- [Niri](https://github.com/YaLTeR/niri) and [niri-flake](https://github.com/sodiboo/niri-flake).
+- [Noctalia](https://github.com/noctalia-dev/noctalia-shell) for the desktop shell and theming.
