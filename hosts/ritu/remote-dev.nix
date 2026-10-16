@@ -17,7 +17,7 @@ let
 in
 {
   # Private connectivity for the Hyderabad server. The first login still
-  # requires `sudo tailscale up --ssh --hostname=mnemosyne` locally.
+  # requires `sudo tailscale up --hostname=mnemosyne` locally.
   services.tailscale = {
     enable = true;
     openFirewall = true;
@@ -27,7 +27,9 @@ in
       "--accept-dns=false"
       "--hostname=mnemosyne"
       "--operator=ritu"
-      "--ssh"
+      # Use OpenSSH keys for login, with Tailscale providing the network.
+      # Set false explicitly: removing --ssh would retain the stored setting.
+      "--ssh=false"
     ];
   };
 
@@ -35,9 +37,8 @@ in
   # Do not let two overlay VPNs compete on an unattended server.
   services.cloudflare-warp.enable = lib.mkForce false;
 
-  # Keep the regular OpenSSH daemon available as a fallback, but expose it
-  # only inside the tailnet. Tailscale SSH normally handles connections to
-  # the Tailscale address before they reach this daemon.
+  # Accept key-based SSH inside the tailnet, without a separate Tailscale SSH
+  # browser authentication check.
   services.openssh = {
     openFirewall = false;
     settings = {
@@ -57,6 +58,12 @@ in
       ClientAliveCountMax = 3;
     };
   };
+
+  # Authorize the laptop before handing port 22 back to OpenSSH. NixOS also
+  # reads ~/.ssh/authorized_keys, preserving the existing Termius key.
+  users.users.ritu.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAbhWbs6MFP+XaQRZlKQO34A8xco09DO04E00rci8+zR ritu@eschaton"
+  ];
 
   networking.firewall.interfaces.tailscale0 = {
     # SSH plus Sunshine's HTTPS, HTTP, and RTSP endpoints. The Sunshine

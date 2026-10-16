@@ -1,5 +1,54 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
+  # FTL 6.7.1 leaves an unused loop counter that fails with GCC 16's -Werror.
+  # Keep the fix scoped to this version so future updates use upstream code.
+  nixpkgs.overlays = [
+    (_final: prev: {
+      pihole-ftl =
+        if prev.pihole-ftl.version == "6.7.1" then
+          prev.pihole-ftl.overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [
+              ../../system/packages/pihole-ftl-unused-hosts-counter.patch
+            ];
+          })
+        else
+          prev.pihole-ftl;
+    })
+  ];
+
+  # Pi-hole handles policy; Unbound caches and validates public DNS answers
+  # while forwarding exclusively over authenticated TLS to Cloudflare.
+  services.unbound = {
+    enable = true;
+    resolveLocalQueries = false;
+    checkconf = true;
+    settings = {
+      server = {
+        interface = [ "127.0.0.1" ];
+        port = 5335;
+        access-control = [ "127.0.0.1/32 allow" ];
+        tls-cert-bundle = config.security.pki.caBundle;
+        hide-identity = true;
+        hide-version = true;
+        prefetch = true;
+        prefetch-key = true;
+        verbosity = 0;
+      };
+      forward-zone = [
+        {
+          name = ".";
+          forward-tls-upstream = true;
+          # A failed TLS upstream must not fall back to plaintext recursion.
+          forward-first = false;
+          forward-addr = [
+            "1.1.1.1@853#one.one.one.one"
+            "1.0.0.1@853#one.one.one.one"
+          ];
+        }
+      ];
+    };
+  };
+
   # Native Pi-hole v6 service. Keep the resolver off loopback so it can
   # coexist with systemd-resolved's local stub on port 53.
   services.pihole-ftl = {
@@ -13,23 +62,27 @@
 
     queryLogDeleter = {
       enable = true;
-      age = 30;
+      age = 1;
+      interval = "daily";
     };
 
     lists = [
       {
-        url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-        description = "StevenBlack unified hosts list";
+        url = "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.plus.txt";
+        description = "HaGeZi Multi Pro++ ads and tracking";
+      }
+      {
+        url = "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/tif.medium.txt";
+        description = "HaGeZi Threat Intelligence Feeds Medium";
       }
     ];
 
     settings = {
       dns = {
-        upstreams = [
-          "1.1.1.1"
-          "1.0.0.1"
-        ];
+        upstreams = [ "127.0.0.1#5335" ];
         dnssec = true;
+        # Keep dashboard troubleshooting history without a second text log.
+        queryLogging = false;
         domainNeeded = true;
         expandHosts = true;
 
@@ -45,6 +98,9 @@
           "100.105.150.62 mnemosyne.tailnet"
         ];
       };
+
+      # Retain one day of query history while the stronger lists settle in.
+      database.maxDBdays = 1;
 
       misc.dnsmasq_lines = [
         "bind-dynamic"
@@ -63,6 +119,11 @@
         };
       };
     };
+  };
+
+  systemd.services.pihole-ftl = {
+    after = [ "unbound.service" ];
+    wants = [ "unbound.service" ];
   };
 
   services.pihole-web = {
@@ -103,6 +164,14 @@
     # Staying active makes a later declarative list change restart this unit
     # during nixos-rebuild instead of leaving the new list unapplied.
     wantedBy = [ "multi-user.target" ];
+    # The upstream setup script only adds lists. Retire our former default
+    # explicitly, without touching any lists added manually in the dashboard.
+    preStart = ''
+      if [ -s ${config.services.pihole-ftl.settings.files.gravity} ]; then
+        ${pkgs.pihole-ftl}/bin/pihole-FTL sqlite3 ${config.services.pihole-ftl.settings.files.gravity} \
+          "UPDATE adlist SET enabled = 0 WHERE address = 'https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts';"
+      fi
+    '';
     serviceConfig = {
       RemainAfterExit = true;
       Restart = "on-failure";
@@ -130,10 +199,10 @@
   };
 
   systemd.timers.pihole-gravity = {
-    description = "Weekly Pi-hole gravity update";
+    description = "Daily Pi-hole gravity update";
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnCalendar = "Sun *-*-* 03:30:00";
+      OnCalendar = "*-*-* 03:30:00";
       RandomizedDelaySec = "30m";
       Persistent = true;
       Unit = "pihole-gravity.service";

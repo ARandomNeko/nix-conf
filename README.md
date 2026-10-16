@@ -128,10 +128,17 @@ points if you want similar functionality:
   [laptop](hosts/laptop/remote-dev.nix) modules configure Tailscale, SSH/Mosh, and
   Sunshine/Moonlight. The desktop starts a graphical session automatically for
   streaming; its Sunshine administration port is accessed through an SSH tunnel.
-  Tailscale enrollment and tailnet access policies are configured separately.
+  SSH uses OpenSSH keys over Tailscale; the desktop authorizes the laptop's
+  public key declaratively and also reads `~/.ssh/authorized_keys`. Tailscale
+  enrollment and tailnet access policies are configured separately.
 - **DNS:** [hosts/ritu/pihole.nix](hosts/ritu/pihole.nix) configures native Pi-hole
-  services for the LAN and tailnet, with a loopback-only dashboard. Interface
-  names, addresses, and DNS policy need adapting to your network.
+  services for the LAN and tailnet, with a loopback-only dashboard. Public DNS
+  goes through local Unbound on port 5335 to Cloudflare over authenticated TLS,
+  with DNSSEC validation and no plaintext recursion fallback. HaGeZi Pro++ and
+  TIF Medium refresh daily; the previous StevenBlack list is disabled during
+  setup, while manually added lists are preserved. Query history is kept for
+  one day and DNS text logging is disabled. Interface names, addresses, public
+  keys, and DNS policy need adapting to your network.
 - **Hermes:** [hosts/ritu/hermes.nix](hosts/ritu/hermes.nix) runs the agent under a
   dedicated service account with its own workspace. Authentication is provisioned
   locally after deployment.
