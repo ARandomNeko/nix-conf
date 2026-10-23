@@ -2,7 +2,6 @@
   # Desktop-specific packages
   environment.systemPackages = with pkgs; [
     # Media production
-    audacity
     obs-studio
 
     # Dev tools

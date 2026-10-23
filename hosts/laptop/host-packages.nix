@@ -17,7 +17,6 @@ in
     powertop
 
     # Media (laptop use)
-    audacity
     librepods
     obs-studio
   ];

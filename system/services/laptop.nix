@@ -7,7 +7,9 @@
   services.tlp = {
     enable = true;
     settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+      # acpi-cpufreq's powersave governor pins the CPU to its minimum clock.
+      # Scale with load on AC instead, including when amd-pstate is unavailable.
+      CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
       CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
