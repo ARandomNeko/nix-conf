@@ -16,6 +16,7 @@
 
   # Replace the stock Logitech wheel driver with full force-feedback support.
   hardware.new-lg4ff.enable = true;
+  boot.blacklistedKernelModules = [ "hid-logitech" ];
 
   environment.systemPackages = [ pkgs.oversteer ];
 
