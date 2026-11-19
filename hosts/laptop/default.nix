@@ -3,6 +3,7 @@
     ./eduroam.nix
     ./hardware.nix
     ./host-packages.nix
+    ./keepassxc.nix
     ./remote-dev.nix
     ./wheel.nix
   ];
